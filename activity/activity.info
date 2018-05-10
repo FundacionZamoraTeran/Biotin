@@ -1,0 +1,6 @@
+[Activity]
+name = Biotin
+bundle_id = org.fundacionfzt.biotin
+exec = sugar-activity GameActivity.GameActivity
+icon = bio
+activity_version = 0.1
