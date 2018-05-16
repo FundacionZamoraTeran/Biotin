@@ -3,8 +3,11 @@ import pygame
 import sys
 import random
 import logging
+
 from pygame.locals import *
 from gi.repository import Gtk
+from scenarios.menu import menu
+from scenarios.utils import consts
 
 pygame.mixer.pre_init(44100, -16, 4, 2048)
 pygame.init() #comment only when using GameActivity.py
@@ -14,14 +17,11 @@ logging.basicConfig()
 
 class Biotin:
     running = True
-    def __init__(self):
+    def __init__(self,screen):
         self.actor = None
         self.clock = None
-
-    def menu(self):
-        while self.running:
-            print ("BLablab!")
-            #self.running = False
+        self.screen = screen
+        self.running = True
 
     def reset_clock(self):
         self.clock= pygame.time.Clock()
@@ -31,13 +31,13 @@ class Biotin:
 
     def loop(self):
         self.reset_clock()
-        self.clock.tick(60)
-        self.menu()
+        self.clock.tick(consts.FPS)
+        meny = menu.Menu(self.screen ,self.clock)
+        meny.run()
 
-def main():
-    biotin = Biotin()
-    while biotin.running:
-        biotin.loop()
 
 if __name__ == "__main__":
-    main()
+    SCREEN = pygame.display.set_mode(consts.RESOLUTION,0,32)
+    pygame.display.set_caption("Biotin: Una aventura energizante")
+    BIOTIN = Biotin(SCREEN)
+    BIOTIN.loop()
