@@ -1,9 +1,12 @@
 import pygame
+import scenarios.menu.help
 
 from scenarios.utils import utils
 from scenarios.utils import consts
+from scenarios.menu.button  import Button
 
-class Menu():
+
+class Menu:
     """
        Class representing the start menu for the game, receives
        a Surface as screen, and a Clock as clock.
@@ -29,36 +32,6 @@ class Menu():
         running = True
         while running:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-                if event.type == pygame.MOUSEBUTTONUP:
-                    # what happens after the player release the click of a button?
-                    pass
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    # what happens when the player click a button?
-                    if self.iniciar.base_rect.collidepoint(mouse_x, mouse_y):
-                        print("You clicked Iniciar")
-                    if self.continuar.base_rect.collidepoint(mouse_x, mouse_y):
-                        print("You clicked Continuar")
-                    if self.salir.base_rect.collidepoint(mouse_x, mouse_y):
-                        print("You clicked Salir")
-                    if self.opciones.base_rect.collidepoint(mouse_x, mouse_y):
-                        print("You clicked Opciones")
-                    if self.creditos.base_rect.collidepoint(mouse_x, mouse_y):
-                        print("You clicked Creditos")
-                    if self.ayuda.base_rect.collidepoint(mouse_x, mouse_y):
-                        print("You clicked Ayuda")
-                if event.type == pygame.MOUSEMOTION:
-                    # when the player hovers a button what to do?
-                    if self.iniciar.base_rect.collidepoint(mouse_x, mouse_y):
-                        pygame.display.update(pygame.draw.rect(self.screen, self.bg_color,
-                                                               ((515, 470), (150, 300))))
-                        pygame.display.update(self.screen.blit(self.iniciar.transition, (515, 470)))
-                        pygame.display.update(self.screen.blit(self.iniciar.end, (515, 470)))
-                        self.iniciar.base, self.iniciar.end = self.iniciar.end, self.iniciar.base
-
-
             self.screen.fill(self.bg_color)
             self.screen.blit(self.logo, (105, 25))
             self.screen.blit(self.creditos.base, (135, 490))
@@ -70,44 +43,35 @@ class Menu():
             pygame.display.flip()
             self.clock.tick(30)
 
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                if event.type == pygame.MOUSEBUTTONUP:
+                    # what happens after the player release the click of a button?
+                    pass
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    # Handle the clicks on the buttons
+                    if self.iniciar.base_rect.collidepoint(mouse_x, mouse_y):
+                        print("You clicked Iniciar")
+                    if self.continuar.base_rect.collidepoint(mouse_x, mouse_y):
+                        print("You clicked Continuar")
+                    if self.salir.base_rect.collidepoint(mouse_x, mouse_y):
+                        running = False
+                    if self.opciones.base_rect.collidepoint(mouse_x, mouse_y):
+                        print("You clicked Opciones")
+                    if self.creditos.base_rect.collidepoint(mouse_x, mouse_y):
+                        print("You clicked Creditos")
+                    if self.ayuda.base_rect.collidepoint(mouse_x, mouse_y):
+                        print("You clicked Ayuda")
+                        hjelp = scenarios.menu.help.Help(self.screen, self.clock)
+                        hjelp.run()
 
+                if event.type == pygame.MOUSEMOTION:
+                    # Handle the hovering on the buttons
+                    if self.iniciar.base_rect.collidepoint(mouse_x, mouse_y):
+                        pygame.display.update(pygame.draw.rect(self.screen, self.bg_color,
+                                                               ((515, 470), (150, 300))))
+                        pygame.display.update(self.screen.blit(self.iniciar.transition, (515, 470)))
+                        pygame.display.update(self.screen.blit(self.iniciar.end, (515, 470)))
+                        self.iniciar.base, self.iniciar.end = self.iniciar.end, self.iniciar.base
 
-
-class Button(pygame.sprite.Sprite):
-    """
-       Acts as a button constructor, expects:
-       x => X position,
-       y => Y position,
-       base_file => the base image the button will display
-       transition_file => transition between states image
-       end_file => final state image,
-       width => the width the button should be
-       height => the height the button should be
-       folder => the folder where the images are in
-    """
-    def __init__(self, x,y, base_file, transition_file, end_file , width=100, height=100, folder = "menu"):
-        #pygame Sprite class constructor
-        pygame.sprite.Sprite.__init__(self)
-
-        self.x = x
-        self.y = y
-        self.pos = (x, y)
-
-        #set the states images
-        self.base = utils.load_image(base_file, folder, -1, (width, height))
-        self.transition = utils.load_image(transition_file, folder, -1, (width, height))
-        self.end = utils.load_image(end_file, folder, -1, (width, height))
-
-        #define the rects for all the sprite's states, _rect.x and _rect.y set the position of the objects
-        self.base_rect = self.base.get_rect(topleft=self.pos)
-        self.transition_rect = self.transition.get_rect(topleft=self.pos)
-        self.end_rect = self.end.get_rect(topleft=self.pos)
-
-    def update(self):
-        pass
-
-    def flip(self):
-        self.base = pygame.transform.flip(self.base, 180, 0)
-        self.transition = pygame.transform.flip(self.transition, 180, 0)
-        self.end = pygame.transform.flip(self.end, 180, 0)
-        return self
