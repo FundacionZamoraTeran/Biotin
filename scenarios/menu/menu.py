@@ -65,6 +65,7 @@ class Menu:
                         print("You clicked Ayuda")
                         hjelp = scenarios.menu.help.Help(self.screen, self.clock)
                         hjelp.run()
+                        del hjelp
 
                 if event.type == pygame.MOUSEMOTION:
                     # Handle the hovering on the buttons
