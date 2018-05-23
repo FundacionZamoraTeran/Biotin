@@ -14,11 +14,12 @@ class Menu():
         self.clock = clock
         self.logo = utils.load_image("Menu_01.png", "menu")
         self.iniciar = Button(515, 470, "Menu_04.png", "Menu_03.png", "Menu_02.png", 150, 300)
-        self.continuar = Button(720, 470, "Menu_03.png", "Menu_04.png", "Menu_04.png", 150, 300).flip()
+        self.continuar = Button(720, 470, "Menu_03.png", "Menu_04.png",
+                                "Menu_04.png", 150, 300).flip()
         self.salir = Button(920, 490, "Menu_02.png", "Menu_04.png", "Menu_04.png", 125, 260).flip()
         self.opciones = Button(310, 470, "Menu_03.png", "Menu_04.png", "Menu_04.png", 150, 300)
         self.creditos = Button(135, 490, "Menu_02.png", "Menu_04.png", "Menu_04.png", 125, 260)
-        self.ayuda = Button(920, 270, "Menu_05.png", "Menu_05.png", "Menu_05.png", 70, 70)
+        self.ayuda = Button(975, 320, "Menu_05.png", "Menu_05.png", "Menu_05.png", 70, 70)
 
 
     def run(self):
@@ -27,7 +28,7 @@ class Menu():
         """
         running = True
         while running:
-            mouse_x,mouse_y = pygame.mouse.get_pos()
+            mouse_x, mouse_y = pygame.mouse.get_pos()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
@@ -36,11 +37,23 @@ class Menu():
                     pass
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     # what happens when the player click a button?
-                    pass
+                    if self.iniciar.base_rect.collidepoint(mouse_x, mouse_y):
+                        print("You clicked Iniciar")
+                    if self.continuar.base_rect.collidepoint(mouse_x, mouse_y):
+                        print("You clicked Continuar")
+                    if self.salir.base_rect.collidepoint(mouse_x, mouse_y):
+                        print("You clicked Salir")
+                    if self.opciones.base_rect.collidepoint(mouse_x, mouse_y):
+                        print("You clicked Opciones")
+                    if self.creditos.base_rect.collidepoint(mouse_x, mouse_y):
+                        print("You clicked Creditos")
+                    if self.ayuda.base_rect.collidepoint(mouse_x, mouse_y):
+                        print("You clicked Ayuda")
                 if event.type == pygame.MOUSEMOTION:
                     # when the player hovers a button what to do?
-                    if self.iniciar.base_rect.collidepoint(mouse_x,mouse_y): # should expect the transition and/or the final point as well
-                        pygame.display.update(pygame.draw.rect(self.screen, self.bg_color, ((515,470),(150,300))))
+                    if self.iniciar.base_rect.collidepoint(mouse_x, mouse_y):
+                        pygame.display.update(pygame.draw.rect(self.screen, self.bg_color,
+                                                               ((515, 470), (150, 300))))
                         pygame.display.update(self.screen.blit(self.iniciar.transition, (515, 470)))
                         pygame.display.update(self.screen.blit(self.iniciar.end, (515, 470)))
                         self.iniciar.base, self.iniciar.end = self.iniciar.end, self.iniciar.base
@@ -78,7 +91,7 @@ class Button(pygame.sprite.Sprite):
 
         self.x = x
         self.y = y
-        self.pos = (x,y)
+        self.pos = (x, y)
 
         #set the states images
         self.base = utils.load_image(base_file, folder, -1, (width, height))
