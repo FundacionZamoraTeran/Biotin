@@ -34,6 +34,7 @@ class Biotin:
         self.clock.tick(consts.FPS)
         meny = menu.Menu(self.screen ,self.clock)
         meny.run()
+        pygame.quit()
 
 
 if __name__ == "__main__":

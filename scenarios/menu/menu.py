@@ -4,6 +4,7 @@ import scenarios.menu.help
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.menu.button  import Button
+from scenarios.menu import credits
 
 
 class Menu:
@@ -61,8 +62,10 @@ class Menu:
                         print("You clicked Opciones")
                     if self.creditos.base_rect.collidepoint(mouse_x, mouse_y):
                         print("You clicked Creditos")
+                        credit = credits.Credit(self.screen, self.clock)
+                        credit.run()
+                        del credit
                     if self.ayuda.base_rect.collidepoint(mouse_x, mouse_y):
-                        print("You clicked Ayuda")
                         hjelp = scenarios.menu.help.Help(self.screen, self.clock)
                         hjelp.run()
                         del hjelp
