@@ -61,7 +61,6 @@ class Menu:
                     if self.opciones.base_rect.collidepoint(mouse_x, mouse_y):
                         print("You clicked Opciones")
                     if self.creditos.base_rect.collidepoint(mouse_x, mouse_y):
-                        print("You clicked Creditos")
                         credit = credits.Credit(self.screen, self.clock)
                         credit.run()
                         del credit
