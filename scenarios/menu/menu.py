@@ -30,6 +30,16 @@ class Menu:
         """
            The main loop event for the menu, run everything related to the Main menu here
         """
+
+        # Channels
+
+        FX_CHANNEL = pygame.mixer.Channel(0)
+        VOICE_CHANNEL = pygame.mixer.Channel(1)
+        EXTRA_CHANNEL = pygame.mixer.Channel(2)
+
+        utils.load_bg("meny.ogg")
+        pygame.mixer.music.play(-1,0.0)
+
         running = True
         while running:
             mouse_x, mouse_y = pygame.mouse.get_pos()
