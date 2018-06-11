@@ -16,14 +16,19 @@ class Menu:
         self.screen = screen
         self.bg_color = consts.MENU_BG_COLOUR
         self.clock = clock
-        self.logo = utils.load_image("Menu_01.png", "menu")
-        self.iniciar = Button(515, 470, "Menu_04.png", "Menu_03.png", "Menu_02.png", 150, 300)
-        self.continuar = Button(720, 470, "Menu_03.png", "Menu_04.png",
-                                "Menu_04.png", 150, 300).flip()
-        self.salir = Button(920, 490, "Menu_02.png", "Menu_04.png", "Menu_04.png", 125, 260).flip()
-        self.opciones = Button(310, 470, "Menu_03.png", "Menu_04.png", "Menu_04.png", 150, 300)
-        self.creditos = Button(135, 490, "Menu_02.png", "Menu_04.png", "Menu_04.png", 125, 260)
-        self.ayuda = Button(975, 320, "Menu_05.png", "Menu_05.png", "Menu_05.png", 70, 70)
+        self.background = utils.load_image("background.png", "menu")
+        self.logo = utils.load_image("title.png", "menu") #616x200
+        self.start = Button(405, 290, "start_door/s1.png", "start_door/s2.png",
+                            "start_door/s3.png", 408, 568) #408x568
+        self.load = Button(760, 418, "load_door/l1.png", "load_door/l2.png",
+                           "load_door/l3.png", 241, 336)
+        self.exit = Button(985, 453, "exit_door/e1.png", "exit_door/e2.png",
+                            "exit_door/e3.png", 181, 253)
+        self.options = Button(205, 410, "options_door/o1.png", "options_door/o2.png",
+                               "options_door/o3.png", 274, 338)
+        self.credits_but = Button(5, 430, "credits_door/c1.png", "credits_door/c2.png",
+                               "credits_door/c3.png", 224, 280)
+        self.help_but = Button(1080, 0, "help/h1.png", "help/h2.png", None, 112, 202)
 
 
     def run(self):
@@ -38,19 +43,20 @@ class Menu:
         EXTRA_CHANNEL = pygame.mixer.Channel(2)
 
         utils.load_bg("meny.ogg")
-        pygame.mixer.music.play(-1,0.0)
+        pygame.mixer.music.play(-1, 0.0)
 
         running = True
         while running:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            self.screen.fill(self.bg_color)
-            self.screen.blit(self.logo, (105, 25))
-            self.screen.blit(self.creditos.base, (135, 490))
-            self.screen.blit(self.opciones.base, (310, 470))
-            self.screen.blit(self.iniciar.base, (515, 470))
-            self.screen.blit(self.continuar.base, (720, 470))
-            self.screen.blit(self.salir.base, (920, 490))
-            self.screen.blit(self.ayuda.base, (975, 320))
+            #self.screen.fill(self.bg_color)
+            self.screen.blit(self.background, (0, 0))
+            self.screen.blit(self.logo, (300, 60))
+            self.screen.blit(self.credits_but.base, (5, 430))
+            self.screen.blit(self.exit.base, (985, 453))
+            self.screen.blit(self.options.base, (205, 410))
+            self.screen.blit(self.load.base, (760, 418))
+            self.screen.blit(self.start.base, (405, 290)) # original 400,305
+            self.screen.blit(self.help_but.base, (1080, 0))
             pygame.display.flip()
             self.clock.tick(30)
 
@@ -62,29 +68,110 @@ class Menu:
                     pass
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     # Handle the clicks on the buttons
-                    if self.iniciar.base_rect.collidepoint(mouse_x, mouse_y):
-                        print("You clicked Iniciar")
-                    if self.continuar.base_rect.collidepoint(mouse_x, mouse_y):
-                        print("You clicked Continuar")
-                    if self.salir.base_rect.collidepoint(mouse_x, mouse_y):
+                    if self.start.base_rect.collidepoint(mouse_x, mouse_y):
+                        print("You clicked Start")
+                    if self.load.base_rect.collidepoint(mouse_x, mouse_y):
+                        print("You clicked Load")
+                    if self.exit.base_rect.collidepoint(mouse_x, mouse_y):
                         running = False
-                    if self.opciones.base_rect.collidepoint(mouse_x, mouse_y):
-                        print("You clicked Opciones")
-                    if self.creditos.base_rect.collidepoint(mouse_x, mouse_y):
+                    if self.options.base_rect.collidepoint(mouse_x, mouse_y):
+                        print("You clicked Options")
+                    if self.credits_but.base_rect.collidepoint(mouse_x, mouse_y):
                         credit = credits.Credit(self.screen, self.clock)
                         credit.run()
                         del credit
-                    if self.ayuda.base_rect.collidepoint(mouse_x, mouse_y):
+                    if self.help_but.base_rect.collidepoint(mouse_x, mouse_y):
                         hjelp = scenarios.menu.help.Help(self.screen, self.clock)
                         hjelp.run()
                         del hjelp
 
                 if event.type == pygame.MOUSEMOTION:
                     # Handle the hovering on the buttons
-                    if self.iniciar.base_rect.collidepoint(mouse_x, mouse_y):
-                        pygame.display.update(pygame.draw.rect(self.screen, self.bg_color,
-                                                               ((515, 470), (150, 300))))
-                        pygame.display.update(self.screen.blit(self.iniciar.transition, (515, 470)))
-                        pygame.display.update(self.screen.blit(self.iniciar.end, (515, 470)))
-                        self.iniciar.base, self.iniciar.end = self.iniciar.end, self.iniciar.base
 
+                    # Start Button
+                    if self.start.flag == False and self.start.base_rect.collidepoint(
+                            mouse_x, mouse_y):
+                        pygame.display.update(self.screen.blit(self.start.transition, (405, 290)))
+                        pygame.display.update(self.screen.blit(self.start.end, (405, 290)))
+                        self.start.base, self.start.end = self.start.end, self.start.base
+                        self.start.flag = True
+                    elif self.start.flag == True and not self.start.base_rect.collidepoint(
+                            mouse_x, mouse_y):
+                        #the blits can be deleted if found that they slow performance
+                        pygame.display.update(self.screen.blit(self.start.transition, (405, 290)))
+                        pygame.display.update(self.screen.blit(self.start.end, (405, 290)))
+                        self.start.base, self.start.end = self.start.end, self.start.base
+                        self.start.flag = False
+
+                    # Load Button
+                    if self.load.flag == False and self.load.base_rect.collidepoint(
+                            mouse_x, mouse_y):
+                        pygame.display.update(self.screen.blit(self.load.transition, (760, 418)))
+                        pygame.display.update(self.screen.blit(self.load.end, (760, 418)))
+                        self.load.base, self.load.end = self.load.end, self.load.base
+                        self.load.flag = True
+                    elif self.load.flag == True and not self.load.base_rect.collidepoint(
+                            mouse_x, mouse_y):
+                        #the blits can be deleted if found that they slow performance
+                        pygame.display.update(self.screen.blit(self.load.transition, (760, 418)))
+                        pygame.display.update(self.screen.blit(self.load.end, (760, 418)))
+                        self.load.base, self.load.end = self.load.end, self.load.base
+                        self.load.flag = False
+
+                    # Exit Button
+                    if self.exit.flag == False and self.exit.base_rect.collidepoint(
+                            mouse_x, mouse_y):
+                        pygame.display.update(self.screen.blit(self.exit.transition, (985, 453)))
+                        pygame.display.update(self.screen.blit(self.exit.end, (985, 453)))
+                        self.exit.base, self.exit.end = self.exit.end, self.exit.base
+                        self.exit.flag = True
+                    elif self.exit.flag == True and not self.exit.base_rect.collidepoint(
+                            mouse_x, mouse_y):
+                        #the blits can be deleted if found that they slow performance
+                        pygame.display.update(self.screen.blit(self.exit.transition, (985, 453)))
+                        pygame.display.update(self.screen.blit(self.exit.end, (985, 453)))
+                        self.exit.base, self.exit.end = self.exit.end, self.exit.base
+                        self.exit.flag = False
+
+                    # Options Button
+                    if self.options.flag == False and self.options.base_rect.collidepoint(
+                            mouse_x, mouse_y):
+                        pygame.display.update(self.screen.blit(self.options.transition, (205, 410)))
+                        pygame.display.update(self.screen.blit(self.options.end, (205, 410)))
+                        self.options.base, self.options.end = self.options.end, self.options.base
+                        self.options.flag = True
+                    elif self.options.flag == True and not self.options.base_rect.collidepoint(
+                            mouse_x, mouse_y):
+                        #the blits can be deleted if found that they slow performance
+                        pygame.display.update(self.screen.blit(self.options.transition, (205, 410)))
+                        pygame.display.update(self.screen.blit(self.options.end, (205, 410)))
+                        self.options.base, self.options.end = self.options.end, self.options.base
+                        self.options.flag = False
+
+                    # Credits Button
+                    if self.credits_but.flag == False and self.credits_but.base_rect.collidepoint(
+                            mouse_x, mouse_y):
+                        pygame.display.update(self.screen.blit(self.credits_but.transition, (5, 430)))
+                        pygame.display.update(self.screen.blit(self.credits_but.end, (5, 430)))
+                        self.credits_but.base, self.credits_but.end = self.credits_but.end, self.credits_but.base
+                        self.credits_but.flag = True
+                    elif self.credits_but.flag == True and not self.credits_but.base_rect.collidepoint(
+                            mouse_x, mouse_y):
+                        #the blits can be deleted if found that they slow performance
+                        pygame.display.update(self.screen.blit(self.credits_but.transition, (5, 430)))
+                        pygame.display.update(self.screen.blit(self.credits_but.end, (5, 430)))
+                        self.credits_but.base, self.credits_but.end = self.credits_but.end, self.credits_but.base
+                        self.credits_but.flag = False
+
+                    # Help Button
+                    if self.help_but.flag == False and self.help_but.base_rect.collidepoint(
+                            mouse_x, mouse_y):
+                        pygame.display.update(self.screen.blit(self.help_but.transition, (1080, 0)))
+                        self.help_but.base, self.help_but.transition = self.help_but.transition, self.help_but.base
+                        self.help_but.flag = True
+                    elif self.help_but.flag == True and not self.help_but.base_rect.collidepoint(
+                            mouse_x, mouse_y):
+                        #the blits can be deleted if found that they slow performance
+                        pygame.display.update(self.screen.blit(self.help_but.transition, (1080, 0)))
+                        self.help_but.base, self.help_but.transition = self.help_but.transition, self.help_but.base
+                        self.help_but.flag = False
