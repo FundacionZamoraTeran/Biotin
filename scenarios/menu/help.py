@@ -5,10 +5,17 @@ from scenarios.menu.button import Button
 class Help:
     def __init__(self, screen, clock):
         self.screen = screen
-        self.screen2 = pygame.Surface((900, 600), flags=pygame.SRCALPHA).convert_alpha()
+        self.screen2 = pygame.Surface((900, 600),
+                                      flags=pygame.SRCALPHA).convert_alpha()
         self.clock = clock
         self.tutorial = utils.load_image("help.png", "menu")
-        self.exit_button = Button(1030, 140, "exit.png", "exit.png", "exit.png", 30, 30)
+        self.exit_button = Button(1030,
+                                  140,
+                                  "exit.png",
+                                  "exit.png",
+                                  "exit.png",
+                                  30,
+                                  30)
 
     def run(self):
         """ control the actions happening on the Help modal"""
@@ -31,6 +38,6 @@ class Help:
             self.screen2.fill((250, 207, 149, 220))
             self.screen2.blit(self.tutorial, (50, 0))
             self.screen.blit(self.screen2, (150, 150))
-            self.screen.blit(self.exit_button.base, (1030,140))
+            self.screen.blit(self.exit_button.base, (1030, 140))
             pygame.display.flip()
             self.clock.tick(30)

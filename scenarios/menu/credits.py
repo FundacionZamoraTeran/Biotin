@@ -6,9 +6,16 @@ from scenarios.menu.button import Button
 class Credit:
     def __init__(self, screen, clock):
         self.screen = screen
-        self.screen2 = pygame.Surface((900, 600), flags=pygame.SRCALPHA).convert_alpha()
+        self.screen2 = pygame.Surface((900, 600),
+                                      flags=pygame.SRCALPHA).convert_alpha()
         self.clock = clock
-        self.exit_button = Button(1030, 140, "exit.png", "exit.png", "exit.png", 30, 30)
+        self.exit_button = Button(1030,
+                                  140,
+                                  "exit.png",
+                                  "exit.png",
+                                  "exit.png",
+                                  30,
+                                  30)
 
         # Logos
 
@@ -18,11 +25,11 @@ class Credit:
 
         # People
 
-        self.luis = utils.load_image("luis_card.png", "menu", size=(140,170))
-        self.rebeca = utils.load_image("rebe_card.png", "menu", size=(140,170))
-        self.hans = utils.load_image("hp_card.png", "menu", size=(140,170))
-        self.macri = utils.load_image("macris_card.png", "menu", size=(140,170))
-        self.ana = utils.load_image("ana_card.png", "menu", size=(140,170))
+        self.luis = utils.load_image("luis_card.png", "menu", size=(140, 170))
+        self.rebeca = utils.load_image("rebe_card.png", "menu", size=(140, 170))
+        self.hans = utils.load_image("hp_card.png", "menu", size=(140, 170))
+        self.macri = utils.load_image("macris_card.png", "menu", size=(140, 170))
+        self.ana = utils.load_image("ana_card.png", "menu", size=(140, 170))
 
         # Fonts
 
@@ -31,10 +38,14 @@ class Credit:
 
     def run(self):
         """ control the actions happening on the Help modal"""
-        credit_text = self.title.render("Creditos", True,
-                                        (0, 0, 0), (250, 207, 149, 220))
-        thb_text = self.subtitle.render("Equipo", True,
-                                        (0, 0, 0), (250, 207, 149, 220))
+        credit_text = self.title.render("Creditos",
+                                        True,
+                                        (0, 0, 0),
+                                        (250, 207, 149, 220))
+        thb_text = self.subtitle.render("Equipo",
+                                        True,
+                                        (0, 0, 0),
+                                        (250, 207, 149, 220))
         running = True
         while running:
             mouse_x, mouse_y = pygame.mouse.get_pos()
