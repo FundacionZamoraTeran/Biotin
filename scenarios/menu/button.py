@@ -14,7 +14,7 @@ class Button(pygame.sprite.Sprite):
        folder => the folder where the images are in
     """
     def __init__(self, x, y, base_file, transition_file,
-                 end_file=None, width=100, height=100, folder = "menu"):
+                 end_file=None, width=100, height=100, folder="menu"):
         # pygame Sprite class constructor
         pygame.sprite.Sprite.__init__(self)
 
@@ -34,12 +34,48 @@ class Button(pygame.sprite.Sprite):
         self.base_rect = self.base.get_rect(topleft=self.pos)
         self.transition_rect = self.transition.get_rect(topleft=self.pos)
 
-        self.flag = False 
+        self.flag = False
 
-    def update(self):
-        pass
+    def on_selection(self, screen, mouse_x, mouse_y):
+        """
+           makes the button change state/animation while selected
+           requires three state images.
+        """
+        if (self.flag is False and
+                self.base_rect.collidepoint(mouse_x, mouse_y)):
+            pygame.display.update(screen.blit(self.transition, (self.x, self.y)))
+            pygame.display.update(screen.blit(self.end, (self.x, self.y)))
+            self.base, self.end = self.end, self.base
+            self.flag = True
+        elif (self.flag is True and
+              not self.base_rect.collidepoint(mouse_x, mouse_y)):
+            # the blits can be deleted if found that they slow performance
+            pygame.display.update(screen.blit(self.transition, (self.x, self.y)))
+            pygame.display.update(screen.blit(self.end, (self.x, self.y)))
+            self.base, self.end = self.end, self.base
+            self.flag = False
+
+    def on_selection_altern(self, screen, mouse_x, mouse_y):
+        """
+           makes the button change state/animation while selected
+           requires two state images.
+        """
+        if (self.flag is False and
+                self.base_rect.collidepoint(mouse_x, mouse_y)):
+            pygame.display.update(screen.blit(self.transition, (self.x, self.y)))
+            self.base, self.transition = (self.transition, self.base)
+            self.flag = True
+        elif (self.flag is True and
+              not self.base_rect.collidepoint(mouse_x, mouse_y)):
+            pygame.display.update(screen.blit(self.transition, (self.x, self.y)))
+            self.base, self.transition = (self.transition, self.base)
+            self.flag = False
 
     def flip(self):
+        """
+            Flips horizontally the button's base,
+            transition and end images.
+        """
         self.base = pygame.transform.flip(self.base, 180, 0)
         self.transition = pygame.transform.flip(self.transition, 180, 0)
         if self.end_file is not None:

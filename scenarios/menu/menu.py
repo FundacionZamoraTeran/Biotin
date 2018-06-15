@@ -121,90 +121,14 @@ class Menu:
                     # Handle the hovering on the buttons
 
                     # Start Button
-                    if (self.start.flag is False and
-                            self.start.base_rect.collidepoint(mouse_x, mouse_y)):
-                        pygame.display.update(self.screen.blit(self.start.transition, (405, 290)))
-                        pygame.display.update(self.screen.blit(self.start.end, (405, 290)))
-                        self.start.base, self.start.end = self.start.end, self.start.base
-                        self.start.flag = True
-                    elif (self.start.flag is True and
-                          not self.start.base_rect.collidepoint(mouse_x, mouse_y)):
-                        # the blits can be deleted if found that they slow performance
-                        pygame.display.update(self.screen.blit(self.start.transition, (405, 290)))
-                        pygame.display.update(self.screen.blit(self.start.end, (405, 290)))
-                        self.start.base, self.start.end = self.start.end, self.start.base
-                        self.start.flag = False
-
+                    self.start.on_selection(self.screen, mouse_x, mouse_y)
                     # Load Button
-                    if (self.load.flag is False and
-                            self.load.base_rect.collidepoint(mouse_x, mouse_y)):
-                        pygame.display.update(self.screen.blit(self.load.transition, (760, 418)))
-                        pygame.display.update(self.screen.blit(self.load.end, (760, 418)))
-                        self.load.base, self.load.end = self.load.end, self.load.base
-                        self.load.flag = True
-                    elif (self.load.flag is True and
-                          not self.load.base_rect.collidepoint(mouse_x, mouse_y)):
-                        pygame.display.update(self.screen.blit(self.load.transition, (760, 418)))
-                        pygame.display.update(self.screen.blit(self.load.end, (760, 418)))
-                        self.load.base, self.load.end = self.load.end, self.load.base
-                        self.load.flag = False
-
+                    self.load.on_selection(self.screen, mouse_x, mouse_y)
                     # Exit Button
-                    if (self.exit.flag is False and
-                            self.exit.base_rect.collidepoint(mouse_x, mouse_y)):
-                        pygame.display.update(self.screen.blit(self.exit.transition, (985, 453)))
-                        pygame.display.update(self.screen.blit(self.exit.end, (985, 453)))
-                        self.exit.base, self.exit.end = self.exit.end, self.exit.base
-                        self.exit.flag = True
-                    elif (self.exit.flag is True and
-                          not self.exit.base_rect.collidepoint(mouse_x, mouse_y)):
-                        pygame.display.update(self.screen.blit(self.exit.transition, (985, 453)))
-                        pygame.display.update(self.screen.blit(self.exit.end, (985, 453)))
-                        self.exit.base, self.exit.end = self.exit.end, self.exit.base
-                        self.exit.flag = False
-
+                    self.exit.on_selection(self.screen, mouse_x, mouse_y)
                     # Options Button
-                    if (self.options.flag is False and
-                            self.options.base_rect.collidepoint(mouse_x, mouse_y)):
-                        pygame.display.update(self.screen.blit(self.options.transition, (205, 410)))
-                        pygame.display.update(self.screen.blit(self.options.end, (205, 410)))
-                        self.options.base, self.options.end = self.options.end, self.options.base
-                        self.options.flag = True
-                    elif (self.options.flag is True and
-                          not self.options.base_rect.collidepoint(mouse_x, mouse_y)):
-                        pygame.display.update(self.screen.blit(self.options.transition, (205, 410)))
-                        pygame.display.update(self.screen.blit(self.options.end, (205, 410)))
-                        self.options.base, self.options.end = self.options.end, self.options.base
-                        self.options.flag = False
-
+                    self.options.on_selection(self.screen, mouse_x, mouse_y)
                     # Credits Button
-                    if (self.credits_but.flag is False and
-                            self.credits_but.base_rect.collidepoint(mouse_x, mouse_y)):
-                        pygame.display.update(self.screen.blit(
-                            self.credits_but.transition, (5, 430)))
-                        pygame.display.update(self.screen.blit(self.credits_but.end, (5, 430)))
-                        self.credits_but.base, self.credits_but.end = (self.credits_but.end,
-                                                                       self.credits_but.base)
-                        self.credits_but.flag = True
-                    elif (self.credits_but.flag is True and
-                          not self.credits_but.base_rect.collidepoint(mouse_x, mouse_y)):
-                        pygame.display.update(self.screen.blit(
-                            self.credits_but.transition, (5, 430)))
-                        pygame.display.update(self.screen.blit(self.credits_but.end, (5, 430)))
-                        self.credits_but.base, self.credits_but.end = (self.credits_but.end,
-                                                                       self.credits_but.base)
-                        self.credits_but.flag = False
-
+                    self.credits_but.on_selection(self.screen, mouse_x, mouse_y)
                     # Help Button
-                    if (self.help_but.flag is False and
-                            self.help_but.base_rect.collidepoint(mouse_x, mouse_y)):
-                        pygame.display.update(self.screen.blit(self.help_but.transition, (1080, 0)))
-                        self.help_but.base, self.help_but.transition = (self.help_but.transition,
-                                                                        self.help_but.base)
-                        self.help_but.flag = True
-                    elif (self.help_but.flag is True and
-                          not self.help_but.base_rect.collidepoint(mouse_x, mouse_y)):
-                        pygame.display.update(self.screen.blit(self.help_but.transition, (1080, 0)))
-                        self.help_but.base, self.help_but.transition = (self.help_but.transition,
-                                                                        self.help_but.base)
-                        self.help_but.flag = False
+                    self.help_but.on_selection_altern(self.screen, mouse_x, mouse_y)

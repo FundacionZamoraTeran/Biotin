@@ -45,6 +45,7 @@ class Biotin:
 if __name__ == "__main__":
     SCREEN = pygame.display.set_mode(consts.RESOLUTION,0,32)
     pygame.display.set_caption("Biotin: Una aventura energizante")
+
     BIOTIN = Biotin(SCREEN)
     BIOTIN.loop()
     #profile.run('BIOTIN.loop()')
