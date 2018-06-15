@@ -69,11 +69,12 @@ class Menu:
         # Channels
 
         FX_CHANNEL = pygame.mixer.Channel(0)
+        FX_CHANNEL.set_volume(consts.FX_VOLUME)
         VOICE_CHANNEL = pygame.mixer.Channel(1)
-        EXTRA_CHANNEL = pygame.mixer.Channel(2)
+        VOICE_CHANNEL.set_volume(consts.VX_VOLUME)
 
         utils.load_bg("meny.ogg")
-
+        pygame.mixer.music.set_volume(consts.BG_VOLUME)
         pygame.mixer.music.play(-1, 0.0)
 
         running = True

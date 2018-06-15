@@ -40,6 +40,15 @@ KEYS_RIGHT = [K_RIGHT, K_d]
 MENU_BG_COLOUR = (72, 27, 132)
 MENU_BT_COLOUR = (97, 206, 245)
 
+# Mixer Values
+vol_list = ()
+with open("./config.ini", "r+") as f:
+    from ast import literal_eval
+    vol_list = literal_eval(f.read()) # tuple (fx,bg,vx)
+FX_VOLUME = vol_list[0]
+BG_VOLUME = vol_list[1]
+VX_VOLUME = vol_list[2]
+
 # Actors values
 
 BLOCKED = "BLOCKED"
