@@ -17,48 +17,48 @@ class Menu:
         self.bg_color = consts.MENU_BG_COLOUR
         self.clock = clock
         self.background = utils.load_image("background.png", "menu")
-        self.logo = utils.load_image("title.png", "menu")  # 616x200
-        self.start = Button(405,
-                            290,
+        self.logo = utils.load_image("title.png", "menu")  # 616x204
+        self.start = Button(395,
+                            280,
                             "start_door/s1.png",
                             "start_door/s2.png",
                             "start_door/s3.png",
-                            408,
+                            414,
                             568)  # 408x568
-        self.load = Button(760,
-                           418,
+        self.load = Button(190,
+                           405,
                            "load_door/l1.png",
                            "load_door/l2.png",
                            "load_door/l3.png",
-                           241,
-                           336)
-        self.exit = Button(985,
-                           453,
+                           270,
+                           337)
+        self.exit = Button(960,
+                           413,
                            "exit_door/e1.png",
                            "exit_door/e2.png",
                            "exit_door/e3.png",
-                           181,
-                           253)
-        self.options = Button(205,
-                              410,
+                           229,
+                           292)
+        self.options = Button(740,
+                              408,
                               "options_door/o1.png",
                               "options_door/o2.png",
                               "options_door/o3.png",
-                              274,
-                              338)
-        self.credits_but = Button(5,
-                                  430,
+                              270,
+                              337)
+        self.credits_but = Button(23,
+                                  413,
                                   "credits_door/c1.png",
                                   "credits_door/c2.png",
                                   "credits_door/c3.png",
-                                  224,
-                                  280)
-        self.help_but = Button(1080,
+                                  229,
+                                  292)
+        self.help_but = Button(1050,
                                0,
                                "help/h1.png",
                                "help/h2.png",
                                None,
-                               112,
+                               126,
                                202)
 
     def run(self):
@@ -73,9 +73,9 @@ class Menu:
         VOICE_CHANNEL = pygame.mixer.Channel(1)
         VOICE_CHANNEL.set_volume(consts.VX_VOLUME)
 
-        utils.load_bg("meny.ogg")
-        pygame.mixer.music.set_volume(consts.BG_VOLUME)
-        pygame.mixer.music.play(-1, 0.0)
+        #utils.load_bg("meny.ogg")
+        #pygame.mixer.music.set_volume(consts.BG_VOLUME)
+        #pygame.mixer.music.play(-1, 0.0)
 
         running = True
         while running:
@@ -83,12 +83,12 @@ class Menu:
             # self.screen.fill(self.bg_color)
             self.screen.blit(self.background, (0, 0))
             self.screen.blit(self.logo, (300, 60))
-            self.screen.blit(self.credits_but.base, (5, 430))
-            self.screen.blit(self.exit.base, (985, 453))
-            self.screen.blit(self.options.base, (205, 410))
-            self.screen.blit(self.load.base, (760, 418))
-            self.screen.blit(self.start.base, (405, 290))
-            self.screen.blit(self.help_but.base, (1080, 0))
+            self.screen.blit(self.credits_but.base, (23, 413)) # 5x430
+            self.screen.blit(self.exit.base, (960, 413)) #985x543
+            self.screen.blit(self.options.base, (740, 408)) #760x418
+            self.screen.blit(self.load.base, (190, 405)) # 200x410
+            self.screen.blit(self.start.base, (395, 280)) # 405x290
+            self.screen.blit(self.help_but.base, (1050, 0))
             pygame.display.flip()
             self.clock.tick(30)
 
