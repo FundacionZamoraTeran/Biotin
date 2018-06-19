@@ -10,7 +10,7 @@ class Credit:
                                       flags=pygame.SRCALPHA).convert_alpha()
         self.clock = clock
         self.exit_button = Button(1030,
-                                  140,
+                                  120,
                                   "exit.png",
                                   "exit.png",
                                   "exit.png",
