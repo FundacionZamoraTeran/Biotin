@@ -10,7 +10,6 @@ class Help:
         self.clock = clock
         self.background = utils.load_image("help/background.png", "menu")
         self.title = utils.load_image("help/title.png", "menu")
-        self.tutorial = utils.load_image("help.png", "menu")
         self.exit_button = Button(1030,
                                   120,
                                   "exit.png",
