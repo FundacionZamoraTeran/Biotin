@@ -1,10 +1,9 @@
 import pygame
-import scenarios.menu.help
 
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.menu.button import Button
-from scenarios.menu import credits
+from scenarios.menu import credits, options, help
 
 
 class Menu:
@@ -107,13 +106,15 @@ class Menu:
                     if self.exit.base_rect.collidepoint(mouse_x, mouse_y):
                         running = False
                     if self.options.base_rect.collidepoint(mouse_x, mouse_y):
-                        print("You clicked Options")
+                        option = options.Option(self.screen, self.clock)
+                        option.run()
+                        del option
                     if self.credits_but.base_rect.collidepoint(mouse_x, mouse_y):
                         credit = credits.Credit(self.screen, self.clock)
                         credit.run()
                         del credit
                     if self.help_but.base_rect.collidepoint(mouse_x, mouse_y):
-                        hjelp = scenarios.menu.help.Help(self.screen, self.clock)
+                        hjelp = help.Help(self.screen, self.clock)
                         hjelp.run()
                         del hjelp
 
