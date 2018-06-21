@@ -13,7 +13,6 @@ class Menu:
     """
     def __init__(self, screen, clock):
         self.screen = screen
-        self.bg_color = consts.MENU_BG_COLOUR
         self.clock = clock
         self.background = utils.load_image("background.png", "menu")
         self.logo = utils.load_image("title.png", "menu")  # 616x204
@@ -79,7 +78,6 @@ class Menu:
         running = True
         while running:
             mouse_x, mouse_y = pygame.mouse.get_pos()
-            # self.screen.fill(self.bg_color)
             self.screen.blit(self.background, (0, 0))
             self.screen.blit(self.logo, (300, 60))
             self.screen.blit(self.credits_but.base, (23, 413)) # 5x430

@@ -1,4 +1,6 @@
+import os
 from pygame.locals import *
+MAIN_DIR = os.path.split(os.path.abspath(__file__))[0]
 
 # General constants
 
@@ -42,12 +44,13 @@ MENU_BT_COLOUR = (97, 206, 245)
 
 # Mixer Values
 vol_list = ()
-with open("./config.ini", "r+") as f:
+path = os.path.join(MAIN_DIR, "../../config.ini")
+with open(path, "r+") as f:
     from ast import literal_eval
-    vol_list = literal_eval(f.read()) # tuple (fx,bg,vx)
-FX_VOLUME = vol_list[0]
+    vol_list = literal_eval(f.read()) # tuple (vx,bg,fx)
+VX_VOLUME = vol_list[0]
 BG_VOLUME = vol_list[1]
-VX_VOLUME = vol_list[2]
+FX_VOLUME = vol_list[2]
 
 # Actors values
 

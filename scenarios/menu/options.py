@@ -1,41 +1,45 @@
 import json
 import sys
+import os
 import pygame
 from scenarios.utils import utils
 from scenarios.menu.button import Button
+from scenarios.menu.slider import Slider
+
+MAIN_DIR = os.path.split(os.path.abspath(__file__))[0]
 
 class Option:
     def __init__(self, screen, clock):
         self.screen = screen
         self.screen2 = pygame.Surface((1200, 900),
                                       flags=pygame.SRCALPHA).convert_alpha()
+        self.opts = ()
+        self.path = os.path.join(MAIN_DIR, "../../config.ini")
+        with open(self.path, "r+") as f:
+            from ast import literal_eval
+            self.opts = literal_eval(f.read()) # tuple (vx,bg,fx)
         self.clock = clock
         self.background = utils.load_image("options_door/background.png", "menu")
         self.title = utils.load_image("options_door/title.png", "menu")
-        self.voice_title = Button(210,
-                                  350,
-                                  "options_door/vt1.png",
-                                  "options_door/vt2.png",
-                                  None,
-                                  157,
-                                  73)
-        self.voice_slider = utils.load_image("options_door/1.0.png", "menu")
-        self.music_title = Button(210,
-                                  480,
-                                  "options_door/mt1.png",
-                                  "options_door/mt2.png",
-                                  None,
-                                  157,
-                                  73)
-        self.music_slider = utils.load_image("options_door/0.4.png", "menu")
-        self.fx_title = Button(180,
-                               610,
-                               "options_door/ft1.png",
-                               "options_door/ft2.png",
-                               None,
-                               181,
-                               73)
-        self.fx_slider = utils.load_image("options_door/0.8.png", "menu")
+        self.voice_slider = Slider((380, 350),
+                                   (210, 350),
+                                   ("vt1.png",
+                                    "vt2.png"),
+                                   "menu/options_door",
+                                   level=self.opts[0],
+                                   flag=True)
+        self.music_slider = Slider((380, 480),
+                                   (210, 480),
+                                   ("mt1.png",
+                                    "mt2.png"),
+                                   "menu/options_door",
+                                   level=self.opts[1])
+        self.fx_slider = Slider((380, 610),
+                                (180, 610),
+                                ("ft1.png",
+                                 "ft2.png",),
+                                "menu/options_door",
+                                level=self.opts[2])
         self.exit_button = Button(1030,
                                   120,
                                   "exit.png",
@@ -43,6 +47,10 @@ class Option:
                                   "exit.png",
                                   36,
                                   38)
+    def save(self):
+        opts = (self.voice_slider.level, self.music_slider.level, self.fx_slider.level)
+        with open(self.path, "w") as f:
+            f.write(str(opts))
 
     def run(self):
         """ control the actions happening on the Help modal"""
@@ -52,31 +60,70 @@ class Option:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit(0)
-                if event.type == pygame.MOUSEMOTION:
-                    self.voice_title.on_selection_altern(self.screen, mouse_x, mouse_y)
-                    # Load Button
-                    self.music_title.on_selection_altern(self.screen, mouse_x, mouse_y)
-                    # Exit Button
-                    self.fx_title.on_selection_altern(self.screen, mouse_x, mouse_y)
-
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.exit_button.base_rect.collidepoint(mouse_x, mouse_y):
                         running = False
+                        self.save()
+                        pygame.mixer.music.set_volume(self.opts[1])
                 if event.type == pygame.KEYDOWN:
-                    print(pygame.key.get_pressed())
                     if event.key == pygame.K_ESCAPE:
                         running = False
-                    elif  event.key == pygame.K_RETURN:
+                        self.save()
+                        pygame.mixer.music.set_volume(self.opts[1])
+                    elif event.key == pygame.K_RETURN:
                         running = False
+                        self.save()
+                        pygame.mixer.music.set_volume(self.opts[1])
+                    elif event.key == pygame.K_DOWN:
+                        if self.voice_slider.flag is True:
+                            self.voice_slider.flag = False
+                            self.music_slider.flag = True
+                            self.music_slider.on_title_focus(self.screen2)
+                        elif self.music_slider.flag is True:
+                            self.music_slider.flag = False
+                            self.fx_slider.flag = True
+                            self.fx_slider.on_title_focus(self.screen2)
+                    elif event.key == pygame.K_UP:
+                        if self.music_slider.flag is True:
+                            self.music_slider.flag = False
+                            self.voice_slider.flag = True
+                            self.voice_slider.on_title_focus(self.screen2)
+                        elif self.fx_slider.flag is True:
+                            self.fx_slider.flag = False
+                            self.music_slider.flag = True
+                            self.music_slider.on_title_focus(self.screen2)
+                    elif event.key == pygame.K_RIGHT:
+                        if self.voice_slider.flag is True:
+                            self.voice_slider.increase_level(self.screen2)
+                        elif self.music_slider.flag is True:
+                            self.music_slider.increase_level(self.screen2)
+                        elif self.fx_slider.flag is True:
+                            self.fx_slider.increase_level(self.screen2)
+                    elif event.key == pygame.K_LEFT:
+                        if self.voice_slider.flag is True:
+                            self.voice_slider.decrease_level(self.screen2)
+                        elif self.music_slider.flag is True:
+                            self.music_slider.decrease_level(self.screen2)
+                        elif self.fx_slider.flag is True:
+                            self.fx_slider.decrease_level(self.screen2)
 
             self.screen2.blit(self.background, (0, 0))
             self.screen2.blit(self.title, (460, 190))
-            self.screen2.blit(self.voice_title.base, (210, 350))
-            self.screen2.blit(self.voice_slider, (380, 350))
-            self.screen2.blit(self.music_title.base, (210, 480))
-            self.screen2.blit(self.music_slider, (380, 480))
-            self.screen2.blit(self.fx_title.base, (180, 610))
-            self.screen2.blit(self.fx_slider, (380, 610))
+            if self.voice_slider.flag is True:
+                self.screen2.blit(self.voice_slider.focused_title, (210, 350))
+                self.screen2.blit(self.music_slider.unfocused_title, (210, 480))
+                self.screen2.blit(self.fx_slider.unfocused_title, (180, 610))
+            elif self.music_slider.flag is True:
+                self.screen2.blit(self.voice_slider.unfocused_title, (210, 350))
+                self.screen2.blit(self.music_slider.focused_title, (210, 480))
+                self.screen2.blit(self.fx_slider.unfocused_title, (180, 610))
+            else:
+                self.screen2.blit(self.voice_slider.unfocused_title, (210, 350))
+                self.screen2.blit(self.music_slider.unfocused_title, (210, 480))
+                self.screen2.blit(self.fx_slider.focused_title, (180, 610))
+            self.screen2.blit(self.voice_slider.get_current_level_image(), (380, 350))
+            self.screen2.blit(self.music_slider.get_current_level_image(), (380, 480))
+            self.screen2.blit(self.fx_slider.get_current_level_image(), (380, 610))
             self.screen.blit(self.screen2, (0, 0))
             self.screen.blit(self.exit_button.base, (1030, 120))
             pygame.display.flip()

@@ -7,7 +7,6 @@ import pygame
 from pygame.locals import *
 from gi.repository import Gtk
 from scenarios.menu import menu
-
 from scenarios.utils import consts
 
 pygame.mixer.pre_init(44100, -16, 4, 2048)
