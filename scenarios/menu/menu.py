@@ -22,7 +22,8 @@ class Menu:
                             "start_door/s2.png",
                             "start_door/s3.png",
                             414,
-                            568)  # 408x568
+                            568,
+                            flag=True)  # 408x568
         self.load = Button(190,
                            405,
                            "load_door/l1.png",
@@ -84,7 +85,7 @@ class Menu:
             self.screen.blit(self.exit.base, (960, 413)) #985x543
             self.screen.blit(self.options.base, (740, 408)) #760x418
             self.screen.blit(self.load.base, (190, 405)) # 200x410
-            self.screen.blit(self.start.base, (395, 280)) # 405x290
+            self.screen.blit(self.start.end, (395, 280)) # 405x290
             self.screen.blit(self.help_but.base, (1050, 0))
             pygame.display.flip()
             self.clock.tick(30)
@@ -92,42 +93,111 @@ class Menu:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-                if event.type == pygame.MOUSEBUTTONUP:
-                    # what happens after the player release the click of a button?
-                    pass
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    # Handle the clicks on the buttons
-                    if self.start.base_rect.collidepoint(mouse_x, mouse_y):
-                        print("You clicked Start")
-                    if self.load.base_rect.collidepoint(mouse_x, mouse_y):
-                        print("You clicked Load")
-                    if self.exit.base_rect.collidepoint(mouse_x, mouse_y):
-                        running = False
-                    if self.options.base_rect.collidepoint(mouse_x, mouse_y):
-                        option = options.Option(self.screen, self.clock)
-                        option.run()
-                        del option
-                    if self.credits_but.base_rect.collidepoint(mouse_x, mouse_y):
-                        credit = credits.Credit(self.screen, self.clock)
-                        credit.run()
-                        del credit
-                    if self.help_but.base_rect.collidepoint(mouse_x, mouse_y):
-                        hjelp = help.Help(self.screen, self.clock)
-                        hjelp.run()
-                        del hjelp
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_RETURN:
+                        if self.start.flag is True:
+                            print("You entered start")
+                        elif self.load.flag is True:
+                            print("You entered Load")
+                        elif self.credits_but.flag is True:
+                            credit = credits.Credit(self.screen, self.clock)
+                            credit.run()
+                            del credit
+                        elif self.options.flag is True:
+                            option = options.Option(self.screen, self.clock)
+                            option.run()
+                            del option
+                        elif self.exit.flag is True:
+                            running = False
+                        elif self.help_but.flag is True:
+                            hjelp = help.Help(self.screen, self.clock)
+                            hjelp.run()
+                            del hjelp
+                    if event.key == pygame.K_LEFT:
+                        if self.start.flag is True:
+                            self.start.flag = False
+                            self.load.flag = True
+                            self.start.on_focus(self.screen)
+                            self.load.on_focus(self.screen)
+                        elif self.load.flag is True:
+                            self.load.flag = False
+                            self.credits_but.flag = True
+                            self.load.on_focus(self.screen)
+                            self.credits_but.on_focus(self.screen)
+                        elif self.options.flag is True:
+                            self.options.flag = False
+                            self.start.flag = True
+                            self.options.on_focus(self.screen)
+                            self.start.on_focus(self.screen)
+                        elif self.exit.flag is True:
+                            self.exit.flag = False
+                            self.options.flag = True
+                            self.exit.on_focus(self.screen)
+                            self.options.on_focus(self.screen)
+                        elif self.help_but.flag is True:
+                            self.help_but.flag = False
+                            self.exit.flag = True
+                            self.help_but.on_focus_altern(self.screen)
+                            self.exit.on_focus(self.screen)
+                    if event.key == pygame.K_RIGHT:
+                        if self.start.flag is True:
+                            self.start.flag = False
+                            self.options.flag = True
+                            self.start.on_focus(self.screen)
+                            self.options.on_focus(self.screen)
+                        elif self.options.flag is True:
+                            self.options.flag = False
+                            self.exit.flag = True
+                            self.options.on_focus(self.screen)
+                            self.exit.on_focus(self.screen)
+                        elif self.exit.flag is True:
+                            self.exit.flag = False
+                            self.help_but.flag = True
+                            self.exit.on_focus(self.screen)
+                            self.help_but.on_focus_altern(self.screen)
+                        elif self.load.flag is True:
+                            self.load.flag = False
+                            self.start.flag = True
+                            self.load.on_focus(self.screen)
+                            self.start.on_focus(self.screen)
+                        elif self.credits_but.flag is True:
+                            self.credits_but.flag = False
+                            self.load.flag = True
+                            self.credits_but.on_focus(self.screen)
+                            self.load.on_focus(self.screen)
+                # if event.type == pygame.MOUSEBUTTONDOWN:
+                #     # Handle the clicks on the buttons
+                #     if self.start.base_rect.collidepoint(mouse_x, mouse_y):
+                #         print("You clicked Start")
+                #     if self.load.base_rect.collidepoint(mouse_x, mouse_y):
+                #         print("You clicked Load")
+                #     if self.exit.base_rect.collidepoint(mouse_x, mouse_y):
+                #         running = False
+                #     if self.options.base_rect.collidepoint(mouse_x, mouse_y):
+                #         option = options.Option(self.screen, self.clock)
+                #         option.run()
+                #         del option
+                #     if self.credits_but.base_rect.collidepoint(mouse_x, mouse_y):
+                #         credit = credits.Credit(self.screen, self.clock)
+                #         credit.run()
+                #         del credit
+                #     if self.help_but.base_rect.collidepoint(mouse_x, mouse_y):
+                #         hjelp = help.Help(self.screen, self.clock)
+                #         hjelp.run()
+                #         del hjelp
 
-                if event.type == pygame.MOUSEMOTION:
-                    # Handle the hovering on the buttons
+                # if event.type == pygame.MOUSEMOTION:
+                #     # Handle the hovering on the buttons
 
-                    # Start Button
-                    self.start.on_selection(self.screen, mouse_x, mouse_y)
-                    # Load Button
-                    self.load.on_selection(self.screen, mouse_x, mouse_y)
-                    # Exit Button
-                    self.exit.on_selection(self.screen, mouse_x, mouse_y)
-                    # Options Button
-                    self.options.on_selection(self.screen, mouse_x, mouse_y)
-                    # Credits Button
-                    self.credits_but.on_selection(self.screen, mouse_x, mouse_y)
-                    # Help Button
-                    self.help_but.on_selection_altern(self.screen, mouse_x, mouse_y)
+                #     # Start Button
+                #     self.start.on_selection(self.screen, mouse_x, mouse_y)
+                #     # Load Button
+                #     self.load.on_selection(self.screen, mouse_x, mouse_y)
+                #     # Exit Button
+                #     self.exit.on_selection(self.screen, mouse_x, mouse_y)
+                #     # Options Button
+                #     self.options.on_selection(self.screen, mouse_x, mouse_y)
+                #     # Credits Button
+                #     self.credits_but.on_selection(self.screen, mouse_x, mouse_y)
+                #     # Help Button
+                #     self.help_but.on_selection_altern(self.screen, mouse_x, mouse_y)

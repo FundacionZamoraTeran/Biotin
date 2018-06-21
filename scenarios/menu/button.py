@@ -14,7 +14,7 @@ class Button(pygame.sprite.Sprite):
        folder => the folder where the images are in
     """
     def __init__(self, x, y, base_file, transition_file,
-                 end_file=None, width=100, height=100, folder="menu"):
+                 end_file=None, width=100, height=100, folder="menu", flag=False):
         # pygame Sprite class constructor
         pygame.sprite.Sprite.__init__(self)
 
@@ -34,7 +34,7 @@ class Button(pygame.sprite.Sprite):
         self.base_rect = self.base.get_rect(topleft=self.pos)
         self.transition_rect = self.transition.get_rect(topleft=self.pos)
 
-        self.flag = False
+        self.flag = flag
 
     def on_selection(self, screen, mouse_x, mouse_y):
         """
@@ -54,6 +54,15 @@ class Button(pygame.sprite.Sprite):
             pygame.display.update(screen.blit(self.end, (self.x, self.y)))
             self.base, self.end = self.end, self.base
             self.flag = False
+
+    def on_focus(self, screen):
+        pygame.display.update(screen.blit(self.transition, (self.x, self.y)))
+        pygame.display.update(screen.blit(self.end, (self.x, self.y)))
+        self.base, self.end = self.end, self.base
+    def on_focus_altern(self, screen):
+        pygame.display.update(screen.blit(self.transition, (self.x, self.y)))
+        self.base, self.transition = self.transition, self.base
+
 
     def on_selection_altern(self, screen, mouse_x, mouse_y):
         """
