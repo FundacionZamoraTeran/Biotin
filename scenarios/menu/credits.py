@@ -37,7 +37,6 @@ class Credit:
                     if self.exit_button.base_rect.collidepoint(mouse_x, mouse_y):
                         running = False
                 if event.type == pygame.KEYDOWN:
-                    print(pygame.key.get_pressed())
                     if event.key == pygame.K_ESCAPE:
                         running = False
                     elif  event.key == pygame.K_RETURN:
