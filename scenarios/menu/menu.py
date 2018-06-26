@@ -3,7 +3,7 @@ import pygame
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.menu.button import Button
-from scenarios.menu import credits, options, help
+from scenarios.menu import credits, options, help, load
 
 
 class Menu:
@@ -24,13 +24,13 @@ class Menu:
                             414,
                             568,
                             flag=True)  # 408x568
-        self.load = Button(190,
-                           405,
-                           "load_door/l1.png",
-                           "load_door/l2.png",
-                           "load_door/l3.png",
-                           270,
-                           337)
+        self.load_but = Button(190,
+                               405,
+                               "load_door/l1.png",
+                               "load_door/l2.png",
+                               "load_door/l3.png",
+                               270,
+                               337)
         self.exit = Button(960,
                            413,
                            "exit_door/e1.png",
@@ -84,7 +84,7 @@ class Menu:
             self.screen.blit(self.credits_but.base, (23, 413)) # 5x430
             self.screen.blit(self.exit.base, (960, 413)) #985x543
             self.screen.blit(self.options.base, (740, 408)) #760x418
-            self.screen.blit(self.load.base, (190, 405)) # 200x410
+            self.screen.blit(self.load_but.base, (190, 405)) # 200x410
             self.screen.blit(self.start.end, (395, 280)) # 405x290
             self.screen.blit(self.help_but.base, (1050, 0))
             pygame.display.flip()
@@ -97,8 +97,10 @@ class Menu:
                     if event.key == pygame.K_RETURN:
                         if self.start.flag is True:
                             print("You entered start")
-                        elif self.load.flag is True:
-                            print("You entered Load")
+                        elif self.load_but.flag is True:
+                            load_state = load.Load(self.screen, self.clock)
+                            load_state.run()
+                            del load_state
                         elif self.credits_but.flag is True:
                             credit = credits.Credit(self.screen, self.clock)
                             credit.run()
@@ -116,13 +118,13 @@ class Menu:
                     if event.key == pygame.K_LEFT:
                         if self.start.flag is True:
                             self.start.flag = False
-                            self.load.flag = True
+                            self.load_but.flag = True
                             self.start.on_focus(self.screen)
-                            self.load.on_focus(self.screen)
-                        elif self.load.flag is True:
-                            self.load.flag = False
+                            self.load_but.on_focus(self.screen)
+                        elif self.load_but.flag is True:
+                            self.load_but.flag = False
                             self.credits_but.flag = True
-                            self.load.on_focus(self.screen)
+                            self.load_but.on_focus(self.screen)
                             self.credits_but.on_focus(self.screen)
                         elif self.options.flag is True:
                             self.options.flag = False
@@ -155,16 +157,16 @@ class Menu:
                             self.help_but.flag = True
                             self.exit.on_focus(self.screen)
                             self.help_but.on_focus_altern(self.screen)
-                        elif self.load.flag is True:
-                            self.load.flag = False
+                        elif self.load_but.flag is True:
+                            self.load_but.flag = False
                             self.start.flag = True
-                            self.load.on_focus(self.screen)
+                            self.load_but.on_focus(self.screen)
                             self.start.on_focus(self.screen)
                         elif self.credits_but.flag is True:
                             self.credits_but.flag = False
-                            self.load.flag = True
+                            self.load_but.flag = True
                             self.credits_but.on_focus(self.screen)
-                            self.load.on_focus(self.screen)
+                            self.load_but.on_focus(self.screen)
                 # if event.type == pygame.MOUSEBUTTONDOWN:
                 #     # Handle the clicks on the buttons
                 #     if self.start.base_rect.collidepoint(mouse_x, mouse_y):
