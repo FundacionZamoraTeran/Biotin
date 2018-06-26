@@ -1,3 +1,4 @@
+import sys
 import pygame
 from scenarios.utils import utils
 from scenarios.menu.button import Button
@@ -25,7 +26,7 @@ class Help:
             mouse_x, mouse_y = pygame.mouse.get_pos()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    running = False
+                    sys.exit(0)
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.exit_button.base_rect.collidepoint(mouse_x, mouse_y):
                         running = False
