@@ -1,12 +1,10 @@
 import sys
 import os
 import pygame
-import json
 from scenarios.utils import utils
+from scenarios.utils import saves
 from scenarios.menu.button import Button
-from scenarios.menu.slider import Slider
-
-MAIN_DIR = os.path.split(os.path.abspath(__file__))[0]
+from scenarios.menu.save_state import SaveState
 
 class Load:
     def __init__(self, screen, clock):
@@ -16,13 +14,31 @@ class Load:
         self.clock = clock
         self.background = utils.load_image("load_door/background.png", "menu")
         self.title = utils.load_image("load_door/title.png", "menu")
-        self.slot1 = utils.load_image("load_door/slot2.png", "menu")
-        self.team = utils.load_image("load_door/e&c.png", "menu")
-        self.slot2 = utils.load_image("load_door/slot1.png", "menu")
-        self.team2 = utils.load_image("load_door/e&c.png", "menu")
-        self.slot3 = utils.load_image("load_door/slot1.png", "menu")
-        self.team3 = utils.load_image("load_door/e&c.png", "menu")
+        self.save = saves.load()
 
+        self.slot1 = SaveState((225, 330),
+                               (280, 315),
+                               (600, 350),
+                               ("slot1.png", "slot2.png"),
+                               "menu/load_door",
+                               self.save["slot_1"],
+                               flag=True)
+
+        self.slot2 = SaveState((225, 480),
+                               (280, 465),
+                               (600, 500),
+                               ("slot1.png", "slot2.png"),
+                               "menu/load_door",
+                               self.save["slot_2"],
+                               flag=False)
+
+        self.slot3 = SaveState((225, 630),
+                               (280, 615),
+                               (600, 650),
+                               ("slot1.png", "slot2.png"),
+                               "menu/load_door",
+                               self.save["slot_3"],
+                               flag=False)
 
         self.exit_button = Button(1030,
                                   120,
@@ -31,11 +47,16 @@ class Load:
                                   "exit.png",
                                   36,
                                   38)
-    def load(self):
-        pass
+        self.level_selected = None
+        self.slot_selected =None
+        self.fx_channel = pygame.mixer.Channel(0)
 
     def run(self):
-        """ control the actions happening on the Help modal"""
+        """
+            control the actions happening on the load modal
+            you can only load a save that has some progress
+            an empty slot will do nothing on this screen.
+        """
         running = True
         while running:
             mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -49,25 +70,49 @@ class Load:
                     if event.key == pygame.K_ESCAPE:
                         running = False
                     elif event.key == pygame.K_RETURN:
-                        running = False
-                    elif event.key == pygame.K_DOWN:
-                        pass
-                    elif event.key == pygame.K_UP:
-                        pass
-                    elif event.key == pygame.K_RIGHT:
-                        pass
-                    elif event.key == pygame.K_LEFT:
-                        pass
+                        if self.slot1.flag is True:
+                            if self.save["slot_1"] is None:
+                                self.fx_channel.play(utils.load_fx("denied.ogg"))
+                            else:
+                                self.level_selected = self.slot1.code
+                                self.slot_selected = "slot_1"
+                                running = False
+                        elif self.slot2.flag is True:
+                            if self.save["slot_2"] is None:
+                                self.fx_channel.play(utils.load_fx("denied.ogg"))
+                            else:
+                                self.level_selected = self.slot2.code
+                                self.slot_selected = "slot_2"
+                                running = False
+                        elif self.slot3.flag is True:
+                            if self.save["slot_3"] is None:
+                                self.fx_channel.play(utils.load_fx("denied.ogg"))
+                            else:
+                                self.level_selected = self.slot3.code
+                                self.slot_selected = "slot_3"
+                                running = False
 
+                    elif event.key == pygame.K_DOWN:
+                        if self.slot1.flag is True:
+                            self.slot1.flag = False
+                            self.slot2.flag = True
+                        elif self.slot2.flag is True:
+                            self.slot2.flag = False
+                            self.slot3.flag = True
+
+                    elif event.key == pygame.K_UP:
+                        if self.slot2.flag is True:
+                            self.slot2.flag = False
+                            self.slot1.flag = True
+                        elif self.slot3.flag is True:
+                            self.slot3.flag = False
+                            self.slot2.flag = True
 
             self.screen2.blit(self.background, (0, 0))
             self.screen2.blit(self.title, (340, 190))
-            self.screen2.blit(self.slot1, (200, 310))
-            self.screen2.blit(self.team, (280,315))
-            self.screen2.blit(self.slot2, (225, 480))
-            self.screen2.blit(self.team, (280,465))
-            self.screen2.blit(self.slot3, (225, 630))
-            self.screen2.blit(self.team, (280,615))
+            self.slot1.render(self.screen2)
+            self.slot2.render(self.screen2)
+            self.slot3.render(self.screen2)
             self.screen.blit(self.screen2, (0, 0))
             self.screen.blit(self.exit_button.base, (1030, 120))
             pygame.display.flip()

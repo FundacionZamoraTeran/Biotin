@@ -3,7 +3,7 @@ import pygame
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.menu.button import Button
-from scenarios.menu import credits, options, help, load
+from scenarios.menu import credits, options, help, load, start
 
 
 class Menu:
@@ -59,6 +59,8 @@ class Menu:
                                None,
                                126,
                                202)
+        self.level_selected = None
+        self.slot_selected =None
 
     def run(self):
         """
@@ -96,10 +98,20 @@ class Menu:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         if self.start.flag is True:
-                            print("You entered start")
+                            start_state = start.Start(self.screen, self.clock)
+                            start_state.run()
+                            if start_state.level_selected is not None:
+                                self.level_selected = start_state.level_selected
+                                self.slot_selected = start_state.slot_selected
+                                running = False
+                            del start_state
                         elif self.load_but.flag is True:
                             load_state = load.Load(self.screen, self.clock)
                             load_state.run()
+                            if load_state.level_selected is not None:
+                                self.level_selected = load_state.level_selected
+                                self.slot_selected = load_state.slot_selected
+                                running = False
                             del load_state
                         elif self.credits_but.flag is True:
                             credit = credits.Credit(self.screen, self.clock)
