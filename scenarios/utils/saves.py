@@ -10,7 +10,7 @@ with open(PATH, "r") as f:
 SLOT1 = saves["saves"]["slot_1"]
 SLOT2 = saves["saves"]["slot_2"]
 SLOT3 = saves["saves"]["slot_3"]
-STAGES = {"aldea_1",
+STAGES = ("aldea_1",
           "aldea_2",
           "bazar",
           "aldea_3",
@@ -18,7 +18,7 @@ STAGES = {"aldea_1",
           "espacio",
           "ciudad",
           "cuerpo",
-          "completado"}
+          "completado")
 
 def load():
     """
@@ -37,7 +37,7 @@ def first_save(slot, team, food):
     saves["saves"][slot]["last_level_passed"] = {"code": 1, "name": "Casa"}
     saves["saves"][slot]["casa"] = True
     for stage in STAGES:
-        saves["saves"][slot][stage] = False
+        saves["saves"][slot]["stages"][stage] = False
     saves["saves"][slot]["food"] = food
 
     with open(PATH, "w") as s:
@@ -45,6 +45,6 @@ def first_save(slot, team, food):
 
 def save(slot, code, name, stage):
     saves["saves"][slot]["last_level_passed"] = {"code": code, "name": name}
-    saves["saves"][slot][stage] = True
+    saves["saves"][slot]["stages"][stage] = True
     with open(PATH, "w") as s:
         json.dump(saves, s)
