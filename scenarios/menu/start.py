@@ -18,7 +18,7 @@ class Start:
 
         self.slot1 = SaveState((225, 330),
                                (280, 315),
-                               (600, 350),
+                               (600, 340),
                                ("slot1.png", "slot2.png"),
                                "menu/start_door",
                                self.save["slot_1"],
@@ -26,7 +26,7 @@ class Start:
 
         self.slot2 = SaveState((225, 480),
                                (280, 465),
-                               (600, 500),
+                               (600, 490),
                                ("slot1.png", "slot2.png"),
                                "menu/start_door",
                                self.save["slot_2"],
@@ -34,7 +34,7 @@ class Start:
 
         self.slot3 = SaveState((225, 630),
                                (280, 615),
-                               (600, 650),
+                               (600, 640),
                                ("slot1.png", "slot2.png"),
                                "menu/start_door",
                                self.save["slot_3"],

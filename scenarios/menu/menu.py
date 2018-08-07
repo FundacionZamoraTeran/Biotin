@@ -80,7 +80,7 @@ class Menu:
 
         running = True
         while running:
-            mouse_x, mouse_y = pygame.mouse.get_pos()
+            #mouse_x, mouse_y = pygame.mouse.get_pos()
             self.screen.blit(self.background, (0, 0))
             self.screen.blit(self.logo, (300, 60))
             self.screen.blit(self.credits_but.base, (23, 413)) # 5x430

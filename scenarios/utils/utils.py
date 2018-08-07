@@ -8,6 +8,7 @@ MAIN_DIR = os.path.split(os.path.abspath(__file__))[0]
 IMG_DIR = "../../assets/images"
 FONTS_DIR = "../../assets/fonts"
 FX_DIR = "../../assets/sounds/fx"
+VX_DIR = "../../assets/sounds/vx"
 BG_DIR = "../../assets/sounds/bg"
 DATA_DIR = "../../assets/data"
 
@@ -53,6 +54,10 @@ def open_file(name, mode):
 
 def load_fx(name):
     filename = os.path.join(MAIN_DIR, FX_DIR, name)
+    return pygame.mixer.Sound(filename)
+
+def load_vx(name):
+    filename = os.path.join(MAIN_DIR, VX_DIR, name)
     return pygame.mixer.Sound(filename)
 
 def load_bg(name):

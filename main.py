@@ -7,9 +7,12 @@ import pygame
 from pygame.locals import *
 from gi.repository import Gtk
 from scenarios.menu import menu
+from scenarios.house import outside
+from scenarios.house import kitchen
 from scenarios.utils import consts
 
 pygame.mixer.pre_init(44100, -16, 4, 2048)
+pygame.mixer.init()
 pygame.init() #comment only when using GameActivity.py
 
 LOG = logging.getLogger('activity.b7')
@@ -25,8 +28,9 @@ class Biotin:
         self.clock = None
         self.screen = screen
         self.running = True
+        self.next_level = 0
         self.levels = {
-            "0": menu.Menu #actually is comics
+            "0": outside.Outside,
         }
 
     def reset_clock(self):
@@ -40,23 +44,20 @@ class Biotin:
         self.clock.tick(consts.FPS)
         meny = menu.Menu(self.screen , self.clock)
         meny.run()
-        level = meny.level_selected
+        self.next_level = meny.level_selected
         slot = meny.slot_selected
         del meny
-        if level is not None and slot is not None:
-            pass
-            #here we should load against a dict the selected level
-            #var = self.levels[str(level)](self.screen, self.clock, slot)
-            #var.run()
+        while self.next_level is not None:
+           self.level_selector(self.next_level, slot)
         pygame.quit()
         sys.exit(0)
 
     def level_selector(self, level, slot):
         if level is not None and slot is not None:
-            pass
             #here we should load against a dict the selected level
-            #var = self.levels[str(level)](self.screen, self.clock, slot)
-            #var.run()
+            var = self.levels[str(level)](self.screen, self.clock, slot)
+            var.run()
+            self.next_level = var.next_level
 
 
 if __name__ == "__main__":
