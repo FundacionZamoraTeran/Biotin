@@ -80,7 +80,6 @@ class Menu:
 
         running = True
         while running:
-            #mouse_x, mouse_y = pygame.mouse.get_pos()
             self.screen.blit(self.background, (0, 0))
             self.screen.blit(self.logo, (300, 60))
             self.screen.blit(self.credits_but.base, (23, 413)) # 5x430
@@ -179,39 +178,3 @@ class Menu:
                             self.load_but.flag = True
                             self.credits_but.on_focus(self.screen)
                             self.load_but.on_focus(self.screen)
-                # if event.type == pygame.MOUSEBUTTONDOWN:
-                #     # Handle the clicks on the buttons
-                #     if self.start.base_rect.collidepoint(mouse_x, mouse_y):
-                #         print("You clicked Start")
-                #     if self.load.base_rect.collidepoint(mouse_x, mouse_y):
-                #         print("You clicked Load")
-                #     if self.exit.base_rect.collidepoint(mouse_x, mouse_y):
-                #         running = False
-                #     if self.options.base_rect.collidepoint(mouse_x, mouse_y):
-                #         option = options.Option(self.screen, self.clock)
-                #         option.run()
-                #         del option
-                #     if self.credits_but.base_rect.collidepoint(mouse_x, mouse_y):
-                #         credit = credits.Credit(self.screen, self.clock)
-                #         credit.run()
-                #         del credit
-                #     if self.help_but.base_rect.collidepoint(mouse_x, mouse_y):
-                #         hjelp = help.Help(self.screen, self.clock)
-                #         hjelp.run()
-                #         del hjelp
-
-                # if event.type == pygame.MOUSEMOTION:
-                #     # Handle the hovering on the buttons
-
-                #     # Start Button
-                #     self.start.on_selection(self.screen, mouse_x, mouse_y)
-                #     # Load Button
-                #     self.load.on_selection(self.screen, mouse_x, mouse_y)
-                #     # Exit Button
-                #     self.exit.on_selection(self.screen, mouse_x, mouse_y)
-                #     # Options Button
-                #     self.options.on_selection(self.screen, mouse_x, mouse_y)
-                #     # Credits Button
-                #     self.credits_but.on_selection(self.screen, mouse_x, mouse_y)
-                #     # Help Button
-                #     self.help_but.on_selection_altern(self.screen, mouse_x, mouse_y)

@@ -36,49 +36,23 @@ class Button(pygame.sprite.Sprite):
 
         self.flag = flag
 
-    def on_selection(self, screen, mouse_x, mouse_y):
+    def on_focus(self, screen):
         """
            makes the button change state/animation while selected
            requires three state images.
         """
-        if (self.flag is False and
-                self.base_rect.collidepoint(mouse_x, mouse_y)):
-            pygame.display.update(screen.blit(self.transition, (self.x, self.y)))
-            pygame.display.update(screen.blit(self.end, (self.x, self.y)))
-            self.base, self.end = self.end, self.base
-            self.flag = True
-        elif (self.flag is True and
-              not self.base_rect.collidepoint(mouse_x, mouse_y)):
-            # the blits can be deleted if found that they slow performance
-            pygame.display.update(screen.blit(self.transition, (self.x, self.y)))
-            pygame.display.update(screen.blit(self.end, (self.x, self.y)))
-            self.base, self.end = self.end, self.base
-            self.flag = False
-
-    def on_focus(self, screen):
         pygame.display.update(screen.blit(self.transition, (self.x, self.y)))
         pygame.display.update(screen.blit(self.end, (self.x, self.y)))
         self.base, self.end = self.end, self.base
+
     def on_focus_altern(self, screen):
-        pygame.display.update(screen.blit(self.transition, (self.x, self.y)))
-        self.base, self.transition = self.transition, self.base
-
-
-    def on_selection_altern(self, screen, mouse_x, mouse_y):
         """
            makes the button change state/animation while selected
            requires two state images.
         """
-        if (self.flag is False and
-                self.base_rect.collidepoint(mouse_x, mouse_y)):
-            pygame.display.update(screen.blit(self.transition, (self.x, self.y)))
-            self.base, self.transition = (self.transition, self.base)
-            self.flag = True
-        elif (self.flag is True and
-              not self.base_rect.collidepoint(mouse_x, mouse_y)):
-            pygame.display.update(screen.blit(self.transition, (self.x, self.y)))
-            self.base, self.transition = (self.transition, self.base)
-            self.flag = False
+        pygame.display.update(screen.blit(self.transition, (self.x, self.y)))
+        self.base, self.transition = self.transition, self.base
+
 
     def flip(self):
         """

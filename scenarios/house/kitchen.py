@@ -1,11 +1,10 @@
-
-
 import pygame
 
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils import dialogue
 from scenarios.house.button import Button
+from scenarios.house import game
 
 class Kitchen:
     """
@@ -85,7 +84,10 @@ class Kitchen:
                             self.played[self.current_slide-1] = 0
                             self.current_slide += 1
                         else:
-                            pass
+                            self.vx_channel.stop()
+                            minigame = game.Game(self.screen, self.clock, self.slot)
+                            minigame.run()
+                            running = False
 
     def render_scene(self, number):
         if number == 1:

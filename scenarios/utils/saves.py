@@ -33,9 +33,11 @@ def first_save(slot, team, food):
        team ena expect a boolean, if true uses the pair
        Ena and Cesar, if false goes with Ezer and Diego.
     """
+    saves["saves"][slot] = {}
     saves["saves"][slot]["team_ena"] = team
+    saves["saves"][slot]["stages"] = {}
     saves["saves"][slot]["last_level_passed"] = {"code": 1, "name": "Casa"}
-    saves["saves"][slot]["casa"] = True
+    saves["saves"][slot]["stages"]["casa"] = True
     for stage in STAGES:
         saves["saves"][slot]["stages"][stage] = False
     saves["saves"][slot]["food"] = food
