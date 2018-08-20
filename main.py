@@ -22,7 +22,7 @@ class Biotin:
         Main class that handle the game loop
     """
     running = True
-    def __init__(self,screen):
+    def __init__(self, screen):
         self.actor = None
         self.clock = None
         self.screen = screen
@@ -37,7 +37,7 @@ class Biotin:
         self.clock = pygame.time.Clock()
 
     def quit(self):
-        self.running =False
+        self.running = False
 
     def loop(self):
         self.reset_clock()
