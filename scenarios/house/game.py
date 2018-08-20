@@ -84,6 +84,15 @@ class Game:
                                   level=1)
         }
 
+        self.modals = {
+            "1": utils.load_image("1.png", "house/game/modals"),
+            "2": utils.load_image("2.png", "house/game/modals"),
+            "3": utils.load_image("3.png", "house/game/modals"),
+            "sparkle_1": utils.load_image("sparkle_1.png", "house/game/modals"),
+            "sparkle_2": utils.load_image("sparkle_2.png", "house/game/modals"),
+            "border": utils.load_image("border.png", "house/game/modals")
+        }
+
         self.voices = {
             "1" : utils.load_vx("house/game/1.ogg"),
             "2" : utils.load_vx("house/game/2.ogg"),
@@ -300,8 +309,13 @@ class Game:
             if self.played[4] == 0:
                 self.vx_channel.play(self.voices["5"])
                 self.played[4] = 1
-            text = self.font.render(self.dialogue['5'],
-                                    True,
-                                    (246, 212, 0))
-            self.screen.blit(text, (390, 810))
+            if self.selected_food["base"] == "tortilla":
+                self.screen.blit(self.modals["1"], (0, 0))
+            elif self.selected_food["base"] == "beans":
+                self.screen.blit(self.modals["2"], (0, 0))
+            elif self.selected_food["base"] == "bread":
+                self.screen.blit(self.modals["3"], (0, 0))
+            self.screen.blit(self.modals["sparkle_1"], (100, 25))
+            self.screen.blit(self.modals["sparkle_2"], (100, 25))
+            self.screen.blit(self.modals["border"], (0, 0))
             self.screen.blit(self.next.base, (918, 780))
