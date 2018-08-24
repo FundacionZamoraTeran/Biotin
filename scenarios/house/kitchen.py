@@ -3,7 +3,7 @@ import pygame
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils import dialogue
-from scenarios.house.button import Button
+from scenarios.utils.button import Button
 from scenarios.house import game
 
 class Kitchen:
@@ -49,8 +49,8 @@ class Kitchen:
         self.voice_7 = utils.load_vx("house/kitchen/7.ogg")
         self.voice_8 = utils.load_vx("house/kitchen/8.ogg")
 
-        self.next = Button((918, 780), "kitchen/next1.png", "kitchen/next2.png", 257, 99)
-        self.prev = Button((25, 780), "kitchen/prev1.png", "kitchen/prev2.png", 257, 99)
+        self.next = Button((918, 780), "kitchen/next1.png", "kitchen/next2.png", 257, 99, "house")
+        self.prev = Button((25, 780), "kitchen/prev1.png", "kitchen/prev2.png", 257, 99, "house")
         self.played = [0, 0, 0, 0, 0, 0, 0, 0]
 
     def run(self):

@@ -3,7 +3,7 @@ import pygame
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils import dialogue
-from scenarios.house.button import Button
+from scenarios.utils.button import Button
 
 class Yard:
     """
@@ -124,8 +124,8 @@ class Yard:
             "30" : utils.load_vx("house/yard/30.ogg")
         }
         self.dialogue = dialogue.get_dialogue_subscenario("casa", "patio")
-        self.next = Button((918, 780), "yard/next1.png", "yard/next2.png", 257, 99)
-        self.prev = Button((25, 780), "yard/prev1.png", "yard/prev2.png", 257, 99)
+        self.next = Button((918, 780), "yard/next1.png", "yard/next2.png", 257, 99, "house")
+        self.prev = Button((25, 780), "yard/prev1.png", "yard/prev2.png", 257, 99, "house")
         self.played = [0] * 30
 
     def run(self):

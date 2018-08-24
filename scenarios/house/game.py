@@ -4,7 +4,7 @@ from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils import dialogue
 from scenarios.utils import saves
-from scenarios.house.button import Button
+from scenarios.utils.button import Button
 from scenarios.house.slider import Slider
 from scenarios.house import yard
 
@@ -23,7 +23,7 @@ class Game:
         self.vx_channel.set_volume(consts.VX_VOLUME)
         self.font = utils.load_font("notoregu.ttf", 20)
 
-        self.current_slide = 0
+        self.current_slide = 1
 
         self.title = utils.load_image("title.png", "house/game")
         self.background = utils.load_image("background.png", "house/game")
@@ -32,9 +32,9 @@ class Game:
 
         # using a dict to avoid creating more variables per elements
         self.foods = {
-            "1": Button((40, 200), "game/food_1-1.png", "game/food_1-2.png", 381, 506, flag=True),
-            "2": Button((410, 200), "game/food_2-1.png", "game/food_2-2.png", 381, 506),
-            "3": Button((780, 200), "game/food_3-1.png", "game/food_3-2.png", 381, 506)
+            "1": Button((40, 200), "game/food_1-1.png", "game/food_1-2.png", 381, 506, "house",flag=True),
+            "2": Button((410, 200), "game/food_2-1.png", "game/food_2-2.png", 381, 506, "house"),
+            "3": Button((780, 200), "game/food_3-1.png", "game/food_3-2.png", 381, 506, "house")
         }
         self.food_1 = {
             "bg" : utils.load_image("background.png", "house/game/food_1"),
@@ -102,8 +102,8 @@ class Game:
         }
 
         self.dialogue = dialogue.get_dialogue_subscenario("casa", "juego")
-        self.next = Button((918, 780), "yard/next1.png", "yard/next2.png", 257, 99)
-        self.prev = Button((25, 780), "yard/prev1.png", "yard/prev2.png", 257, 99)
+        self.next = Button((918, 780), "game/next1.png", "game/next2.png", 257, 99, "house")
+        self.prev = Button((25, 780), "game/prev1.png", "game/prev2.png", 257, 99, "house")
         self.played = [0, 0, 0, 0, 0]
         self.selected_food = {"base": None, "extra": None}
         self.food_code = None

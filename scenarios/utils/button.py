@@ -2,7 +2,7 @@ import pygame
 from scenarios.utils import utils
 
 class Button(pygame.sprite.Sprite):
-    def __init__(self, pos, base_file, end_file, width, height, folder="house", flag=False):
+    def __init__(self, pos, base_file, end_file, width, height, folder, flag=False):
         self.pos = pos
         self.base = utils.load_image(base_file, folder, -1, (width, height))
         self.end = utils.load_image(end_file, folder, -1, (width, height))

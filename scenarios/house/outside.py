@@ -3,7 +3,7 @@ import pygame
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils import dialogue
-from scenarios.house.button import Button
+from scenarios.utils.button import Button
 from scenarios.house import kitchen
 
 class Outside:
@@ -28,8 +28,9 @@ class Outside:
         self.voice_1 = utils.load_vx("house/outside/1.ogg")
         self.voice_2 = utils.load_vx("house/outside/2.ogg")
         self.voice_3 = utils.load_vx("house/outside/3.ogg")
-        self.next = Button((580, 240), "outside/next1.png", "outside/next2.png", 257, 99)
-        self.prev = Button((320, 240), "outside/prev1.png", "outside/prev2.png", 257, 99)
+
+        self.next = Button((580, 240), "outside/next1.png", "outside/next2.png", 257, 99, "house")
+        self.prev = Button((320, 240), "outside/prev1.png", "outside/prev2.png", 257, 99, "house")
         self.played = [0, 0, 0]
         self.dialogue = dialogue.get_dialogue_subscenario("casa", "afuera")
         self.next_level = 1
