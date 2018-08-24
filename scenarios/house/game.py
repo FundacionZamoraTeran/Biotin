@@ -23,7 +23,7 @@ class Game:
         self.vx_channel.set_volume(consts.VX_VOLUME)
         self.font = utils.load_font("notoregu.ttf", 20)
 
-        self.current_slide = 5
+        self.current_slide = 0
 
         self.title = utils.load_image("title.png", "house/game")
         self.background = utils.load_image("background.png", "house/game")
