@@ -60,7 +60,7 @@ class Menu:
                                126,
                                202)
         self.level_selected = None
-        self.slot_selected =None
+        self.slot_selected = None
 
     def run(self):
         """

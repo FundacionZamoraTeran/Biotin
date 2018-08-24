@@ -27,6 +27,13 @@ def load():
     """
     return saves["saves"]
 
+def load_slot(slot):
+    """
+       Method's function is to return
+       the three save slots.
+    """
+    return saves["saves"][slot]
+
 def first_save(slot, team, food):
     """
        used when initialising an empty save slot,
