@@ -44,7 +44,7 @@ class Player(pygame.sprite.Sprite):
         self.rect = pygame.Rect(pos, self.sprites["left"][0].get_size())
 
         #test assets
-        self.background = utils.load_image("out1.png", "house/outside")
+        self.background = utils.load_image("test.png", "")
     def run(self):
         running = True
 
