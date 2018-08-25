@@ -8,6 +8,7 @@ from pygame.locals import *
 from gi.repository import Gtk
 from scenarios.menu import menu
 from scenarios.house import outside
+from scenarios.map import mapp
 from scenarios.utils import consts
 
 pygame.mixer.pre_init(44100, -16, 4, 2048)
@@ -29,8 +30,8 @@ class Biotin:
         self.running = True
         self.next_level = 0
         self.levels = {
-            "0": outside.Outside
-            #"1": map.Map
+            "0": outside.Outside,
+            "1": mapp.Map
         }
 
     def reset_clock(self):
@@ -49,7 +50,6 @@ class Biotin:
         del meny
         while self.next_level is not None:
             self.level_selector(self.next_level, slot)
-        #self.level_selector(0, "slot_2")
         pygame.quit()
         sys.exit(0)
 
@@ -59,7 +59,6 @@ class Biotin:
             var = self.levels[str(level)](self.screen, self.clock, slot)
             var.run()
             self.next_level = var.next_level
-
 
 if __name__ == "__main__":
     SCREEN = pygame.display.set_mode(consts.RESOLUTION, 0, 32)

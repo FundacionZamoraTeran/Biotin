@@ -57,3 +57,8 @@ def save(slot, code, name, stage):
     saves["saves"][slot]["stages"][stage] = True
     with open(PATH, "w") as s:
         json.dump(saves, s)
+
+def specific_save(slot, attr, value ):
+    saves["saves"][slot][attr] = value
+    with open(PATH, "w") as s:
+        json.dump(saves, s)
