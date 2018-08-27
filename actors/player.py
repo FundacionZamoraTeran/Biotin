@@ -42,6 +42,7 @@ class Player(pygame.sprite.Sprite):
         }
         self.direction = "stand"
         self.rect = pygame.Rect(pos, self.sprites["left"][0].get_size())
+        self.rect.topleft = (self.x, self.y)
 
         #test assets
         self.background = utils.load_image("test.png", "")
@@ -50,7 +51,7 @@ class Player(pygame.sprite.Sprite):
 
         while running:
             self.screen.blit(self.background, (0, 0))
-            self.act()
+            self.update()
             pygame.display.flip()
             self.clock.tick(30)
 
@@ -87,9 +88,9 @@ class Player(pygame.sprite.Sprite):
         elif self.y < 0:
             self.y = 0
 
-        self.rect.center = (self.x, self.y)
+        self.rect.topleft = (self.x, self.y)
 
-    def act(self):
+    def update(self):
         if self.direction == "right" or self.direction == "left":
             self.control(self.speed, 0)
             self.frame += 1
