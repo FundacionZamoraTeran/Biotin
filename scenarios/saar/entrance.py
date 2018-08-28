@@ -27,9 +27,12 @@ class Entrance:
         self.character = "ena" if self.slot["team_ena"] is True else "ezer"
 
         self.background = utils.load_image("background.png", "saar/stage_1")
+        self.background_width = self.background.get_size()[0]
         self.foreground = utils.load_image("foreground.png", "saar/stage_1")
         self.ground = Platform(self.screen, self.clock, (0, 742), "ground.png", "saar/stage_1")
-        self.player = Player(self.screen, self.clock, (0, 640), self.character)
+
+        self.player = Player(self.screen, self.clock, (0, 640), self.character, 2400, True)
+
 
     def run(self):
         utils.load_bg("nocturne.ogg")
@@ -38,11 +41,17 @@ class Entrance:
         running = True
 
         while running:
-            self.screen.fill((0, 0, 0))
-            self.screen.blit(self.background, (0, 0))
-            self.screen.blit(self.ground.image, (0, 742))
-            self.player.update()
-            self.screen.blit(self.foreground, (0, 585))
+            rel_x = self.player.stage["x"]
+            if rel_x < consts.WIDTH_SCREEN:
+                self.screen.blit(self.background, (rel_x, 0))
+                self.screen.blit(self.ground.image, (rel_x, 742))
+                self.player.update()
+                self.screen.blit(self.foreground, (rel_x, 585))
+            else:
+                self.screen.blit(self.background, (rel_x - self.background_width, 0))
+                self.screen.blit(self.ground.image, (rel_x - self.background_width, 742))
+                self.player.update()
+                self.screen.blit(self.foreground, (rel_x - self.background_width, 585))
 
             pygame.display.flip()
             self.clock.tick(30)
@@ -53,10 +62,10 @@ class Entrance:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
                         self.player.direction = "left"
-                        self.player.speed = -abs(self.player.speed)
+                        self.player.velocity = -abs(self.player.velocity)
                     elif event.key == pygame.K_RIGHT:
                         self.player.direction = "right"
-                        self.player.speed = abs(self.player.speed)
+                        self.player.velocity = abs(self.player.velocity)
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT:
                         self.player.direction = "stand"

@@ -7,7 +7,8 @@ class Player(pygame.sprite.Sprite):
     """
         Class representing the playable character
     """
-    def __init__(self, screen, clock, pos, character, speed=12, jump_distance=18, gravity=1.2):
+    def __init__(self, screen, clock, pos, character,
+                 stage_width=1200, scrolls= False, physics=(12, 18, 1.2)):
         pygame.sprite.Sprite.__init__(self)
 
         self.screen = screen
@@ -16,10 +17,15 @@ class Player(pygame.sprite.Sprite):
         self.x = pos[0]
         self.y = pos[1]
         self.frame = 0
-        self.speed = speed
+        self.stage = {
+            "width": stage_width,
+            "x": 0,
+            "startscroll": consts.WIDTH_SCREEN/2
+        }
+        self.velocity = physics[0]
         self.jumping = False
-        self.jump_distance = jump_distance
-        self.gravity = gravity
+        self.jump_distance = physics[1]
+        self.gravity = physics[2]
 
         self.sprites = {
             "up": (utils.load_image("up1.png", self.character),
@@ -43,7 +49,8 @@ class Player(pygame.sprite.Sprite):
         self.direction = "stand"
         self.rect = pygame.Rect(pos, self.sprites["left"][0].get_size())
         self.rect.topleft = (self.x, self.y)
-
+        self.real_x = self.x # this means the real x position within the stage
+        self.scrolls = scrolls
         #test assets
         self.background = utils.load_image("test.png", "")
     def run(self):
@@ -61,10 +68,10 @@ class Player(pygame.sprite.Sprite):
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
                         self.direction = "left"
-                        self.speed = -abs(self.speed)
+                        self.velocity = -abs(self.velocity)
                     elif event.key == pygame.K_RIGHT:
                         self.direction = "right"
-                        self.speed = abs(self.speed)
+                        self.velocity = abs(self.velocity)
                     if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
                         self.direction = "jump"
                         self.jumping = True
@@ -92,13 +99,29 @@ class Player(pygame.sprite.Sprite):
 
     def update(self):
         if self.direction == "right" or self.direction == "left":
-            self.control(self.speed, 0)
+            self.control(self.velocity, 0)
             self.frame += 1
             if self.frame > 17:
                 self.frame = 0
             pygame.display.update(self.screen.blit(self.sprites[self.direction][(self.frame//6)], (self.x, self.y)))
         else:#elif self.direction == "stand":
             pygame.display.update(self.screen.blit(self.sprites["down"][0], (self.x, self.y)))
+        if self.scrolls is True:
+            self.scroll()
+
+    def scroll(self):
+        if self.direction != "stand":
+            self.real_x += self.velocity
+            if self.real_x > self.stage["width"]- self.rect.width:
+                self.real_x = self.stage["width"] - self.rect.width
+            elif self.real_x < 0:
+                self.real_x = 0
+            elif self.real_x < self.stage["startscroll"]: pass
+            elif self.real_x > self.stage["width"] - self.stage["startscroll"]:
+                self.x = self.real_x - self.stage["width"] + consts.WIDTH_SCREEN
+            else:
+                self.x = self.stage["startscroll"]
+                self.stage["x"] += -self.velocity
 
     #experimental
     def on_ground(self):
@@ -107,5 +130,3 @@ class Player(pygame.sprite.Sprite):
             return True
         else:
             return False
-
-
