@@ -8,7 +8,7 @@ class Player(pygame.sprite.Sprite):
         Class representing the playable character
     """
     def __init__(self, screen, clock, pos, character,
-                 stage_width=1200, scrolls= False, physics=(12, 18, 1.2)):
+                 stage_width=1200, scrolls=False, physics=(12, 18, 1.2)):
         pygame.sprite.Sprite.__init__(self)
 
         self.screen = screen
@@ -116,12 +116,14 @@ class Player(pygame.sprite.Sprite):
                 self.real_x = self.stage["width"] - self.rect.width
             elif self.real_x < 0:
                 self.real_x = 0
-            elif self.real_x < self.stage["startscroll"]: pass
-            elif self.real_x > self.stage["width"] - self.stage["startscroll"]:
+            elif self.real_x <= self.stage["startscroll"]: self.stage["x"] = 0
+            elif self.real_x >= self.stage["width"] - self.stage["startscroll"]:
                 self.x = self.real_x - self.stage["width"] + consts.WIDTH_SCREEN
+                self.stage["x"] = -(self.stage["width"]/2)
             else:
                 self.x = self.stage["startscroll"]
                 self.stage["x"] += -self.velocity
+
 
     #experimental
     def on_ground(self):
