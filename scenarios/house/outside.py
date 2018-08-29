@@ -79,7 +79,7 @@ class Outside:
             text = self.font.render(self.dialogue['1'],
                                     True,
                                     (255, 255, 255))
-            self.screen.blit(text, (200,180))
+            self.screen.blit(text, (250,180))
         elif number == 2:
             self.screen.blit(self.slide_2, (0, 0))
             if self.played[1] == 0:
@@ -97,4 +97,4 @@ class Outside:
             text = self.font.render(self.dialogue['3'],
                                     True,
                                     (255, 255, 255))
-            self.screen.blit(text, (200,180))
+            self.screen.blit(text, (300,180))
