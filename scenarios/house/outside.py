@@ -51,6 +51,7 @@ class Outside:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+                    self.next_level = None
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
                         if self.current_slide != 1:

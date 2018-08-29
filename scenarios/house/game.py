@@ -1,3 +1,4 @@
+import sys
 import pygame
 
 from scenarios.utils import utils
@@ -89,7 +90,6 @@ class Game:
             "2": utils.load_image("2.png", "house/game/modals"),
             "3": utils.load_image("3.png", "house/game/modals"),
             "sparkle_1": utils.load_image("sparkle_1.png", "house/game/modals"),
-            "sparkle_2": utils.load_image("sparkle_2.png", "house/game/modals"),
             "border": utils.load_image("border.png", "house/game/modals")
         }
 
@@ -124,6 +124,7 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+                    sys.exit(0)
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN:
                         if self.current_slide == 5:
@@ -289,9 +290,12 @@ class Game:
         elif number == 6:
             self.screen.blit(self.food_code["bg"], (180, 90))
             if self.first is True:
-                self.metrics["nutrients_slider"].increase_level(self.screen, self.food_code["1"][2][0])
-                self.metrics["energy_slider"].increase_level(self.screen, self.food_code["1"][2][1])
-                self.metrics["fats_slider"].increase_level(self.screen, self.food_code["1"][2][2])
+                self.metrics["nutrients_slider"].increase_level(self.screen,
+                                                                self.food_code["1"][2][0])
+                self.metrics["energy_slider"].increase_level(self.screen,
+                                                             self.food_code["1"][2][1])
+                self.metrics["fats_slider"].increase_level(self.screen,
+                                                           self.food_code["1"][2][2])
                 self.first = False
             self.screen.blit(self.metrics["nutrients"], (590, 230))
             self.screen.blit(self.metrics["nutrients_slider"].get_current_level_image(), (670, 240))
@@ -299,12 +303,11 @@ class Game:
             self.screen.blit(self.metrics["energy_slider"].get_current_level_image(), (670, 320))
             self.screen.blit(self.metrics["fats"], (590, 390))
             self.screen.blit(self.metrics["fats_slider"].get_current_level_image(), (670, 400))
-            self.screen.blit(self.sparkle_2, self.pos)
+            self.screen.blit(self.sparkle_1, self.pos)
             self.screen.blit(self.food_code["1"][0], (130, 490))
             self.screen.blit(self.food_code["2"][0], (370, 490))
             self.screen.blit(self.food_code["3"][0], (610, 490))
             self.screen.blit(self.food_code["4"][0], (850, 490))
-            self.screen.blit(self.sparkle_1, self.pos)
         elif number == 7:
             if self.played[4] == 0:
                 self.vx_channel.play(self.voices["5"])
@@ -315,7 +318,7 @@ class Game:
                 self.screen.blit(self.modals["2"], (0, 0))
             elif self.selected_food["base"] == "bread":
                 self.screen.blit(self.modals["3"], (0, 0))
-            self.screen.blit(self.modals["sparkle_1"], (100, 25))
+            self.screen.blit(self.modals["sparkle_1"], (100, 25)) # this can be animated
             self.screen.blit(self.modals["sparkle_2"], (100, 25))
             self.screen.blit(self.modals["border"], (0, 0))
             self.screen.blit(self.next.base, (918, 780))

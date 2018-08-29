@@ -27,14 +27,16 @@ class Map:
         self.session = {
             "stages": self.slot["stages"],
             "is_new?": True if self.slot["last_level_passed"]["code"] == 1 else False,
-            "current_level": self.slot["last_level_passed"]["code"],
+            "current_level":  self.slot["last_level_passed"]["code"],
             "completed": self.slot["stages"]["completado"]
         }
 
         if self.session["is_new?"]:
             self.current_slide = 1
+            self.marker_level = 0
         else:
             self.current_slide = 6
+            self.marker_level = self.session["current_level"]
         if self.session["completed"]:
             self.background = utils.load_image("end.png", "map")
         else:
@@ -94,7 +96,6 @@ class Map:
             "h" : utils.load_vx("map/help/1.ogg")
         }
 
-        self.marker_level = self.session["current_level"]
         self.show_help = False
         self.played = [0] * 5
         self.next = Button((918, 780), "next1.png", "next2.png", 257, 99, "map")
@@ -239,9 +240,9 @@ class Map:
 
     def animate_marker(self):
         if self.marker_level == 0:
-            pos = (105, 240) # home
+            pos = (105, 266) # home
         elif self.marker_level == 1:
-            pos = (105, 475) # saar
+            pos = (105, 475) # saar  # with new nutri is 26px more y axis
         elif self.marker_level == 2:
             pos = (340, 410) # rahapara
         elif self.marker_level == 3:

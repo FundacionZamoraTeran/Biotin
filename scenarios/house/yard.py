@@ -1,3 +1,4 @@
+import sys
 import pygame
 
 from scenarios.utils import utils
@@ -143,6 +144,7 @@ class Yard:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
+                    sys.exit(0)
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT:
                         if self.current_slide != 1:
