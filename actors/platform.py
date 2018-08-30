@@ -5,11 +5,11 @@ from scenarios.utils import consts
 
 class Platform(pygame.sprite.Sprite):
     """
-        Class representing the playable character
+        Class representing a platform
     """
     def __init__(self, screen, clock, pos, platform, folder):
         pygame.sprite.Sprite.__init__(self)
-        
+
         self.screen = screen
         self.clock = clock
         self.image = utils.load_image(platform, folder)

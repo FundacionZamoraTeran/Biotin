@@ -103,9 +103,9 @@ class Player(pygame.sprite.Sprite):
             self.frame += 1
             if self.frame > 17:
                 self.frame = 0
-            pygame.display.update(self.screen.blit(self.sprites[self.direction][(self.frame//6)], (self.x, self.y)))
+            self.screen.blit(self.sprites[self.direction][(self.frame//6)], (self.x, self.y))
         else:#elif self.direction == "stand":
-            pygame.display.update(self.screen.blit(self.sprites["down"][0], (self.x, self.y)))
+            self.screen.blit(self.sprites["down"][0], (self.x, self.y))
         if self.scrolls is True:
             self.scroll()
 
