@@ -303,11 +303,12 @@ class Game:
             self.screen.blit(self.metrics["energy_slider"].get_current_level_image(), (670, 320))
             self.screen.blit(self.metrics["fats"], (590, 390))
             self.screen.blit(self.metrics["fats_slider"].get_current_level_image(), (670, 400))
-            self.screen.blit(self.sparkle_1, self.pos)
+            self.screen.blit(self.sparkle_2, self.pos)
             self.screen.blit(self.food_code["1"][0], (130, 490))
             self.screen.blit(self.food_code["2"][0], (370, 490))
             self.screen.blit(self.food_code["3"][0], (610, 490))
             self.screen.blit(self.food_code["4"][0], (850, 490))
+            self.screen.blit(self.sparkle_1, self.pos)
         elif number == 7:
             if self.played[4] == 0:
                 self.vx_channel.play(self.voices["5"])
@@ -319,6 +320,5 @@ class Game:
             elif self.selected_food["base"] == "bread":
                 self.screen.blit(self.modals["3"], (0, 0))
             self.screen.blit(self.modals["sparkle_1"], (100, 25)) # this can be animated
-            self.screen.blit(self.modals["sparkle_2"], (100, 25))
             self.screen.blit(self.modals["border"], (0, 0))
             self.screen.blit(self.next.base, (918, 780))
