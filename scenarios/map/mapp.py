@@ -9,8 +9,8 @@ from scenarios.utils.button import Button
 
 class Map:
     """
-        Class representing the food selection minigame, recieves
-        a Surface as a screen, a Clock as clock, and the save slot selected
+        Class representing the Map, recieves
+        a Surface as a screen, a Clock as clock, and the save slot name
     """
     def __init__(self, screen, clock, slot):
         self.screen = screen
