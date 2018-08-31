@@ -5,6 +5,7 @@ from scenarios.utils import consts
 from scenarios.utils import saves
 from scenarios.saar import hena
 from scenarios.saar import hcesar
+from scenarios.saar import middle
 from actors.player import Player
 from actors.enemy import Enemy
 from actors.platform import Platform
@@ -74,6 +75,7 @@ class Entrance:
                            (1300, 1940),
                            20,
                            35)
+        self.visited = [False, False]
 
     def run(self):
         utils.load_bg("nocturne.ogg")
@@ -114,6 +116,7 @@ class Entrance:
                             hus = hena.Hena(self.screen, self.clock, self.character)
                             hus.run()
                             del hus
+                            self.visited[0] = True
                             utils.load_bg("nocturne.ogg")
                             pygame.mixer.music.set_volume(consts.BG_VOLUME-0.3)
                             pygame.mixer.music.play(-1, 0.0)
@@ -124,15 +127,25 @@ class Entrance:
                             hus = hcesar.Hcesar(self.screen, self.clock, self.character)
                             hus.run()
                             del hus
+                            self.visited[1] = True
                             utils.load_bg("nocturne.ogg")
                             pygame.mixer.music.set_volume(consts.BG_VOLUME-0.3)
                             pygame.mixer.music.play(-1, 0.0)
+                        elif (self.player.real_x+self.player.rect.width > 2280
+                              and self.player.real_x+self.player.rect.width < 2401 and
+                              all(i is True for i in self.visited)):
+                            utils.loading_screen(self.screen)
+                            mid = middle.Middle(self.screen, self.clock, self.character)
+                            mid.run()
+                            del mid
+                            running = False
+                            utils.loading_screen(self.screen)
+
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
                         self.player.direction = "stand"
                     elif event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
                         self.player.direction = "stand"
-        utils.loading_screen(self.screen)
 
     def actors_load(self, rel_x):
         if self.player.real_x < 1500 and not self.gali.defeated:
@@ -146,6 +159,7 @@ class Entrance:
                 and self.player.real_x+self.player.rect.width < 2280):
             self.interact_2.float(1200)
         if (self.player.real_x+self.player.rect.width > 2280
-                and self.player.real_x+self.player.rect.width < 2400):
+                and self.player.real_x+self.player.rect.width < 2401 and
+                all(i is True for i in self.visited)):
             self.interact_3.float(1200)
         self.player.update()

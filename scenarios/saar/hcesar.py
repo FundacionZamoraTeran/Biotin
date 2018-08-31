@@ -25,7 +25,7 @@ class Hcesar:
         self.character = character
         self.interact = Prompt(self.screen,
                                self.clock,
-                               (635, 280),
+                               (735, 280),
                                "interact.png",
                                "saar",
                                (150, 350))
@@ -127,8 +127,8 @@ class Hcesar:
                             self.current_slide = 1
                     elif event.key == pygame.K_DOWN or event.key == pygame.K_KP2:
                         if self.current_slide == 1:
-                            if (self.player.x+self.player.rect.width > 620 and
-                                    self.player.x+self.player.rect.width < 765
+                            if (self.player.x+self.player.rect.width > 720 and
+                                    self.player.x+self.player.rect.width < 865
                                     and self.current_slide == 1):
                                 self.current_slide += 1
                             if (self.player.x+self.player.rect.width > 45
@@ -144,8 +144,8 @@ class Hcesar:
     def render_scene(self, number):
         if number == 1:
             self.arrange_team(number)
-            if (self.player.x+self.player.rect.width > 620
-                    and self.player.x+self.player.rect.width < 765):
+            if (self.player.x+self.player.rect.width > 720
+                    and self.player.x+self.player.rect.width < 865):
                 self.interact.float(0)
             if (self.player.x+self.player.rect.width > 45
                     and self.player.x+self.player.rect.width < 175):
