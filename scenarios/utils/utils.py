@@ -63,3 +63,5 @@ def load_vx(name):
 def load_bg(name):
     filename = os.path.join(MAIN_DIR, BG_DIR, name)
     return pygame.mixer.music.load(filename)
+def loading_screen(screen):
+    pygame.display.update(screen.blit(load_image("loading.png", ""), (0, 0)))

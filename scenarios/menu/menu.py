@@ -104,6 +104,7 @@ class Menu:
                                 self.slot_selected = start_state.slot_selected
                                 running = False
                             del start_state
+                            utils.loading_screen(self.screen)
                         elif self.load_but.flag is True:
                             load_state = load.Load(self.screen, self.clock)
                             load_state.run()
@@ -112,6 +113,7 @@ class Menu:
                                 self.slot_selected = load_state.slot_selected
                                 running = False
                             del load_state
+                            utils.loading_screen(self.screen)
                         elif self.credits_but.flag is True:
                             credit = credits.Credit(self.screen, self.clock)
                             credit.run()

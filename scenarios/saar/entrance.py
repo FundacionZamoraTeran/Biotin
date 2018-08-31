@@ -103,6 +103,7 @@ class Entrance:
                     elif event.key == pygame.K_DOWN or event.key == pygame.K_KP2:
                         if (self.player.real_x+self.player.rect.width > 620
                                 and self.player.real_x+self.player.rect.width < 745):
+                            utils.loading_screen(self.screen)
                             hus = hena.Hena(self.screen, self.clock, self.character)
                             hus.run()
                             del hus
@@ -112,6 +113,7 @@ class Entrance:
                         elif (self.player.real_x+self.player.rect.width > 2140 and
                               self.player.real_x+self.player.rect.width < 2280):
                             self.lopop.squashing = True # test to see if monster get squashed
+                            #utils.loading_screen(self.screen)
                             #hus = hcesar.Hcesar(self.screen, self.clock, self.character)
                             #hus.run()
                             #del hus
@@ -123,6 +125,7 @@ class Entrance:
                         self.player.direction = "stand"
                     elif event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
                         self.player.direction = "stand"
+        utils.loading_screen(self.screen)
 
     def actors_load(self, rel_x):
         if self.player.real_x < 1500 and not self.gali.defeated:

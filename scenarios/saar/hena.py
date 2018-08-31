@@ -139,6 +139,7 @@ class Hena:
                         self.player.direction = "stand"
                     elif event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
                         self.player.direction = "stand"
+        utils.loading_screen(self.screen)
 
     def render_scene(self, number):
         if number == 1:

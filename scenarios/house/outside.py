@@ -66,10 +66,12 @@ class Outside:
                             self.next.on_press(self.screen)
                             self.current_slide += 1
                         else:
+                            utils.loading_screen(self.screen)
                             kit = kitchen.Kitchen(self.screen, self.clock, self.slot)
                             kit.run()
                             del kit
                             running = False
+        utils.loading_screen(self.screen)
 
     def render_scene(self, number):
         if number == 1:

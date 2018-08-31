@@ -87,6 +87,7 @@ class Kitchen:
                             self.current_slide += 1
                         else:
                             self.vx_channel.stop()
+                            utils.loading_screen(self.screen)
                             minigame = game.Game(self.screen, self.clock, self.slot)
                             minigame.run()
                             running = False

@@ -230,6 +230,7 @@ class Game:
                                 self.pos = (830, 480)
                         elif self.current_slide == 7:
                             self.next.on_press(self.screen)
+                            utils.loading_screen(self.screen)
                             courtyard = yard.Yard(self.screen, self.clock)
                             courtyard.run()
                             #here we save/ init the save file after knowing the comic was finished
