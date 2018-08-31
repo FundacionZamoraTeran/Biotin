@@ -26,7 +26,7 @@ class Map:
 
         self.session = {
             "stages": self.slot["stages"],
-            "is_new?": True if self.slot["last_level_passed"]["code"] == 1 else False,
+            "is_new?": True if self.slot["last_level_passed"]["code"] == 2 else False,
             "current_level":  self.slot["last_level_passed"]["code"],
             "completed": self.slot["stages"]["completado"]
         }
@@ -62,7 +62,7 @@ class Map:
             "6" : utils.load_image("6.png", "map/HUD"),
             "7" : utils.load_image("7.png", "map/HUD"),
             "8" : utils.load_image("8.png", "map/HUD"),
-            "help" : Button((1070, 50), "h1.png", "h2.png", 70, 71, "map/HUD")
+            "help" : Button((1058, 39), "h1.png", "h2.png", 82, 82, "map/HUD")
         }
 
         self.nutriton = {
@@ -229,7 +229,7 @@ class Map:
             if not self.session["is_new?"]:
                 self.load_worlds()
             self.check_luis_status()
-            self.screen.blit(self.hud["help"].base, (1070, 50))
+            self.screen.blit(self.hud["help"].base, (1058, 39))
             self.animate_marker()
 
     def check_luis_status(self):
