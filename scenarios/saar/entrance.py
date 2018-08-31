@@ -89,7 +89,7 @@ class Entrance:
             pygame.display.flip()
             self.clock.tick(consts.FPS)
 
-            for event in [pygame.event.wait()] + pygame.event.get():
+            for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
                     self.next_level = None
