@@ -48,6 +48,12 @@ class Entrance:
                                  "interact.png",
                                  "saar",
                                  (400, 600))
+        self.interact_3 = Prompt(self.screen,
+                                 self.clock,
+                                 (2280, 480),
+                                 "interact.png",
+                                 "saar",
+                                 (400, 600))
 
         self.player = Player(self.screen,
                              self.clock,
@@ -139,4 +145,7 @@ class Entrance:
         if (self.player.real_x+self.player.rect.width > 2140
                 and self.player.real_x+self.player.rect.width < 2280):
             self.interact_2.float(1200)
+        if (self.player.real_x+self.player.rect.width > 2280
+                and self.player.real_x+self.player.rect.width < 2400):
+            self.interact_3.float(1200)
         self.player.update()
