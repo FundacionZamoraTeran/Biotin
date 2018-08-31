@@ -4,8 +4,8 @@ import pygame
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils import saves
-#from scenarios.saar import hdiego
-#from scenarios.saar import last
+from scenarios.saar import hcesar
+from scenarios.saar import last
 from actors.player import Player
 from actors.enemy import Enemy
 from actors.platform import Platform
@@ -23,14 +23,13 @@ class Middle:
         self.fx_channel.set_volume(consts.FX_VOLUME)
         self.vx_channel = pygame.mixer.Channel(1)
         self.vx_channel.set_volume(consts.VX_VOLUME)
-        self.next_level = 1
         self.character = character
         self.background = utils.load_image("background.png", "saar/stage_2")
         self.background_width = self.background.get_size()[0]
         self.foreground = utils.load_image("foreground.png", "saar/stage_2")
         self.ground = Platform(self.screen,
                                self.clock,
-                               (0, 742),
+                               (0, 747),
                                "ground.png",
                                "saar/stage_2")
         self.interact = Prompt(self.screen,
@@ -61,7 +60,7 @@ class Middle:
         self.vlopop = Enemy(self.screen,
                             self.clock,
                             (1940, 700),
-                            "monsters/lopop",
+                            "monsters/vlopop",
                             (1300, 1940),
                             22,
                             35)
@@ -102,25 +101,22 @@ class Middle:
                     elif event.key == pygame.K_DOWN or event.key == pygame.K_KP2:
                         if (self.player.real_x+self.player.rect.width > 2050 and
                                 self.player.real_x+self.player.rect.width < 2190):
-                            pass
-                            #self.vlopop.squashing = True # test to see if monster get squashed
-                            # utils.loading_screen(self.screen)
-                            # hus = hcesar.Hcesar(self.screen, self.clock, self.character)
-                            # hus.run()
-                            # del hus
-                            # self.visited[1] = True
-                            # utils.load_bg("nocturne.ogg")
-                            # pygame.mixer.music.set_volume(consts.BG_VOLUME-0.3)
-                            # pygame.mixer.music.play(-1, 0.0)
+                            utils.loading_screen(self.screen)
+                            hus = hcesar.Hcesar(self.screen, self.clock, self.character)
+                            hus.run()
+                            del hus
+                            self.visited = True
+                            utils.load_bg("nocturne.ogg")
+                            pygame.mixer.music.set_volume(consts.BG_VOLUME-0.3)
+                            pygame.mixer.music.play(-1, 0.0)
                         elif (self.player.real_x+self.player.rect.width > 2280
                               and self.player.real_x+self.player.rect.width < 2401 and
                               self.visited):
-                            pass
-                             #utils.loading_screen(self.screen)
-                             #mid = last.Last(self.screen, self.clock, self.character)
-                             #mid.run()
-                             #del mid
-                             #running = False
+                            utils.loading_screen(self.screen)
+                            end = last.Last(self.screen, self.clock, self.character)
+                            end.run()
+                            del end
+                            running = False
 
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
