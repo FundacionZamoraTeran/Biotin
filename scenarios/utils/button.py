@@ -11,8 +11,8 @@ class Button(pygame.sprite.Sprite):
         self.end_rect = self.end.get_rect(topleft=self.pos)
         self.flag = flag
     def on_press(self, screen):
-        pygame.display.update(screen.blit(self.end, (self.pos[0], self.pos[1])))
+        screen.blit(self.end, (self.pos[0], self.pos[1]))
         pygame.time.delay(150)
     def on_focus(self, screen):
-        pygame.display.update(screen.blit(self.end, (self.pos[0], self.pos[1])))
+        screen.blit(self.end, (self.pos[0], self.pos[1]))
         self.base, self.end = self.end, self.base

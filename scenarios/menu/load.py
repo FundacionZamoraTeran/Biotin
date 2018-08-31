@@ -1,8 +1,7 @@
 import sys
 import os
 import pygame
-from scenarios.utils import utils
-from scenarios.utils import saves
+from scenarios.utils import utils, consts, saves
 from scenarios.menu.button import Button
 from scenarios.menu.save_state import SaveState
 
@@ -60,17 +59,13 @@ class Load:
         """
         running = True
         while running:
-            mouse_x, mouse_y = pygame.mouse.get_pos()
-            for event in pygame.event.get():
+            for event in [pygame.event.wait()] + pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit(0)
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.exit_button.base_rect.collidepoint(mouse_x, mouse_y):
-                        running = False
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
+                    if event.key == pygame.K_ESCAPE or event.key == pygame.K_PAGEUP:
                         running = False
-                    elif event.key == pygame.K_RETURN:
+                    elif event.key == pygame.K_RETURN or event.key == pygame.K_END:
                         if self.slot1.flag is True:
                             if self.save["slot_1"] is None:
                                 self.fx_channel.play(utils.load_fx("denied.ogg"))
@@ -93,7 +88,7 @@ class Load:
                                 self.slot_selected = "slot_3"
                                 running = False
 
-                    elif event.key == pygame.K_DOWN:
+                    elif event.key == pygame.K_DOWN or event.key == pygame.K_KP2:
                         if self.slot1.flag is True:
                             self.slot1.flag = False
                             self.slot2.flag = True
@@ -101,7 +96,7 @@ class Load:
                             self.slot2.flag = False
                             self.slot3.flag = True
 
-                    elif event.key == pygame.K_UP:
+                    elif event.key == pygame.K_UP or event.key == pygame.K_KP8:
                         if self.slot2.flag is True:
                             self.slot2.flag = False
                             self.slot1.flag = True
@@ -117,4 +112,4 @@ class Load:
             self.screen.blit(self.screen2, (0, 0))
             self.screen.blit(self.exit_button.base, (1030, 120))
             pygame.display.flip()
-            self.clock.tick(30)
+            self.clock.tick(consts.FPS)

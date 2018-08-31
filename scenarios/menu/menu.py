@@ -89,13 +89,13 @@ class Menu:
             self.screen.blit(self.start.end, (395, 280)) # 405x290
             self.screen.blit(self.help_but.base, (1050, 0))
             pygame.display.flip()
-            self.clock.tick(30)
+            self.clock.tick(consts.FPS)
 
-            for event in pygame.event.get():
+            for event in [pygame.event.wait()] + pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RETURN:
+                    if event.key == pygame.K_RETURN or event.key == pygame.K_END:
                         if self.start.flag is True:
                             start_state = start.Start(self.screen, self.clock)
                             start_state.run()
@@ -126,7 +126,7 @@ class Menu:
                             hjelp = help.Help(self.screen, self.clock)
                             hjelp.run()
                             del hjelp
-                    if event.key == pygame.K_LEFT:
+                    if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
                         if self.start.flag is True:
                             self.start.flag = False
                             self.load_but.flag = True
@@ -152,7 +152,7 @@ class Menu:
                             self.exit.flag = True
                             self.help_but.on_focus_altern(self.screen)
                             self.exit.on_focus(self.screen)
-                    if event.key == pygame.K_RIGHT:
+                    if event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
                         if self.start.flag is True:
                             self.start.flag = False
                             self.options.flag = True

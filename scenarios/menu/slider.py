@@ -109,13 +109,13 @@ class Slider(pygame.sprite.Sprite):
         if self.level != 1.0:
             self.level += 0.1
             self.level = round(self.level, 1)
-            pygame.display.update(screen.blit(self.repo[str(self.level)], self.pos))
+            screen.blit(self.repo[str(self.level)], self.pos)
     def decrease_level(self, screen):
         if self.level != 0.0:
             self.level -= 0.1
             self.level = round(self.level, 1)
-            pygame.display.update(screen.blit(self.repo[str(self.level)], self.pos))
+            screen.blit(self.repo[str(self.level)], self.pos)
     def on_title_focus(self, screen):
-        pygame.display.update(screen.blit(self.focused_title, self.pos_title))
+        screen.blit(self.focused_title, self.pos_title)
     def no_title_ocus(self, screen):
-        pygame.display.update(screen.blit(self.unfocused_title, self.pos_title))
+        screen.blit(self.unfocused_title, self.pos_title)

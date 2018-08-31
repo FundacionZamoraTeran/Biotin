@@ -54,10 +54,10 @@ class Slider(pygame.sprite.Sprite):
         if self.level != 4:
             self.level += amount
             if self.level > 4: self.level = 4
-            pygame.display.update(screen.blit(self.repo[str(self.level)], self.pos))
+            screen.blit(self.repo[str(self.level)], self.pos)
 
     def decrease_level(self, screen, amount):
         if self.level != 1:
             self.level -= amount
             if self.level < 1: self.level = 1
-            pygame.display.update(screen.blit(self.repo[str(self.level)], self.pos))
+            screen.blit(self.repo[str(self.level)], self.pos)

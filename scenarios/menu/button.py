@@ -41,8 +41,8 @@ class Button(pygame.sprite.Sprite):
            makes the button change state/animation while selected
            requires three state images.
         """
-        pygame.display.update(screen.blit(self.transition, (self.x, self.y)))
-        pygame.display.update(screen.blit(self.end, (self.x, self.y)))
+        screen.blit(self.transition, (self.x, self.y))
+        screen.blit(self.end, (self.x, self.y))
         self.base, self.end = self.end, self.base
 
     def on_focus_altern(self, screen):
@@ -50,7 +50,7 @@ class Button(pygame.sprite.Sprite):
            makes the button change state/animation while selected
            requires two state images.
         """
-        pygame.display.update(screen.blit(self.transition, (self.x, self.y)))
+        screen.blit(self.transition, (self.x, self.y))
         self.base, self.transition = self.transition, self.base
 
 

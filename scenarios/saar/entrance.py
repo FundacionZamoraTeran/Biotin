@@ -59,13 +59,13 @@ class Entrance:
                           (1000, 640),
                           "monsters/gali",
                           (300, 1000),
-                          6)
+                          16)
         self.lopop = Enemy(self.screen,
                            self.clock,
                            (1940, 700),
                            "monsters/lopop",
                            (1300, 1940),
-                           8,
+                           20,
                            35)
 
     def run(self):
@@ -87,20 +87,20 @@ class Entrance:
                 self.actors_load(rel_x)
                 self.screen.blit(self.foreground, (rel_x - self.background_width, 585))
             pygame.display.flip()
-            self.clock.tick(30)
+            self.clock.tick(consts.FPS)
 
-            for event in pygame.event.get():
+            for event in [pygame.event.wait()] + pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
                     self.next_level = None
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_LEFT:
+                    if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
                         self.player.direction = "left"
                         self.player.velocity = -abs(self.player.velocity)
-                    elif event.key == pygame.K_RIGHT:
+                    elif event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
                         self.player.direction = "right"
                         self.player.velocity = abs(self.player.velocity)
-                    elif event.key == pygame.K_DOWN:
+                    elif event.key == pygame.K_DOWN or event.key == pygame.K_KP2:
                         if (self.player.real_x+self.player.rect.width > 620
                                 and self.player.real_x+self.player.rect.width < 745):
                             hus = hena.Hena(self.screen, self.clock, self.character)
@@ -119,9 +119,9 @@ class Entrance:
                             #pygame.mixer.music.set_volume(consts.BG_VOLUME-0.3)
                             #pygame.mixer.music.play(-1, 0.0)
                 elif event.type == pygame.KEYUP:
-                    if event.key == pygame.K_LEFT:
+                    if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
                         self.player.direction = "stand"
-                    elif event.key == pygame.K_RIGHT:
+                    elif event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
                         self.player.direction = "stand"
 
     def actors_load(self, rel_x):

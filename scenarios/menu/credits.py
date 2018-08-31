@@ -1,6 +1,6 @@
 import sys
 import pygame
-from scenarios.utils import utils
+from scenarios.utils import utils, consts
 from scenarios.menu.button import Button
 
 class Credit:
@@ -29,17 +29,13 @@ class Credit:
 
         running = True
         while running:
-            mouse_x, mouse_y = pygame.mouse.get_pos()
-            for event in pygame.event.get():
+            for event in [pygame.event.wait()] + pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit(0)
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.exit_button.base_rect.collidepoint(mouse_x, mouse_y):
-                        running = False
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
+                    if event.key == pygame.K_ESCAPE or event.key == pygame.K_PAGEUP:
                         running = False
-                    elif  event.key == pygame.K_RETURN:
+                    elif  event.key == pygame.K_RETURN or event.key == pygame.K_END:
                         running = False
 
             # set all the elements to appear on the credit's modal
@@ -54,4 +50,4 @@ class Credit:
             self.screen.blit(self.screen2, (0, 0))
             self.screen.blit(self.exit_button.base, (1030, 120))
             pygame.display.flip()
-            self.clock.tick(30)
+            self.clock.tick(consts.FPS)

@@ -117,13 +117,13 @@ class Map:
             else:
                 self.screen.blit(self.modal, (0, 0))
             pygame.display.flip()
-            self.clock.tick(30)
-            for event in pygame.event.get():
+            self.clock.tick(consts.FPS)
+            for event in [pygame.event.wait()] + pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
                     self.next_level = None
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RETURN:
+                    if event.key == pygame.K_RETURN or event.key == pygame.K_END:
                         if self.current_slide == 2:
                             if self.selector["ec"].flag is True:
                                 saves.specific_save(self.slotname, "team_ena", True)
@@ -134,9 +134,9 @@ class Map:
                             if self.marker_level == 0:
                                 self.fx_channel.play(self.denied)
                             else:
-                                self.next_level = self.marker_level
+                                self.next_level = self.marker_level+1
                                 running = False
-                    elif event.key == pygame.K_LEFT:
+                    elif event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
                         if self.current_slide > 3 and self.current_slide < 6:
                             self.vx_channel.stop()
                             self.prev.on_press(self.screen)
@@ -153,7 +153,7 @@ class Map:
                                 self.marker_level -= 1
                             else:
                                 self.marker_level = 0
-                    elif event.key == pygame.K_RIGHT:
+                    elif event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
                         if self.current_slide < 6 and self.current_slide != 2:
                             self.vx_channel.stop()
                             self.next.on_press(self.screen)
@@ -174,7 +174,7 @@ class Map:
                                     self.marker_level += 1
                             else:
                                 self.marker_level = 8
-                    elif event.key == pygame.K_ESCAPE:
+                    elif event.key == pygame.K_ESCAPE or event.key == pygame.K_PAGEUP:
                         if self.current_slide == 6:
                             self.hud["help"].on_press(self.screen)
                             if self.show_help is False:
@@ -258,9 +258,9 @@ class Map:
         elif self.session["completed"] or self.marker_level == 8:
             pos = (1073, 540) # castle
         self.frame += 1
-        if self.frame > 17:
+        if self.frame > 5:
             self.frame = 0
-        pygame.display.update(self.screen.blit(self.nutriton[str(self.frame//6)], pos))
+        self.screen.blit(self.nutriton[str(self.frame//2)], pos)
 
     def load_worlds(self):
         if not self.session["completed"]:

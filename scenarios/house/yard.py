@@ -140,19 +140,19 @@ class Yard:
             self.screen.blit(self.next.base, (918, 780))
             self.screen.blit(self.prev.base, (25, 780))
             pygame.display.flip()
-            self.clock.tick(30)
-            for event in pygame.event.get():
+            self.clock.tick(consts.FPS)
+            for event in [pygame.event.wait()] + pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
                     sys.exit(0)
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_LEFT:
+                    if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
                         if self.current_slide != 1:
                             self.vx_channel.stop()
                             self.prev.on_press(self.screen)
                             self.played[self.current_slide-1] = 0
                             self.current_slide -= 1
-                    elif event.key == pygame.K_RIGHT:
+                    elif event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
                         if self.current_slide != 30:
                             self.vx_channel.stop()
                             self.next.on_press(self.screen)

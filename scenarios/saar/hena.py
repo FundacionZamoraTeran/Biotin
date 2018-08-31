@@ -98,14 +98,14 @@ class Hena:
             self.screen.blit(self.father, (650, 380))
             self.render_scene(self.current_slide)
             pygame.display.flip()
-            self.clock.tick(30)
+            self.clock.tick(consts.FPS)
 
-            for event in pygame.event.get():
+            for event in [pygame.event.wait()] + pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
                     sys.exit(0)
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_LEFT:
+                    if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
                         if self.current_slide == 1:
                             self.player.direction = "left"
                             self.player.velocity = -abs(self.player.velocity)
@@ -114,7 +114,7 @@ class Hena:
                             self.prev.on_press(self.screen)
                             self.played[self.current_slide-1] = 0
                             self.current_slide -= 1
-                    elif event.key == pygame.K_RIGHT:
+                    elif event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
                         if self.current_slide == 1:
                             self.player.direction = "right"
                             self.player.velocity = abs(self.player.velocity)
@@ -125,7 +125,7 @@ class Hena:
                             self.current_slide += 1
                         elif self.current_slide == 15:
                             self.current_slide = 1
-                    elif event.key == pygame.K_DOWN:
+                    elif event.key == pygame.K_DOWN or event.key == pygame.K_KP2:
                         if self.current_slide == 1:
                             if (self.player.x+self.player.rect.width > 620 and
                                     self.player.x+self.player.rect.width < 765
@@ -135,9 +135,9 @@ class Hena:
                                     and self.player.x+self.player.rect.width < 175):
                                 running = False
                 elif event.type == pygame.KEYUP:
-                    if event.key == pygame.K_LEFT:
+                    if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
                         self.player.direction = "stand"
-                    elif event.key == pygame.K_RIGHT:
+                    elif event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
                         self.player.direction = "stand"
 
     def render_scene(self, number):

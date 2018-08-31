@@ -1,7 +1,7 @@
 import sys
 import os
 import pygame
-from scenarios.utils import utils
+from scenarios.utils import utils, consts
 from scenarios.menu.button import Button
 from scenarios.menu.slider import Slider
 
@@ -52,28 +52,22 @@ class Option:
             f.write(str(opts))
 
     def run(self):
-        """ control the actions happening on the Help modal"""
+        """ control the actions happening on the Help modal """
         running = True
         while running:
-            mouse_x, mouse_y = pygame.mouse.get_pos()
-            for event in pygame.event.get():
+            for event in [pygame.event.wait()] + pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit(0)
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.exit_button.base_rect.collidepoint(mouse_x, mouse_y):
-                        running = False
-                        self.save()
-                        pygame.mixer.music.set_volume(self.opts[1])
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE:
+                    if event.key == pygame.K_ESCAPE or event.key == pygame.K_PAGEUP:
                         running = False
                         self.save()
                         pygame.mixer.music.set_volume(self.opts[1])
-                    elif event.key == pygame.K_RETURN:
+                    elif event.key == pygame.K_RETURN or event.key == pygame.K_END:
                         running = False
                         self.save()
                         pygame.mixer.music.set_volume(self.opts[1])
-                    elif event.key == pygame.K_DOWN:
+                    elif event.key == pygame.K_DOWN or event.key == pygame.K_KP2:
                         if self.voice_slider.flag is True:
                             self.voice_slider.flag = False
                             self.music_slider.flag = True
@@ -82,7 +76,7 @@ class Option:
                             self.music_slider.flag = False
                             self.fx_slider.flag = True
                             self.fx_slider.on_title_focus(self.screen2)
-                    elif event.key == pygame.K_UP:
+                    elif event.key == pygame.K_UP or event.key == pygame.K_KP8:
                         if self.music_slider.flag is True:
                             self.music_slider.flag = False
                             self.voice_slider.flag = True
@@ -91,14 +85,14 @@ class Option:
                             self.fx_slider.flag = False
                             self.music_slider.flag = True
                             self.music_slider.on_title_focus(self.screen2)
-                    elif event.key == pygame.K_RIGHT:
+                    elif event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
                         if self.voice_slider.flag is True:
                             self.voice_slider.increase_level(self.screen2)
                         elif self.music_slider.flag is True:
                             self.music_slider.increase_level(self.screen2)
                         elif self.fx_slider.flag is True:
                             self.fx_slider.increase_level(self.screen2)
-                    elif event.key == pygame.K_LEFT:
+                    elif event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
                         if self.voice_slider.flag is True:
                             self.voice_slider.decrease_level(self.screen2)
                         elif self.music_slider.flag is True:
@@ -126,4 +120,4 @@ class Option:
             self.screen.blit(self.screen2, (0, 0))
             self.screen.blit(self.exit_button.base, (1030, 120))
             pygame.display.flip()
-            self.clock.tick(30)
+            self.clock.tick(consts.FPS)

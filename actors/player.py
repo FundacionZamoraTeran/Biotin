@@ -8,7 +8,7 @@ class Player(pygame.sprite.Sprite):
         Class representing the playable character
     """
     def __init__(self, screen, clock, pos, character,
-                 stage_width=1200, scrolls=False, physics=(12, 18, 1.2)):
+                 stage_width=1200, scrolls=False, physics=(28, 18, 1.2)):
         pygame.sprite.Sprite.__init__(self)
 
         self.screen = screen
@@ -51,35 +51,6 @@ class Player(pygame.sprite.Sprite):
         self.rect.topleft = (self.x, self.y)
         self.real_x = self.x # this means the real x position within the stage
         self.scrolls = scrolls
-        #test assets
-        self.background = utils.load_image("test.png", "")
-    def run(self):
-        running = True
-
-        while running:
-            self.screen.blit(self.background, (0, 0))
-            self.update()
-            pygame.display.flip()
-            self.clock.tick(30)
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_LEFT:
-                        self.direction = "left"
-                        self.velocity = -abs(self.velocity)
-                    elif event.key == pygame.K_RIGHT:
-                        self.direction = "right"
-                        self.velocity = abs(self.velocity)
-                    if event.key == pygame.K_UP or event.key == pygame.K_SPACE:
-                        self.direction = "jump"
-                        self.jumping = True
-                elif event.type == pygame.KEYUP:
-                    if event.key == pygame.K_LEFT:
-                        self.direction = "stand"
-                    elif event.key == pygame.K_RIGHT:
-                        self.direction = "stand"
 
     def control(self, x, y):
         self.x += x
@@ -101,9 +72,9 @@ class Player(pygame.sprite.Sprite):
         if self.direction == "right" or self.direction == "left":
             self.control(self.velocity, 0)
             self.frame += 1
-            if self.frame > 17:
+            if self.frame > 5:
                 self.frame = 0
-            self.screen.blit(self.sprites[self.direction][(self.frame//6)], (self.x, self.y))
+            self.screen.blit(self.sprites[self.direction][(self.frame//2)], (self.x, self.y))
         else:#elif self.direction == "stand":
             self.screen.blit(self.sprites["down"][0], (self.x, self.y))
         if self.scrolls is True:
@@ -126,7 +97,7 @@ class Player(pygame.sprite.Sprite):
 
 
     #experimental
-    def on_ground(self):
+    def on_ground(self, p_rects):
         collision = self.rect.collidelist(p_rects)
         if collision > -1:
             return True

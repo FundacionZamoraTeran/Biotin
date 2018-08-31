@@ -7,7 +7,7 @@ class Enemy(pygame.sprite.Sprite):
     """
         Class representing the playable character
     """
-    def __init__(self, screen, clock, pos, character, limits, velocity=8, s_vel=50, defeated=False):
+    def __init__(self, screen, clock, pos, character, limits, velocity=20, s_vel=50, defeated=False):
         pygame.sprite.Sprite.__init__(self)
 
         self.screen = screen
@@ -57,23 +57,24 @@ class Enemy(pygame.sprite.Sprite):
                 self.direction = "lsquash"
             else:
                 self.direction = "rsquash"
-            if self.frame > 17:
+            if self.frame > 5:
                 self.frame = 0
                 self.defeated = True
                 self.squashing = False
-            pygame.display.update(self.screen.blit(self.sprites[self.direction][(self.frame//6)], (self.x - rel_x, self.y)))
+            self.screen.blit(self.sprites[self.direction][(self.frame//2)],
+                             (self.x - rel_x, self.y))
             self.y += self.squash_vel
         else:
             if self.direction == "right" or self.direction == "left":
                 self.control(self.velocity, 0)
                 self.frame += 1
-                if self.frame > 17:
+                if self.frame > 5:
                     self.frame = 0
-                pygame.display.update(self.screen.blit(self.sprites[self.direction][(self.frame//6)],
-                                                       (self.x - rel_x, self.y)))
+                self.screen.blit(self.sprites[self.direction][(self.frame//2)],
+                                 (self.x - rel_x, self.y))
             else:
-                pygame.display.update(self.screen.blit(self.sprites["left"][0],
-                                                       (self.x, self.y)))
+                self.screen.blit(self.sprites["left"][0],
+                                 (self.x, self.y))
 
 
     def roam(self, rel_x):

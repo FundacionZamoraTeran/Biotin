@@ -120,13 +120,13 @@ class Game:
             self.screen.blit(self.background, (0,0))
             self.render_scene(self.current_slide)
             pygame.display.flip()
-            self.clock.tick(30)
-            for event in pygame.event.get():
+            self.clock.tick(consts.FPS)
+            for event in [pygame.event.wait()] + pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
                     sys.exit(0)
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RETURN:
+                    if event.key == pygame.K_RETURN or event.key == pygame.K_END:
                         if self.current_slide == 5:
                             if self.foods["1"].flag is True:
                                 self.selected_food["base"] = "tortilla"
@@ -155,7 +155,7 @@ class Game:
                                 self.selected_food["extra"] = self.food_code["4"][1]
                                 self.current_slide = 7
 
-                    elif event.key == pygame.K_LEFT:
+                    elif event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
                         if self.current_slide != 1 and self.current_slide < 5:
                             self.vx_channel.stop()
                             self.prev.on_press(self.screen)
@@ -192,7 +192,7 @@ class Game:
                                 self.metrics["fats_slider"].increase_level(self.screen, self.food_code["3"][2][2])
                                 self.pos = (590, 480)
 
-                    elif event.key == pygame.K_RIGHT:
+                    elif event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
                         if self.current_slide < 5:
                             self.vx_channel.stop()
                             self.next.on_press(self.screen)

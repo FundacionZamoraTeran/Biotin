@@ -14,7 +14,7 @@ class Prompt(pygame.sprite.Sprite):
         self.x = pos[0]
         self.y = pos[1]
         self.limits = limits
-        self.velocity = 6
+        self.velocity = 16
         self.rect = pygame.Rect(pos, self.image.get_size())
         self.rect.topleft = pos
 
@@ -24,4 +24,4 @@ class Prompt(pygame.sprite.Sprite):
         elif self.y < self.limits[0]:
             self.velocity = abs(self.velocity)
         self.y += self.velocity
-        pygame.display.update(self.screen.blit(self.image, (self.x - rel_x, self.y)))
+        self.screen.blit(self.image, (self.x - rel_x, self.y))

@@ -46,20 +46,20 @@ class Outside:
             self.screen.blit(self.next.base, (580, 240))
             self.screen.blit(self.prev.base, (320, 240))
             pygame.display.flip()
-            self.clock.tick(30)
+            self.clock.tick(consts.FPS)
 
-            for event in pygame.event.get():
+            for event in [pygame.event.wait()] + pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
                     self.next_level = None
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_LEFT:
+                    if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
                         if self.current_slide != 1:
                             self.vx_channel.stop()
                             self.played[self.current_slide-1] = 0
                             self.prev.on_press(self.screen)
                             self.current_slide -= 1
-                    elif event.key == pygame.K_RIGHT:
+                    elif event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
                         if self.current_slide != 3:
                             self.vx_channel.stop()
                             self.played[self.current_slide-1] = 0

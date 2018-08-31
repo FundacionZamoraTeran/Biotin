@@ -11,6 +11,7 @@ from sugar3.graphics.toolbarbox import ToolbarButton
 from sugar3.graphics.toolbarbox import ToolbarBox
 from sugar3.activity.widgets import StopButton
 from sugar3.activity.widgets import ActivityToolbar
+from scenarios.utils import consts
 from gi.repository import GObject
 
 import sugargame.canvas
@@ -23,7 +24,9 @@ class GameActivity(activity.Activity):
         # Build the activity toolbar.
         self.build_toolbar()
 
-        self.game = main.Biotin()
+        SCREEN = pygame.display.set_mode(consts.RESOLUTION)
+        pygame.display.set_caption("Biotin: Una aventura energizante")
+        self.game = main.Biotin(SCREEN)
 
         # Build the Pygame canvas.
         self._pygamecanvas = sugargame.canvas.PygameCanvas(self)
@@ -35,7 +38,7 @@ class GameActivity(activity.Activity):
 
         # Start the game running (self.game.run is called when the
         # activity constructor returns).
-        self._pygamecanvas.run_pygame(self.game.loop)
+        self._pygamecanvas.run_pygame(self.game.loop())
 
         def build_toolbar(self):
             toolbar_box = ToolbarBox()

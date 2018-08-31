@@ -85,10 +85,7 @@ class SaveState(pygame.sprite.Sprite):
             topleft=self.pos_focused)
 
         #self.stages_rect = [] is it necessary?
-
-
         self.flag = flag
-
 
     def render(self, screen):
         if not self.flag:
@@ -103,6 +100,6 @@ class SaveState(pygame.sprite.Sprite):
             stage_pos= (stage_pos[0]+20, stage_pos[1])
 
     def on_focus(self, screen):
-        pygame.display.update(screen.blit(self.end, self.pos_focused))
+        screen.blit(self.end, self.pos_focused)
     def no_focus(self, screen):
-        pygame.display.update(screen.blit(self.base, self.pos))
+        screen.blit(self.base, self.pos)

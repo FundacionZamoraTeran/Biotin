@@ -35,7 +35,6 @@ class Biotin:
             "0": outside.Outside,
             "1": mapp.Map,
             "2": entrance.Entrance,
-            "99": player.Player
         }
 
     def reset_clock(self):
@@ -55,7 +54,6 @@ class Biotin:
         while self.next_level is not None:
             self.level_selector(self.next_level, slot)
         #self.level_selector(2, "slot_2")
-        #self.char_selector(99, (50, 650), "cesar")
         pygame.quit()
         sys.exit(0)
 
@@ -65,18 +63,15 @@ class Biotin:
             var = self.levels[str(level)](self.screen, self.clock, slot)
             var.run()
             self.next_level = var.next_level
-    def char_selector(self, level, pos, char):
-        if level is not None :
-            #here we should load against a dict the selected level
-            var = self.levels[str(level)](self.screen, self.clock, pos, char)
-            var.run()
-            self.next_level = var.next_level
 
 
 if __name__ == "__main__":
-    SCREEN = pygame.display.set_mode(consts.RESOLUTION, 0, 32)
+    SCREEN = pygame.display.set_mode(consts.RESOLUTION)
     pygame.display.set_caption("Biotin: Una aventura energizante")
-
+    pygame.event.set_blocked(MOUSEMOTION)
+    pygame.event.set_blocked(MOUSEBUTTONUP)
+    pygame.event.set_blocked(MOUSEBUTTONDOWN)
+    pygame.event.set_blocked(VIDEORESIZE)
     BIOTIN = Biotin(SCREEN)
     BIOTIN.loop()
     #profile.run('BIOTIN.loop()')
