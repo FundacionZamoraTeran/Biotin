@@ -4,6 +4,7 @@ from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils import saves
 from scenarios.saar import hena
+from scenarios.saar import hcesar
 from actors.player import Player
 from actors.enemy import Enemy
 from actors.platform import Platform
@@ -112,14 +113,14 @@ class Entrance:
                             pygame.mixer.music.play(-1, 0.0)
                         elif (self.player.real_x+self.player.rect.width > 2140 and
                               self.player.real_x+self.player.rect.width < 2280):
-                            self.lopop.squashing = True # test to see if monster get squashed
-                            #utils.loading_screen(self.screen)
-                            #hus = hcesar.Hcesar(self.screen, self.clock, self.character)
-                            #hus.run()
-                            #del hus
-                            #utils.load_bg("nocturne.ogg")
-                            #pygame.mixer.music.set_volume(consts.BG_VOLUME-0.3)
-                            #pygame.mixer.music.play(-1, 0.0)
+                            #self.lopop.squashing = True # test to see if monster get squashed
+                            utils.loading_screen(self.screen)
+                            hus = hcesar.Hcesar(self.screen, self.clock, self.character)
+                            hus.run()
+                            del hus
+                            utils.load_bg("nocturne.ogg")
+                            pygame.mixer.music.set_volume(consts.BG_VOLUME-0.3)
+                            pygame.mixer.music.play(-1, 0.0)
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
                         self.player.direction = "stand"
