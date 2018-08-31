@@ -136,6 +136,7 @@ class Map:
                             else:
                                 self.next_level = self.marker_level+1
                                 running = False
+                                utils.loading_screen(self.screen)
                     elif event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
                         if self.current_slide > 3 and self.current_slide < 6:
                             self.vx_channel.stop()
@@ -181,7 +182,7 @@ class Map:
                                 self.show_help = True
                             elif self.show_help:
                                 self.show_help = False
-        utils.loading_screen(self.screen)
+
     def render_scene(self, number):
         if number == 1:
             if self.played[0] == 0:

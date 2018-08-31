@@ -71,7 +71,7 @@ class Outside:
                             kit.run()
                             del kit
                             running = False
-        utils.loading_screen(self.screen)
+                            utils.loading_screen(self.screen)
 
     def render_scene(self, number):
         if number == 1:
