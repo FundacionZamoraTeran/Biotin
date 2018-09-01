@@ -4,8 +4,9 @@ import pygame
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils import saves
-from scenarios.saar import hcesar
-from scenarios.saar import hena
+from scenarios.utils.button import Button
+from scenarios.saar import hezer
+from scenarios.saar import hextra
 from actors.player import Player
 from actors.enemy import Enemy
 from actors.platform import Platform
@@ -27,6 +28,7 @@ class Last:
         self.background = utils.load_image("background.png", "saar/stage_3")
         self.background_width = self.background.get_size()[0]
         self.foreground = utils.load_image("foreground.png", "saar/stage_3")
+        self.modal = utils.load_image("modal.png", "saar")
         self.ground = Platform(self.screen,
                                self.clock,
                                (0, 750),
@@ -69,6 +71,8 @@ class Last:
                           (1300, 1940),
                           16,
                           35)
+        self.help = Button((1058, 39), "h1.png", "h2.png", 82, 82, "saar")
+        self.show_help = False
         self.visited = [False, False]
 
     def run(self):
@@ -84,11 +88,21 @@ class Last:
                 self.screen.blit(self.ground.image, (rel_x, 750))
                 self.actors_load(abs(rel_x))
                 self.screen.blit(self.foreground, (rel_x, 624))
+                if self.show_help:
+                    self.screen.blit(self.help.end, (1058, 39))
+                    self.screen.blit(self.modal, (0, 0))
+                else:
+                    self.screen.blit(self.help.base, (1058, 39))
             else:
                 self.screen.blit(self.background, (rel_x - self.background_width, 0))
                 self.screen.blit(self.ground.image, (rel_x - self.background_width, 747))
                 self.actors_load(rel_x)
                 self.screen.blit(self.foreground, (rel_x - self.background_width, 711))
+                if self.show_help:
+                    self.screen.blit(self.help.end, (1058, 39))
+                    self.screen.blit(self.modal, (0, 0))
+                else:
+                    self.screen.blit(self.help.base, (1058, 39))
             pygame.display.flip()
             self.clock.tick(consts.FPS)
 
@@ -107,7 +121,7 @@ class Last:
                         if (self.player.real_x+self.player.rect.width > 810
                                 and self.player.real_x+self.player.rect.width < 935):
                             utils.loading_screen(self.screen)
-                            hus = hena.Hena(self.screen, self.clock, self.character)
+                            hus = hezer.Hezer(self.screen, self.clock, self.character)
                             hus.run()
                             del hus
                             self.visited[0] = True
@@ -117,17 +131,23 @@ class Last:
                         elif (self.player.real_x+self.player.rect.width > 2025 and
                               self.player.real_x+self.player.rect.width < 2165):
                             utils.loading_screen(self.screen)
-                            hus = hcesar.Hcesar(self.screen, self.clock, self.character)
+                            hus = hextra.Hextra(self.screen, self.clock, self.character)
                             hus.run()
                             del hus
-                            self.visited = True
+                            self.visited[1] = True
                             utils.load_bg("nocturne.ogg")
                             pygame.mixer.music.set_volume(consts.BG_VOLUME-0.3)
                             pygame.mixer.music.play(-1, 0.0)
                         elif (self.player.real_x+self.player.rect.width > 2280
                               and self.player.real_x+self.player.rect.width < 2401 and
-                              self.visited):
+                              all(i is True for i in self.visited)):
                             running = False
+                    elif event.key == pygame.K_ESCAPE or event.key == pygame.K_PAGEUP:
+                        self.help.on_press(self.screen)
+                        if self.show_help is False:
+                            self.show_help = True
+                        elif self.show_help:
+                            self.show_help = False
 
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
@@ -147,6 +167,7 @@ class Last:
                 and self.player.real_x+self.player.rect.width < 2165):
             self.interact_2.float(1200)
         if (self.player.real_x+self.player.rect.width > 2280
-                and self.player.real_x+self.player.rect.width < 2401 and self.visited):
+                and self.player.real_x+self.player.rect.width < 2401 and
+                all(i is True for i in self.visited)):
             self.interact_3.float(1200)
         self.player.update()

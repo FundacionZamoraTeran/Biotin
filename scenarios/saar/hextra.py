@@ -9,7 +9,7 @@ from actors.player import Player
 from actors.prompt import Prompt
 
 
-class Hcesar:
+class Hextra:
     """
         Class representing Cesar's house recieves
         a Surface as a screen, and a Clock as clock, and a save slot name
@@ -21,14 +21,14 @@ class Hcesar:
         self.fx_channel.set_volume(consts.FX_VOLUME)
         self.vx_channel = pygame.mixer.Channel(1)
         self.vx_channel.set_volume(consts.VX_VOLUME)
-        self.background = utils.load_image("background.png", "saar/stage_1/hcesar")
+        self.background = utils.load_image("background.png", "saar/stage_3/hextra")
         self.character = character
         self.interact = Prompt(self.screen,
                                self.clock,
-                               (735, 280),
+                               (735, 290),
                                "interact.png",
                                "saar",
-                               (150, 350))
+                               (160, 360))
 
         self.interact_2 = Prompt(self.screen,
                                  self.clock,
@@ -43,37 +43,23 @@ class Hcesar:
                              self.character,
                              1200)
         self.current_slide = 1
-        self.played = [0] * 15
-        self.father = utils.load_image("happy.png", "npc/fcesar")
+        self.played = [0] * 8
+        self.npc = utils.load_image("x.png", "npc/")
         self.conversation = {
-            "1" : utils.load_image("d1.png", "saar/stage_1/hcesar"),
-            "2" : utils.load_image("d2.png", "saar/stage_1/hcesar"),
-            "3" : utils.load_image("d3.png", "saar/stage_1/hcesar"),
-            "4" : utils.load_image("d4.png", "saar/stage_1/hcesar"),
-            "5" : utils.load_image("d5.png", "saar/stage_1/hcesar"),
-            "6" : utils.load_image("d6.png", "saar/stage_1/hcesar"),
-            "7" : utils.load_image("d7.png", "saar/stage_1/hcesar"),
-            "8" : utils.load_image("d8.png", "saar/stage_1/hcesar"),
-            "9" : utils.load_image("d9.png", "saar/stage_1/hcesar"),
-            "10": utils.load_image("d10.png", "saar/stage_1/hcesar"),
-            "11": utils.load_image("d11.png", "saar/stage_1/hcesar"),
-            "12": utils.load_image("d12.png", "saar/stage_1/hcesar"),
-            "13": utils.load_image("d13.png", "saar/stage_1/hcesar")
+            "1" : utils.load_image("d1.png", "saar/stage_3/hextra"),
+            "2" : utils.load_image("d2.png", "saar/stage_3/hextra"),
+            "3" : utils.load_image("d3.png", "saar/stage_3/hextra"),
+            "4" : utils.load_image("d4.png", "saar/stage_3/hextra"),
+            "5" : utils.load_image("d5.png", "saar/stage_3/hextra"),
+            "6" : utils.load_image("d6.png", "saar/stage_3/hextra")
         }
         self.voices = {
-            "1" : utils.load_vx("saar/hcesar/1.ogg"),
-            "2" : utils.load_vx("saar/hcesar/2.ogg"),
-            "3" : utils.load_vx("saar/hcesar/3.ogg"),
-            "4" : utils.load_vx("saar/hcesar/4.ogg"),
-            "5" : utils.load_vx("saar/hcesar/5.ogg"),
-            "6" : utils.load_vx("saar/hcesar/6.ogg"),
-            "7" : utils.load_vx("saar/hcesar/7.ogg"),
-            "8" : utils.load_vx("saar/hcesar/8.ogg"),
-            "9" : utils.load_vx("saar/hcesar/9.ogg"),
-            "10": utils.load_vx("saar/hcesar/10.ogg"),
-            "11": utils.load_vx("saar/hcesar/11.ogg"),
-            "12": utils.load_vx("saar/hcesar/12.ogg"),
-            "13": utils.load_vx("saar/hcesar/13.ogg")
+            "1" : utils.load_vx("saar/hextra/1.ogg"),
+            "2" : utils.load_vx("saar/hextra/2.ogg"),
+            "3" : utils.load_vx("saar/hextra/3.ogg"),
+            "4" : utils.load_vx("saar/hextra/4.ogg"),
+            "5" : utils.load_vx("saar/hextra/5.ogg"),
+            "6" : utils.load_vx("saar/hextra/6.ogg")
         }
 
         self.biotin = {
@@ -83,8 +69,8 @@ class Hcesar:
             "cesar": utils.load_image("down1.png", "cesar")
         }
 
-        self.next = Button((1038, 780), "hcesar/next1.png", "hcesar/next2.png", 123, 94, "saar/stage_1")
-        self.prev = Button((55, 780), "hcesar/prev1.png", "hcesar/prev2.png", 123, 94, "saar/stage_1")
+        self.next = Button((1038, 780), "hextra/next1.png", "hextra/next2.png", 123, 94, "saar/stage_3")
+        self.prev = Button((55, 780), "hextra/prev1.png", "hextra/prev2.png", 123, 94, "saar/stage_3")
 
     def run(self):
         utils.load_bg("house.ogg")
@@ -94,7 +80,7 @@ class Hcesar:
 
         while running:
             self.screen.blit(self.background, (0, 0))
-            self.screen.blit(self.father, (750, 370))
+            self.screen.blit(self.npc, (750, 380))
             self.render_scene(self.current_slide)
             pygame.display.flip()
             self.clock.tick(consts.FPS)
@@ -108,7 +94,7 @@ class Hcesar:
                         if self.current_slide == 1:
                             self.player.direction = "left"
                             self.player.velocity = -abs(self.player.velocity)
-                        elif self.current_slide < 15:
+                        elif self.current_slide < 8:
                             self.vx_channel.stop()
                             self.prev.on_press(self.screen)
                             self.played[self.current_slide-1] = 0
@@ -117,12 +103,12 @@ class Hcesar:
                         if self.current_slide == 1:
                             self.player.direction = "right"
                             self.player.velocity = abs(self.player.velocity)
-                        elif self.current_slide > 1 and self.current_slide < 14:
+                        elif self.current_slide > 1 and self.current_slide < 7:
                             self.vx_channel.stop()
                             self.next.on_press(self.screen)
                             self.played[self.current_slide-1] = 0
                             self.current_slide += 1
-                        elif self.current_slide == 14:
+                        elif self.current_slide == 7:
                             self.vx_channel.stop()
                             self.current_slide = 1
                     elif event.key == pygame.K_DOWN or event.key == pygame.K_KP2:
@@ -158,7 +144,7 @@ class Hcesar:
             self.screen.blit(self.conversation["1"], (0, 617))
             self.screen.blit(self.next.base, (1038, 780))
             self.screen.blit(self.prev.base, (55, 780))
-        elif number < 15:
+        elif number < 8:
             if self.played[number-1] == 0:
                 self.vx_channel.play(self.voices[str(number-1)])
                 self.played[number-1] = 1

@@ -3,6 +3,7 @@ import pygame
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils import saves
+from scenarios.utils.button import Button
 from scenarios.saar import hena
 from scenarios.saar import hcesar
 from scenarios.saar import middle
@@ -31,6 +32,7 @@ class Entrance:
         self.background = utils.load_image("background.png", "saar/stage_1")
         self.background_width = self.background.get_size()[0]
         self.foreground = utils.load_image("foreground.png", "saar/stage_1")
+        self.modal = utils.load_image("modal.png", "saar")
         self.ground = Platform(self.screen,
                                self.clock,
                                (0, 742),
@@ -75,6 +77,8 @@ class Entrance:
                            (1300, 1940),
                            20,
                            35)
+        self.help = Button((1058, 39), "h1.png", "h2.png", 82, 82, "saar")
+        self.show_help = False
         self.visited = [False, False]
 
     def run(self):
@@ -90,11 +94,21 @@ class Entrance:
                 self.screen.blit(self.ground.image, (rel_x, 742))
                 self.actors_load(abs(rel_x))
                 self.screen.blit(self.foreground, (rel_x, 585))
+                if self.show_help:
+                    self.screen.blit(self.help.end, (1058, 39))
+                    self.screen.blit(self.modal, (0, 0))
+                else:
+                    self.screen.blit(self.help.base, (1058, 39))
             else:
                 self.screen.blit(self.background, (rel_x - self.background_width, 0))
                 self.screen.blit(self.ground.image, (rel_x - self.background_width, 742))
                 self.actors_load(rel_x)
                 self.screen.blit(self.foreground, (rel_x - self.background_width, 585))
+                if self.show_help:
+                    self.screen.blit(self.help.end, (1058, 39))
+                    self.screen.blit(self.modal, (0, 0))
+                else:
+                    self.screen.blit(self.help.base, (1058, 39))
             pygame.display.flip()
             self.clock.tick(consts.FPS)
 
@@ -141,6 +155,14 @@ class Entrance:
                             running = False
                             utils.loading_screen(self.screen)
                             #save here
+                            if not self.slot["stages"]["aldea_1"] is True:
+                                saves.save(self.slotname, 2, "Aldea Saar", "aldea_1")
+                    elif event.key == pygame.K_ESCAPE or event.key == pygame.K_PAGEUP:
+                        self.help.on_press(self.screen)
+                        if self.show_help is False:
+                            self.show_help = True
+                        elif self.show_help:
+                            self.show_help = False
 
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:

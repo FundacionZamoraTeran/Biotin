@@ -4,7 +4,8 @@ import pygame
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils import saves
-from scenarios.saar import hcesar
+from scenarios.utils.button import Button
+from scenarios.saar import hdiego
 from scenarios.saar import last
 from actors.player import Player
 from actors.enemy import Enemy
@@ -27,6 +28,7 @@ class Middle:
         self.background = utils.load_image("background.png", "saar/stage_2")
         self.background_width = self.background.get_size()[0]
         self.foreground = utils.load_image("foreground.png", "saar/stage_2")
+        self.modal = utils.load_image("modal.png", "saar")
         self.ground = Platform(self.screen,
                                self.clock,
                                (0, 747),
@@ -64,6 +66,8 @@ class Middle:
                             (1300, 1940),
                             22,
                             35)
+        self.help = Button((1058, 39), "h1.png", "h2.png", 82, 82, "saar")
+        self.show_help = False
         self.visited = False
 
     def run(self):
@@ -79,11 +83,21 @@ class Middle:
                 self.screen.blit(self.ground.image, (rel_x, 747))
                 self.actors_load(abs(rel_x))
                 self.screen.blit(self.foreground, (rel_x, 711))
+                if self.show_help:
+                    self.screen.blit(self.help.end, (1058, 39))
+                    self.screen.blit(self.modal, (0, 0))
+                else:
+                    self.screen.blit(self.help.base, (1058, 39))
             else:
                 self.screen.blit(self.background, (rel_x - self.background_width, 0))
                 self.screen.blit(self.ground.image, (rel_x - self.background_width, 747))
                 self.actors_load(rel_x)
                 self.screen.blit(self.foreground, (rel_x - self.background_width, 711))
+                if self.show_help:
+                    self.screen.blit(self.help.end, (1058, 39))
+                    self.screen.blit(self.modal, (0, 0))
+                else:
+                    self.screen.blit(self.help.base, (1058, 39))
             pygame.display.flip()
             self.clock.tick(consts.FPS)
 
@@ -102,7 +116,7 @@ class Middle:
                         if (self.player.real_x+self.player.rect.width > 2050 and
                                 self.player.real_x+self.player.rect.width < 2190):
                             utils.loading_screen(self.screen)
-                            hus = hcesar.Hcesar(self.screen, self.clock, self.character)
+                            hus = hdiego.Hdiego(self.screen, self.clock, self.character)
                             hus.run()
                             del hus
                             self.visited = True
@@ -117,7 +131,12 @@ class Middle:
                             end.run()
                             del end
                             running = False
-
+                    elif event.key == pygame.K_ESCAPE or event.key == pygame.K_PAGEUP:
+                        self.help.on_press(self.screen)
+                        if self.show_help is False:
+                            self.show_help = True
+                        elif self.show_help:
+                            self.show_help = False
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
                         self.player.direction = "stand"
