@@ -52,7 +52,8 @@ class Middle:
                              (150, 640),
                              self.character,
                              2400,
-                             True)
+                             True,
+                             collisionable=True)
         self.glopop = Enemy(self.screen,
                             self.clock,
                             (1000, 700),
@@ -66,6 +67,9 @@ class Middle:
                             (1300, 1940),
                             22,
                             35)
+        self.platforms_list = pygame.sprite.Group()
+        self.enemies_list = pygame.sprite.Group()
+        self.platforms_list.add(self.ground)
         self.help = Button((1058, 39), "h1.png", "h2.png", 82, 82, "saar")
         self.show_help = False
         self.visited = False
@@ -145,13 +149,24 @@ class Middle:
 
     def actors_load(self, rel_x):
         if self.player.real_x < 1500 and not self.glopop.defeated:
+            if not self.glopop.alive():
+                self.glopop.add(self.enemies_list)
             self.glopop.roam(rel_x)
+        else:
+            if self.glopop.alive():
+                self.glopop.remove(self.enemies_list)
         if self.player.real_x > 1000 and not self.vlopop.defeated:
+            if not self.vlopop.alive():
+                self.vlopop.add(self.enemies_list)
             self.vlopop.roam(rel_x)
+        else:
+            if self.vlopop.alive():
+                self.vlopop.remove(self.enemies_list)
         if (self.player.real_x+self.player.rect.width > 2050
                 and self.player.real_x+self.player.rect.width < 2190):
             self.interact.float(1200)
         if (self.player.real_x+self.player.rect.width > 2280
                 and self.player.real_x+self.player.rect.width < 2401 and self.visited):
             self.interact_2.float(1200)
+        self.player.set_sprite_groups(self.platforms_list, self.enemies_list)
         self.player.update()

@@ -57,7 +57,8 @@ class Last:
                              (150, 640),
                              self.character,
                              2400,
-                             True)
+                             True,
+                             collisionable=True)
         self.menti = Enemy(self.screen,
                            self.clock,
                            (1000, 660),
@@ -71,6 +72,9 @@ class Last:
                           (1300, 1940),
                           16,
                           35)
+        self.platforms_list = pygame.sprite.Group()
+        self.enemies_list = pygame.sprite.Group()
+        self.platforms_list.add(self.ground)
         self.help = Button((1058, 39), "h1.png", "h2.png", 82, 82, "saar")
         self.show_help = False
         self.visited = [False, False]
@@ -157,9 +161,19 @@ class Last:
 
     def actors_load(self, rel_x):
         if self.player.real_x < 1500 and not self.menti.defeated:
+            if not self.menti.alive():
+                self.menti.add(self.enemies_list)
             self.menti.roam(rel_x)
+        else:
+            if self.menti.alive():
+                self.menti.remove(self.enemies_list)
         if self.player.real_x > 1000 and not self.gali.defeated:
+            if not self.gali.alive():
+                self.gali.add(self.enemies_list)
             self.gali.roam(rel_x)
+        else:
+            if self.gali.alive():
+                self.gali.remove(self.enemies_list)
         if (self.player.real_x+self.player.rect.width > 810
                 and self.player.real_x+self.player.rect.width < 935):
             self.interact.float(rel_x)
@@ -170,4 +184,5 @@ class Last:
                 and self.player.real_x+self.player.rect.width < 2401 and
                 all(i is True for i in self.visited)):
             self.interact_3.float(1200)
+        self.player.set_sprite_groups(self.platforms_list, self.enemies_list)
         self.player.update()

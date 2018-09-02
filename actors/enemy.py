@@ -38,7 +38,7 @@ class Enemy(pygame.sprite.Sprite):
         }
         self.direction = "stand"
         self.rect = pygame.Rect(pos, self.sprites["left"][0].get_size())
-        self.rect.topleft = (self.x, self.y)
+        self.rect.topleft = (self.rect.x, self.rect.y)
 
     def control(self, x, y):
         self.x += x
@@ -48,8 +48,6 @@ class Enemy(pygame.sprite.Sprite):
             self.y = 900-self.rect.height
         elif self.y < 0:
             self.y = 0
-
-        self.rect.topleft = (self.x, self.y)
 
     def update(self, rel_x):
         if self.squashing and not self.defeated:
@@ -61,9 +59,11 @@ class Enemy(pygame.sprite.Sprite):
                 self.frame = 0
                 self.defeated = True
                 self.squashing = False
+                self.kill()
             self.screen.blit(self.sprites[self.direction][(self.frame//2)],
                              (self.x - rel_x, self.y))
             self.y += self.squash_vel
+            self.rect.topleft = (self.x-rel_x, self.y)
         else:
             if self.direction == "right" or self.direction == "left":
                 self.control(self.velocity, 0)
@@ -75,7 +75,7 @@ class Enemy(pygame.sprite.Sprite):
             else:
                 self.screen.blit(self.sprites["left"][0],
                                  (self.x, self.y))
-
+            self.rect.topleft = (self.x-rel_x, self.y)
 
     def roam(self, rel_x):
         if self.x+self.rect.width > self.limits[1]:

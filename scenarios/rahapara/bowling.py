@@ -37,6 +37,7 @@ class Bowling:
         self.voices = {
             "1" : utils.load_vx("rahapara/dialogue/1.ogg"),
             "2" : utils.load_vx("rahapara/dialogue/2.ogg"),
+
             "3" : utils.load_vx("rahapara/dialogue/3.ogg"),
             "4" : utils.load_vx("rahapara/dialogue/4.ogg"),
             "5" : utils.load_vx("rahapara/dialogue/5.ogg"),

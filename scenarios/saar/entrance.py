@@ -63,7 +63,8 @@ class Entrance:
                              (150, 640),
                              self.character,
                              2400,
-                             True)
+                             True,
+                             collisionable=True)
         self.gali = Enemy(self.screen,
                           self.clock,
                           (1000, 640),
@@ -75,8 +76,12 @@ class Entrance:
                            (1940, 700),
                            "monsters/lopop",
                            (1300, 1940),
-                           20,
+                           10,
                            35)
+        #collision lists
+        self.platforms_list = pygame.sprite.Group()
+        self.enemies_list = pygame.sprite.Group()
+        self.platforms_list.add(self.ground)
         self.help = Button((1058, 39), "h1.png", "h2.png", 82, 82, "saar")
         self.show_help = False
         self.visited = [False, False]
@@ -157,6 +162,11 @@ class Entrance:
                             #save here
                             if not self.slot["stages"]["aldea_1"] is True:
                                 saves.save(self.slotname, 2, "Aldea Saar", "aldea_1")
+                    elif event.key == pygame.K_SPACE or event.key == pygame.K_PAGEDOWN:
+                        #self.player.jumping = True
+                        self.gali.squashing = True
+                    elif event.key == pygame.K_SPACE or event.key == pygame.K_HOME:
+                        self.lopop.squashing = True
                     elif event.key == pygame.K_ESCAPE or event.key == pygame.K_PAGEUP:
                         self.help.on_press(self.screen)
                         if self.show_help is False:
@@ -172,9 +182,19 @@ class Entrance:
 
     def actors_load(self, rel_x):
         if self.player.real_x < 1500 and not self.gali.defeated:
+            if not self.gali.alive():
+                self.gali.add(self.enemies_list)
             self.gali.roam(rel_x)
+        else:
+            if self.gali.alive():
+                self.gali.remove(self.enemies_list)
         if self.player.real_x > 1000 and not self.lopop.defeated:
+            if not self.lopop.alive():
+                self.lopop.add(self.enemies_list)
             self.lopop.roam(rel_x)
+        else:
+            if self.lopop.alive():
+                self.lopop.remove(self.enemies_list)
         if (self.player.real_x+self.player.rect.width > 620
                 and self.player.real_x+self.player.rect.width < 745):
             self.interact.float(rel_x)
@@ -185,4 +205,5 @@ class Entrance:
                 and self.player.real_x+self.player.rect.width < 2401 and
                 all(i is True for i in self.visited)):
             self.interact_3.float(1200)
+        self.player.set_sprite_groups(self.platforms_list, self.enemies_list)
         self.player.update()
