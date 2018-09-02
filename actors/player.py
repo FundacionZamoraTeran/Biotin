@@ -9,7 +9,7 @@ class Player(pygame.sprite.Sprite):
     """
     def __init__(self, screen, clock, pos, character,
                  stage_width=1200, scrolls=False,
-                 physics=(28, 18, 1.2), collisionable=False):
+                 physics=(28, 250, 1.2), collisionable=False):
         pygame.sprite.Sprite.__init__(self)
 
         self.screen = screen
@@ -25,6 +25,7 @@ class Player(pygame.sprite.Sprite):
         }
         self.velocity = physics[0]
         self.jumping = False
+        self.jump_frames = 0
         self.jump_distance = physics[1]
         self.gravity = physics[2]
 
@@ -41,9 +42,12 @@ class Player(pygame.sprite.Sprite):
             "right": (utils.load_image("right1.png", self.character),
                       utils.load_image("right2.png", self.character),
                       utils.load_image("right3.png", self.character)),
-            "jump": (utils.load_image("jump1.png", self.character),
-                     utils.load_image("jump2.png", self.character),
-                     utils.load_image("jump3.png", self.character)),
+            "jump":{ "right": (utils.load_image("rjump1.png", self.character),
+                               utils.load_image("rjump2.png", self.character),
+                               utils.load_image("rjump3.png", self.character)),
+                     "left": (utils.load_image("ljump1.png", self.character),
+                              utils.load_image("ljump2.png", self.character),
+                              utils.load_image("ljump3.png", self.character))},
             "climb": (utils.load_image("climb1.png", self.character),
                       utils.load_image("climb2.png", self.character))
         }
@@ -77,16 +81,25 @@ class Player(pygame.sprite.Sprite):
             self.collision_enemy()
         else:
             pass
-        if self.jumping is False and self.direction == "right" or self.direction == "left":
+        self.jump()
+        if (self.jumping is False and self.jump_frames == 0) and (self.direction == "right" or self.direction == "left"):
             self.control(self.velocity, 0)
             self.frame += 1
             if self.frame > 5:
                 self.frame = 0
             self.screen.blit(self.sprites[self.direction][(self.frame//2)], (self.rect.x, self.rect.y))
-        elif self.jumping is True and self.direction == "right" or self.direction == "left":
-            self.jump()
         elif self.direction == "stand":
             self.screen.blit(self.sprites["down"][0], (self.rect.x, self.rect.y))
+        if (self.jumping is True or (self.jump_frames > 0 and self.jumping is False)) and (self.direction == "right" or self.direction == "left"):
+            print "entre"
+            self.control(self.velocity, 0)
+            if self.jumping is True and self.jump_frames < 29:
+                self.screen.blit(self.sprites["jump"][self.direction][0], (self.rect.x, self.rect.y))
+            elif self.jump_frames > 0:
+                self.screen.blit(self.sprites["jump"][self.direction][1], (self.rect.x, self.rect.y))
+            else:
+                self.screen.blit(self.sprites["jump"][self.direction][2], (self.rect.x, self.rect.y))
+
         if self.scrolls is True:
             self.scroll()
 
@@ -108,37 +121,40 @@ class Player(pygame.sprite.Sprite):
     def collision_enemy(self): #use this if you dont scroll the background
         for block in self.enemies:
             if self.rect.colliderect(block.rect):
-                # If we are moving right,
-                # set our right side to the left side of the item we hit
-                if self.velocity > 0:
-                    self.rect.right = block.rect.left
-                    self.real_x = self.rect.x
-                elif self.velocity < 0:
-                    # Otherwise if we are moving left, do the opposite.
-                    self.rect.left = block.rect.right
-                    self.real_x = self.rect.x
+                if self.jump_frames == 0:
+                    # If we are moving right,
+                    # set our right side to the left side of the item we hit
+                    if self.velocity > 0:
+                        self.rect.right = block.rect.left
+                        self.real_x = self.rect.x
+                    elif self.velocity < 0:
+                        # Otherwise if we are moving left, do the opposite.
+                        self.rect.left = block.rect.right
+                        self.real_x = self.rect.x
+                else:
+                    block.squashing = True
 
     def scrolled_collision_enemy(self):
         blocks_hit_list = pygame.sprite.spritecollide(self, self.enemies, True)
         for block in blocks_hit_list:
-            self.real_x = 150
-            self.rect.left = 150
-            self.stage["x"] = 0
+            if self.jump_frames == 0:
+                self.real_x = 150
+                self.rect.left = 150
+                self.stage["x"] = 0
+            else:
+                block.squashing = True
 
     def jump(self):
-        if self.rect.y == 0:
-            self.rect.y = 1
+        if self.jumping is True:
+            self.jump_frames += abs(self.velocity)
+            self.rect.y -= abs(self.velocity)
+            if self.jump_frames >= self.jump_distance:
+                self.jumping = False
+        elif self.jumping is False and self.jump_frames > 0:
+            self.jump_frames -= abs(self.velocity)
+            self.rect.y += abs(self.velocity)
         else:
-            self.rect.y += .35
-        # See if we are on the ground.
-        if self.rect.y >= 900 - self.rect.height and self.rect.y >= 0:
-            self.change_y = 0
-            self.rect.y = 900 - self.rect.height
-        self.rect.y += 2
-        platform_hit_list = pygame.sprite.spritecollide(self, self.platforms, False)
-        self.rect.y -= 2
-        if len(platform_hit_list) > 0 or self.rect.bottom >= 900:
-            self.rect.y = -10
+            self.jump_frames = 0
 
     def set_sprite_groups(self, plats, enemies):
         self.platforms = plats

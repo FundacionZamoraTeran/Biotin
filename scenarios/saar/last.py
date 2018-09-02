@@ -152,6 +152,9 @@ class Last:
                             self.show_help = True
                         elif self.show_help:
                             self.show_help = False
+                    elif ((event.key == pygame.K_SPACE or event.key == pygame.K_PAGEDOWN) and
+                          (self.player.jumping is False and self.player.jump_frames == 0)):
+                        self.player.jumping = True
 
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:

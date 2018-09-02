@@ -28,7 +28,7 @@ class Entrance:
         self.vx_channel = pygame.mixer.Channel(1)
         self.vx_channel.set_volume(consts.VX_VOLUME)
         self.next_level = 1
-        self.character = "ena" if self.slot["team_ena"] is True else "ezer"
+        self.character = "ena" if self.slot["team_ena"] is True else "diego"
         self.background = utils.load_image("background.png", "saar/stage_1")
         self.background_width = self.background.get_size()[0]
         self.foreground = utils.load_image("foreground.png", "saar/stage_1")
@@ -141,7 +141,6 @@ class Entrance:
                             pygame.mixer.music.play(-1, 0.0)
                         elif (self.player.real_x+self.player.rect.width > 2140 and
                               self.player.real_x+self.player.rect.width < 2280):
-                            #self.lopop.squashing = True # test to see if monster get squashed
                             utils.loading_screen(self.screen)
                             hus = hcesar.Hcesar(self.screen, self.clock, self.character)
                             hus.run()
@@ -162,11 +161,9 @@ class Entrance:
                             #save here
                             if not self.slot["stages"]["aldea_1"] is True:
                                 saves.save(self.slotname, 2, "Aldea Saar", "aldea_1")
-                    elif event.key == pygame.K_SPACE or event.key == pygame.K_PAGEDOWN:
-                        #self.player.jumping = True
-                        self.gali.squashing = True
-                    elif event.key == pygame.K_SPACE or event.key == pygame.K_HOME:
-                        self.lopop.squashing = True
+                    elif ((event.key == pygame.K_SPACE or event.key == pygame.K_PAGEDOWN) and
+                          (self.player.jumping is False and self.player.jump_frames == 0)):
+                        self.player.jumping = True
                     elif event.key == pygame.K_ESCAPE or event.key == pygame.K_PAGEUP:
                         self.help.on_press(self.screen)
                         if self.show_help is False:

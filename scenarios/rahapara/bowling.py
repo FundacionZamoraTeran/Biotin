@@ -4,6 +4,7 @@ from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils import saves
 from scenarios.utils.button import Button
+from actors.bowl import Bowl
 
 class Bowling:
     """
@@ -24,6 +25,11 @@ class Bowling:
         self.background = utils.load_image("background.png", "rahapara")
         self.modal = utils.load_image("h1.png", "rahapara/help")
         self.current_slide = 1
+
+        self.bowl = Bowl(self.screen,
+                         self.clock,
+                         (100, 500),
+                         30)
 
         self.dialogue = {
             "1" : utils.load_image("d1.png", "rahapara/dialogue"),
@@ -71,14 +77,21 @@ class Bowling:
                     if event.key == pygame.K_RETURN or event.key == pygame.K_END:
                         pass
                     elif event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
-                        pass
+                        self.bowl.direction = "left"
+                        self.bowl.velocity = -abs(self.bowl.velocity)
                     elif event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
-                        pass
+                        self.bowl.direction = "right"
+                        self.bowl.velocity = abs(self.bowl.velocity)
                     elif event.key == pygame.K_ESCAPE or event.key == pygame.K_PAGEUP:
                         pass
+                elif event.type == pygame.KEYUP:
+                    if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
+                        self.bowl.direction = "stand"
+                    elif event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
+                        self.bowl.direction = "stand"
     def render_scene(self, number):
         if number == 1:
-            pass
+            self.bowl.update()
         elif number == 2:
             pass
         elif number > 2:
