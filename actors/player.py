@@ -71,7 +71,6 @@ class Player(pygame.sprite.Sprite):
             self.rect.y = 0
 
     def update(self):
- 
         if self.collisionable and self.scroll:
             self.scrolled_collision_enemy()
         elif self.collisionable and not self.scroll:
@@ -80,7 +79,6 @@ class Player(pygame.sprite.Sprite):
             pass
         if self.jumping is False and self.direction == "right" or self.direction == "left":
             self.control(self.velocity, 0)
-            #self.scrolled_collision_enemy()
             self.frame += 1
             if self.frame > 5:
                 self.frame = 0

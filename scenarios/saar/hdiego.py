@@ -129,12 +129,12 @@ class Hdiego:
                             self.current_slide = 1
                     elif event.key == pygame.K_DOWN or event.key == pygame.K_KP2:
                         if self.current_slide == 1:
-                            if (self.player.x+self.player.rect.width > 770 and
-                                    self.player.x+self.player.rect.width < 915
+                            if (self.player.rect.x+self.player.rect.width > 770 and
+                                    self.player.rect.x+self.player.rect.width < 915
                                     and self.current_slide == 1):
                                 self.current_slide += 1
-                            if (self.player.x+self.player.rect.width > 45
-                                    and self.player.x+self.player.rect.width < 175):
+                            if (self.player.rect.x+self.player.rect.width > 45
+                                    and self.player.rect.x+self.player.rect.width < 175):
                                 running = False
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
@@ -146,11 +146,11 @@ class Hdiego:
     def render_scene(self, number):
         if number == 1:
             self.arrange_team(number)
-            if (self.player.x+self.player.rect.width > 770
-                    and self.player.x+self.player.rect.width < 915):
+            if (self.player.rect.x+self.player.rect.width > 770
+                    and self.player.rect.x+self.player.rect.width < 915):
                 self.interact.float(0)
-            if (self.player.x+self.player.rect.width > 45
-                    and self.player.x+self.player.rect.width < 175):
+            if (self.player.rect.x+self.player.rect.width > 45
+                    and self.player.rect.x+self.player.rect.width < 175):
                 self.interact_2.float(0)
         elif number == 2:
             if self.played[1] == 0:
