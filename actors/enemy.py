@@ -5,7 +5,7 @@ from scenarios.utils import consts
 
 class Enemy(pygame.sprite.Sprite):
     """
-        Class representing the playable character
+        Class representing an enemy character
     """
     def __init__(self, screen, clock, pos, character, limits, velocity=20, s_vel=50, defeated=False):
         pygame.sprite.Sprite.__init__(self)
@@ -36,7 +36,7 @@ class Enemy(pygame.sprite.Sprite):
                       utils.load_image("right2.png", self.character),
                       utils.load_image("right3.png", self.character))
         }
-        self.direction = "stand"
+        self.direction = "left"
         self.rect = pygame.Rect(pos, self.sprites["left"][0].get_size())
         self.rect.topleft = (self.rect.x, self.rect.y)
 
