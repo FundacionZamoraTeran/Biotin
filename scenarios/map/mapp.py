@@ -26,7 +26,7 @@ class Map:
 
         self.session = {
             "stages": self.slot["stages"],
-            "is_new?": True if self.slot["last_level_passed"]["code"] == 2 else False,
+            "is_new?": True if self.slot["last_level_passed"]["code"] == 1 else False,
             "current_level":  self.slot["last_level_passed"]["code"],
             "completed": self.slot["stages"]["completado"]
         }
