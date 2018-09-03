@@ -28,6 +28,7 @@ class Game:
 
         self.title = utils.load_image("title.png", "house/game")
         self.background = utils.load_image("background.png", "house/game")
+        self.minibg = utils.load_image("minigamebg.png", "house/game")
         self.sparkle_1 = utils.load_image("sparkle_1.png", "house/game")
         self.sparkle_2 = utils.load_image("sparkle_2.png", "house/game")
 
@@ -284,11 +285,13 @@ class Game:
             self.screen.blit(self.next.base, (918, 780))
             self.screen.blit(self.prev.base, (25, 780))
         elif number == 5:
+            self.screen.blit(self.minibg, (0,0))
             self.screen.blit(self.title, (190, 50))
             self.screen.blit(self.foods["1"].end, (40, 200))
             self.screen.blit(self.foods["2"].base, (410, 200))
             self.screen.blit(self.foods["3"].base, (780, 200))
         elif number == 6:
+            self.screen.blit(self.minibg, (0,0))
             self.screen.blit(self.food_code["bg"], (180, 90))
             if self.first is True:
                 self.metrics["nutrients_slider"].increase_level(self.screen,
