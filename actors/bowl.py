@@ -36,14 +36,18 @@ class Bowl(pygame.sprite.Sprite):
         self.direction = "stand"
         self.rect = pygame.Rect(pos, self.sprites["left"][0].get_size())
         self.rect.topleft = (self.x, self.rect.y)
-        self.foods = []
+        self.good_food = []
+        self.bad_food = []
+        self.collided = []
+        self.score = 0
+
 
     def control(self, x, y):
         self.rect.x += x
         self.rect.y += y
 
-        if self.rect.x < 0:
-            self.rect.x = 0
+        if self.rect.x < 200:
+            self.rect.x = 200
         elif self.rect.right > consts.WIDTH_SCREEN:
             self.rect.x = consts.WIDTH_SCREEN-self.rect.width
 
@@ -58,19 +62,33 @@ class Bowl(pygame.sprite.Sprite):
             self.frame += 1
             if self.frame > 5:
                 self.frame = 0
-            self.screen.blit(self.sprites[self.direction][(self.frame//2)], (self.rect.x, self.rect.y))
+            adir = self.direction
+            if self.score > 15 and self.score <= 30:
+                adir = "f" + self.direction
+            self.screen.blit(self.sprites[adir][(self.frame//2)], (self.rect.x, self.rect.y))
         elif self.direction == "stand":
-            self.screen.blit(self.sprites["left"][0], (self.rect.x, self.rect.y))
+            if self.score > 15 and self.score <= 30:
+                adir = "fleft"
+            else:
+                adir = "left"
+            self.screen.blit(self.sprites[adir][0], (self.rect.x, self.rect.y))
 
-    def collision_enemy(self): #use this if you dont scroll the background
-        for block in self.foods:
-            if self.rect.colliderect(block.rect):
-                # If we are moving right,
-                # set our right side to the left side of the item we hit
-                if self.velocity > 0:
-                    self.rect.right = block.rect.left
-                    self.real_x = self.rect.x
-                elif self.velocity < 0:
-                    # Otherwise if we are moving left, do the opposite.
-                    self.rect.left = block.rect.right
-                    self.real_x = self.rect.x
+    def set_lists(self, good, bad):
+        self.good_food = good
+        self.bad_food = bad
+
+    def collision_food(self):
+        for block in self.good_food:
+            if self.rect.colliderect(block.rect) and not block in self.collided:
+                self.collided.append(block)
+                self.score += 1
+            if block in self.collided and block.hidden is True:
+                self.collided.remove(block)
+        for block in self.bad_food:
+            if self.rect.colliderect(block.rect) and not block in self.collided:
+                self.collided.append(block)
+                self.score -= 1
+                if self.score < 0:
+                    self.score = 0
+            if block in self.collided and block.hidden is True:
+                self.collided.remove(block)
