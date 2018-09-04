@@ -10,8 +10,8 @@ from actors.prompt import Prompt
 
 class Grain:
     """
-        Class representing the first stage of Saar village, recieves
-        a Surface as a screen, and a Clock as clock, and a save slot name
+        Class representing the second stage of Saar village, recieves
+        a Surface as a screen, and a Clock as clock, and a character name
     """
     def __init__(self, screen, clock, character):
         self.screen = screen
