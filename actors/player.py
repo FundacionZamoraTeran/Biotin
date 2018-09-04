@@ -91,7 +91,6 @@ class Player(pygame.sprite.Sprite):
         elif self.direction == "stand":
             self.screen.blit(self.sprites["down"][0], (self.rect.x, self.rect.y))
         if (self.jumping is True or (self.jump_frames > 0 and self.jumping is False)) and (self.direction == "right" or self.direction == "left"):
-            print "entre"
             self.control(self.velocity, 0)
             if self.jumping is True and self.jump_frames < 29:
                 self.screen.blit(self.sprites["jump"][self.direction][0], (self.rect.x, self.rect.y))
