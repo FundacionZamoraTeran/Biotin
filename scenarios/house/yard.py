@@ -131,7 +131,7 @@ class Yard:
 
     def run(self):
         utils.load_bg("house.ogg")
-        pygame.mixer.music.set_volume(consts.BG_VOLUME-0.3)
+        pygame.mixer.music.set_volume(consts.BG_VOLUME)
         pygame.mixer.music.play(-1, 0.0)
         running = True
 

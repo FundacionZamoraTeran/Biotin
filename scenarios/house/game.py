@@ -113,7 +113,7 @@ class Game:
 
     def run(self):
         utils.load_bg("avant.ogg")
-        pygame.mixer.music.set_volume(consts.BG_VOLUME-0.3)
+        pygame.mixer.music.set_volume(consts.BG_VOLUME)
         pygame.mixer.music.play(-1, 0.0)
         running = True
 

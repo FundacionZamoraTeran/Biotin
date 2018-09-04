@@ -88,7 +88,7 @@ class Entrance:
 
     def run(self):
         utils.load_bg("nocturne.ogg")
-        pygame.mixer.music.set_volume(consts.BG_VOLUME-0.3)
+        pygame.mixer.music.set_volume(consts.BG_VOLUME)
         pygame.mixer.music.play(-1, 0.0)
         running = True
 
@@ -137,7 +137,7 @@ class Entrance:
                             del hus
                             self.visited[0] = True
                             utils.load_bg("nocturne.ogg")
-                            pygame.mixer.music.set_volume(consts.BG_VOLUME-0.3)
+                            pygame.mixer.music.set_volume(consts.BG_VOLUME)
                             pygame.mixer.music.play(-1, 0.0)
                         elif (self.player.real_x+self.player.rect.width > 2140 and
                               self.player.real_x+self.player.rect.width < 2280):
@@ -147,7 +147,7 @@ class Entrance:
                             del hus
                             self.visited[1] = True
                             utils.load_bg("nocturne.ogg")
-                            pygame.mixer.music.set_volume(consts.BG_VOLUME-0.3)
+                            pygame.mixer.music.set_volume(consts.BG_VOLUME)
                             pygame.mixer.music.play(-1, 0.0)
                         elif (self.player.real_x+self.player.rect.width > 2280
                               and self.player.real_x+self.player.rect.width < 2401 and
