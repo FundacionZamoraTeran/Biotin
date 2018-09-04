@@ -47,13 +47,13 @@ class Fruit:
                                  "orange.png",
                                  "sharqii/fruits/prompts",
                                  (400, 600))
-        self.interact_6 = Prompt(self.screen,
+        self.interact_5 = Prompt(self.screen,
                                  self.clock,
                                  (680, 480),
                                  "interact.png",
                                  "sharqii",
                                  (400, 600))#this is the key part
-        self.interact_7 = Prompt(self.screen,
+        self.interact_6 = Prompt(self.screen,
                                  self.clock,
                                  (2280, 480),
                                  "interact.png",
@@ -67,7 +67,7 @@ class Fruit:
                              2400,
                              True)
         self.current_slide = 1
-        self.played = [0] * 14
+        self.played = [0] * 8
         self.conversation = {
             "1" : utils.load_image("d1.png", "sharqii/fruits/"),
             "2" : utils.load_image("d2.png", "sharqii/fruits/"),
@@ -158,21 +158,21 @@ class Fruit:
                                     and self.player.real_x+self.player.rect.width < 1533):
                                 self.current_slide = 4
                                 self.visited[0] = True
-                            if (self.player.real_x+self.player.rect.width > 1627
-                                    and self.player.real_x+self.player.rect.width < 1778):
+                            elif (self.player.real_x+self.player.rect.width > 1627
+                                  and self.player.real_x+self.player.rect.width < 1778):
                                 self.current_slide = 5
                                 self.visited[1] = True
-                            if (self.player.real_x+self.player.rect.width > 1772
-                                    and self.player.real_x+self.player.rect.width < 1900):
+                            elif (self.player.real_x+self.player.rect.width > 1772
+                                  and self.player.real_x+self.player.rect.width < 1900):
                                 self.current_slide = 6
                                 self.visited[2] = True
-                            if (self.player.real_x+self.player.rect.width > 1902
-                                    and self.player.real_x+self.player.rect.width < 2060):
+                            elif (self.player.real_x+self.player.rect.width > 1902
+                                  and self.player.real_x+self.player.rect.width < 2060):
                                 self.current_slide = 7
                                 self.visited[3] = True
-                            if (self.player.real_x+self.player.rect.width > 650
-                                    and self.player.real_x+self.player.rect.width < 796
-                                    and len(filter(lambda x: x is False, self.visited)) == 1):
+                            elif (self.player.real_x+self.player.rect.width > 650
+                                  and self.player.real_x+self.player.rect.width < 796
+                                  and len(filter(lambda x: x is False, self.visited)) == 1):
                                 self.current_slide = 8
                                 self.visited[4] = True
                             elif (self.player.real_x+self.player.rect.width > 2280
@@ -215,23 +215,23 @@ class Fruit:
         if (self.player.real_x+self.player.rect.width > 1372
                 and self.player.real_x+self.player.rect.width < 1533):
             self.interact.float(rel_x)
-        if (self.player.real_x+self.player.rect.width > 1627
-                and self.player.real_x+self.player.rect.width < 1778):
+        elif (self.player.real_x+self.player.rect.width > 1627
+              and self.player.real_x+self.player.rect.width < 1778):
             self.interact_2.float(rel_x)
-        if (self.player.real_x+self.player.rect.width > 1772
-                and self.player.real_x+self.player.rect.width < 1900):
+        elif (self.player.real_x+self.player.rect.width > 1772
+              and self.player.real_x+self.player.rect.width < 1900):
             self.interact_3.float(rel_x)
-        if (self.player.real_x+self.player.rect.width > 1902
-                and self.player.real_x+self.player.rect.width < 2060):
+        elif (self.player.real_x+self.player.rect.width > 1902
+              and self.player.real_x+self.player.rect.width < 2060):
             self.interact_4.float(1200)
-        if (self.player.real_x+self.player.rect.width > 650
-                and self.player.real_x+self.player.rect.width < 796
-                and len(filter(lambda x: x is False, self.visited)) == 1):
-            self.interact_6.float(rel_x)
-        if (self.player.real_x+self.player.rect.width > 2280
-                and self.player.real_x+self.player.rect.width < 2401 and
-                all(i is True for i in self.visited)):
-            self.interact_7.float(1200)
+        elif (self.player.real_x+self.player.rect.width > 650
+              and self.player.real_x+self.player.rect.width < 796
+              and len(filter(lambda x: x is False, self.visited)) == 1):
+            self.interact_5.float(rel_x)
+        elif (self.player.real_x+self.player.rect.width > 2280
+              and self.player.real_x+self.player.rect.width < 2401 and
+              all(i is True for i in self.visited)):
+            self.interact_6.float(1200)
         self.arrange_team(number, rel_x)
 
     def arrange_team(self, number, rel_x):

@@ -73,7 +73,7 @@ class Grain:
                              2400,
                              True)
         self.current_slide = 1
-        self.played = [0] * 14
+        self.played = [0] * 9
         self.conversation = {
             "1" : utils.load_image("d1.png", "sharqii/grains/"),
             "2" : utils.load_image("d2.png", "sharqii/grains/"),
@@ -166,25 +166,25 @@ class Grain:
                                     and self.player.real_x+self.player.rect.width < 1433):
                                 self.current_slide = 5
                                 self.visited[0] = True
-                            if (self.player.real_x+self.player.rect.width > 1577
-                                    and self.player.real_x+self.player.rect.width < 1728):
+                            elif (self.player.real_x+self.player.rect.width > 1577
+                                  and self.player.real_x+self.player.rect.width < 1728):
                                 self.current_slide = 8
                                 self.visited[1] = True
-                            if (self.player.real_x+self.player.rect.width > 1722
-                                    and self.player.real_x+self.player.rect.width < 1850):
+                            elif (self.player.real_x+self.player.rect.width > 1722
+                                  and self.player.real_x+self.player.rect.width < 1850):
                                 self.current_slide = 4
                                 self.visited[2] = True
-                            if (self.player.real_x+self.player.rect.width > 1852
-                                    and self.player.real_x+self.player.rect.width < 2010):
+                            elif (self.player.real_x+self.player.rect.width > 1852
+                                  and self.player.real_x+self.player.rect.width < 2010):
                                 self.current_slide = 6
                                 self.visited[3] = True
-                            if (self.player.real_x+self.player.rect.width > 2012
-                                    and self.player.real_x+self.player.rect.width < 2173):
+                            elif (self.player.real_x+self.player.rect.width > 2012
+                                  and self.player.real_x+self.player.rect.width < 2173):
                                 self.current_slide = 7
                                 self.visited[4] = True
-                            if (self.player.real_x+self.player.rect.width > 980
-                                    and self.player.real_x+self.player.rect.width < 1126
-                                    and len(filter(lambda x: x is False, self.visited)) == 1):
+                            elif (self.player.real_x+self.player.rect.width > 980
+                                  and self.player.real_x+self.player.rect.width < 1126
+                                  and len(filter(lambda x: x is False, self.visited)) == 1):
                                 self.current_slide = 9
                                 self.visited[5] = True
                             elif (self.player.real_x+self.player.rect.width > 2280
@@ -227,25 +227,25 @@ class Grain:
         if (self.player.real_x+self.player.rect.width > 1272
                 and self.player.real_x+self.player.rect.width < 1433):
             self.interact.float(rel_x)
-        if (self.player.real_x+self.player.rect.width > 1577
-                and self.player.real_x+self.player.rect.width < 1728):
+        elif (self.player.real_x+self.player.rect.width > 1577
+              and self.player.real_x+self.player.rect.width < 1728):
             self.interact_2.float(rel_x)
-        if (self.player.real_x+self.player.rect.width > 1722
-                and self.player.real_x+self.player.rect.width < 1850):
+        elif (self.player.real_x+self.player.rect.width > 1722
+              and self.player.real_x+self.player.rect.width < 1850):
             self.interact_3.float(rel_x)
-        if (self.player.real_x+self.player.rect.width > 1852
-                and self.player.real_x+self.player.rect.width < 2010):
+        elif (self.player.real_x+self.player.rect.width > 1852
+              and self.player.real_x+self.player.rect.width < 2010):
             self.interact_4.float(1200)
-        if (self.player.real_x+self.player.rect.width > 2012
-                and self.player.real_x+self.player.rect.width < 2173):
+        elif (self.player.real_x+self.player.rect.width > 2012
+              and self.player.real_x+self.player.rect.width < 2173):
             self.interact_5.float(1200)
-        if (self.player.real_x+self.player.rect.width > 980
-                and self.player.real_x+self.player.rect.width < 1126
-                and len(filter(lambda x: x is False, self.visited)) == 1):
+        elif (self.player.real_x+self.player.rect.width > 980
+              and self.player.real_x+self.player.rect.width < 1126
+              and len(filter(lambda x: x is False, self.visited)) == 1):
             self.interact_6.float(rel_x)
-        if (self.player.real_x+self.player.rect.width > 2280
-                and self.player.real_x+self.player.rect.width < 2401 and
-                all(i is True for i in self.visited)):
+        elif (self.player.real_x+self.player.rect.width > 2280
+              and self.player.real_x+self.player.rect.width < 2401 and
+              all(i is True for i in self.visited)):
             self.interact_7.float(1200)
         self.arrange_team(number, rel_x)
 
