@@ -9,7 +9,9 @@ from gi.repository import Gtk
 from scenarios.menu import menu
 from scenarios.house import outside
 from scenarios.map import mapp
+from scenarios.sharqii import start
 from scenarios.saar import entrance
+from scenarios.rahapara import bowling
 from scenarios.utils import consts
 from actors import player
 
@@ -35,6 +37,8 @@ class Biotin:
             "0": outside.Outside,
             "1": mapp.Map,
             "2": entrance.Entrance,
+            "3": bowling.Bowling,
+            "4": start.Entrance
         }
 
     def reset_clock(self):
@@ -53,7 +57,7 @@ class Biotin:
         del meny
         while self.next_level is not None:
             self.level_selector(self.next_level, slot)
-        #self.level_selector(2, "slot_2")
+        #self.level_selector(4, "diego")
         pygame.quit()
         sys.exit(0)
 
