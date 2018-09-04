@@ -56,8 +56,8 @@ class Grain:
         self.interact_6 = Prompt(self.screen,
                                  self.clock,
                                  (980, 480),
-                                 "interact.png",
-                                 "sharqii",
+                                 "key.png",
+                                 "sharqii/grains/prompts",
                                  (400, 600))#this is the key part
         self.interact_7 = Prompt(self.screen,
                                  self.clock,

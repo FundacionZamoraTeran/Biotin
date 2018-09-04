@@ -44,8 +44,8 @@ class Dairy:
         self.interact_4 = Prompt(self.screen,
                                  self.clock,
                                  (1030, 480),
-                                 "interact.png",
-                                 "sharqii",
+                                 "key.png",
+                                 "sharqii/dairy/prompts",
                                  (400, 600))#this is the key part
         self.interact_5 = Prompt(self.screen,
                                  self.clock,

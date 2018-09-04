@@ -109,7 +109,7 @@ class Menu:
                             load_state = load.Load(self.screen, self.clock)
                             load_state.run()
                             if load_state.level_selected is not None:
-                                self.level_selected = load_state.level_selected
+                                self.level_selected = 1
                                 self.slot_selected = load_state.slot_selected
                                 running = False
                             del load_state

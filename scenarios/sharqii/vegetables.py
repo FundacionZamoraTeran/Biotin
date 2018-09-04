@@ -4,7 +4,7 @@ import pygame
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils.button import Button
-#from scenarios.sharqii import end
+from scenarios.sharqii import end
 from actors.player import Player
 from actors.prompt import Prompt
 
@@ -50,9 +50,9 @@ class Vegetables:
         self.interact_5 = Prompt(self.screen,
                                  self.clock,
                                  (1230, 480),
-                                 "interact.png",
-                                 "sharqii",
-                                 (400, 600))#this is the key part
+                                 "key.png",
+                                 "sharqii/vegetables/prompts",
+                                 (400, 600))
         self.interact_6 = Prompt(self.screen,
                                  self.clock,
                                  (2280, 480),
@@ -181,11 +181,11 @@ class Vegetables:
                                   and self.player.real_x+self.player.rect.width < 2401 and
                                   all(i is True for i in self.visited)):
                                 pass
-                                #utils.loading_screen(self.screen)
-                                #end = end.End(self.screen, self.clock, self.character)
-                                #end.run()
-                                #del end
-                                #running = False
+                                utils.loading_screen(self.screen)
+                                endo = end.End(self.screen, self.clock, self.character)
+                                endo.run()
+                                del endo
+                                running = False
                     elif ((event.key == pygame.K_SPACE or event.key == pygame.K_PAGEDOWN) and
                           (self.player.jumping is False and self.player.jump_frames == 0)):
                         if self.current_slide == 10:

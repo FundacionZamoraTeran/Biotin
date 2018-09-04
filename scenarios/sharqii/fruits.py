@@ -50,8 +50,8 @@ class Fruit:
         self.interact_5 = Prompt(self.screen,
                                  self.clock,
                                  (680, 480),
-                                 "interact.png",
-                                 "sharqii",
+                                 "key.png",
+                                 "sharqii/fruits/prompts",
                                  (400, 600))#this is the key part
         self.interact_6 = Prompt(self.screen,
                                  self.clock,

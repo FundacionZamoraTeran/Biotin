@@ -146,12 +146,15 @@ class Entrance:
                                 #save here
                                 if not self.slot["stages"]["bazar"] is True:
                                     saves.save(self.slotname, 4, "El gran bazar", "bazar")
+                    elif ((event.key == pygame.K_SPACE or event.key == pygame.K_PAGEDOWN) and
+                             (self.player.jumping is False and self.player.jump_frames == 0)):
+                        if self.current_slide == 1:
+                            self.player.jumping = True
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
                         self.player.direction = "stand"
                     elif event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
                         self.player.direction = "stand"
-        utils.loading_screen(self.screen)
 
     def render_scene(self, number):
         if number == 1:
