@@ -28,6 +28,7 @@ class Player(pygame.sprite.Sprite):
         self.jump_frames = 0
         self.jump_distance = physics[1]
         self.gravity = physics[2]
+        self.catching = False
 
         self.sprites = {
             "up": (utils.load_image("up1.png", self.character),
@@ -48,6 +49,12 @@ class Player(pygame.sprite.Sprite):
                      "left": (utils.load_image("ljump1.png", self.character),
                               utils.load_image("ljump2.png", self.character),
                               utils.load_image("ljump3.png", self.character))},
+            "net":{ "right": (utils.load_image("rnet1.png", self.character),
+                               utils.load_image("rnet2.png", self.character),
+                               utils.load_image("rnet3.png", self.character)),
+                     "left": (utils.load_image("lnet1.png", self.character),
+                              utils.load_image("lnet2.png", self.character),
+                              utils.load_image("lnet3.png", self.character))},
             "climb": (utils.load_image("climb1.png", self.character),
                       utils.load_image("climb2.png", self.character))
         }
@@ -82,15 +89,33 @@ class Player(pygame.sprite.Sprite):
         else:
             pass
         self.jump()
-        if (self.jumping is False and self.jump_frames == 0) and (self.direction == "right" or self.direction == "left"):
+        #self.catch()
+        if (self.catching is True) and (self.direction == "right" or self.direction == "left"):
+            self.control(self.velocity, 0)
+            self.frame += 1
+            if self.frame > 29:
+                self.frame = 0
+                self.catching = False
+            self.screen.blit(self.sprites["net"][self.direction][self.frame//10], (self.rect.x, self.rect.y))
+        elif (self.jumping is False and self.jump_frames == 0) and (self.direction == "right" or self.direction == "left"):
             self.control(self.velocity, 0)
             self.frame += 1
             if self.frame > 5:
                 self.frame = 0
             self.screen.blit(self.sprites[self.direction][(self.frame//2)], (self.rect.x, self.rect.y))
+
+        elif self.direction == "stand" and self.catching is True:
+            if self.velocity >0:
+                direction = "right"
+            else:
+                direction = "left"
+            self.frame += 1
+            if self.frame > 29:
+                self.frame = 0
+            self.screen.blit(self.sprites["net"][direction][self.frame//10], (self.rect.x, self.rect.y))
         elif self.direction == "stand":
             self.screen.blit(self.sprites["down"][0], (self.rect.x, self.rect.y))
-        if (self.jumping is True or (self.jump_frames > 0 and self.jumping is False)) and (self.direction == "right" or self.direction == "left"):
+        elif (self.jumping is True or (self.jump_frames > 0 and self.jumping is False)) and (self.direction == "right" or self.direction == "left"):
             self.control(self.velocity, 0)
             if self.jumping is True and self.jump_frames < 29:
                 self.screen.blit(self.sprites["jump"][self.direction][0], (self.rect.x, self.rect.y))
@@ -120,7 +145,9 @@ class Player(pygame.sprite.Sprite):
     def collision_enemy(self): #use this if you dont scroll the background
         for block in self.enemies:
             if self.rect.colliderect(block.rect):
-                if self.jump_frames == 0:
+                if self.catching is True:
+                    block.squashing = True
+                elif self.jump_frames == 0:
                     # If we are moving right,
                     # set our right side to the left side of the item we hit
                     if self.velocity > 0:
@@ -136,7 +163,9 @@ class Player(pygame.sprite.Sprite):
     def scrolled_collision_enemy(self):
         blocks_hit_list = pygame.sprite.spritecollide(self, self.enemies, True)
         for block in blocks_hit_list:
-            if self.jump_frames == 0:
+            if self.catching is True:
+                block.transformed = True
+            elif self.jump_frames == 0:
                 self.real_x = 150
                 self.rect.left = 150
                 self.stage["x"] = 0

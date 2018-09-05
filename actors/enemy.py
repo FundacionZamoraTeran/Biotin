@@ -20,21 +20,23 @@ class Enemy(pygame.sprite.Sprite):
         self.velocity = velocity
         self.defeated = defeated
         self.squashing = False
+        self.transformed = False
         self.squash_vel = s_vel
 
         self.sprites = {
+            "transform": utils.load_image("transform.png", self.character),
             "lsquash": (utils.load_image("lsquash1.png", self.character),
-                     utils.load_image("lsquash2.png", self.character),
-                     utils.load_image("lsquash3.png", self.character)),
+                        utils.load_image("lsquash2.png", self.character),
+                        utils.load_image("lsquash3.png", self.character)),
             "rsquash": (utils.load_image("rsquash1.png", self.character),
-                     utils.load_image("rsquash2.png", self.character),
-                     utils.load_image("rsquash3.png", self.character)),
+                        utils.load_image("rsquash2.png", self.character),
+                        utils.load_image("rsquash3.png", self.character)),
             "left": (utils.load_image("left1.png", self.character),
                      utils.load_image("left2.png", self.character),
                      utils.load_image("left3.png", self.character)),
             "right": (utils.load_image("right1.png", self.character),
                       utils.load_image("right2.png", self.character),
-                      utils.load_image("right3.png", self.character))
+                      utils.load_image("right3.png", self.character)),
         }
         self.direction = "left"
         self.rect = pygame.Rect(pos, self.sprites["left"][0].get_size())
@@ -64,6 +66,20 @@ class Enemy(pygame.sprite.Sprite):
                              (self.x - rel_x, self.y))
             self.y += self.squash_vel
             self.rect.topleft = (self.x-rel_x, self.y)
+        elif self.transformed and not self.defeated:
+            if self.direction == "left":
+                self.direction = "lsquash"
+            else:
+                self.direction = "rsquash"
+            if self.frame > 5:
+                self.frame = 0
+                self.defeated = True
+                self.kill()
+            self.screen.blit(self.sprites[self.direction][(self.frame//2)],
+                             (self.x - rel_x, self.y))
+            #self.y += self.squash_vel
+            self.rect.topleft = (self.x-rel_x, self.y)
+
         else:
             if self.direction == "right" or self.direction == "left":
                 self.control(self.velocity, 0)
