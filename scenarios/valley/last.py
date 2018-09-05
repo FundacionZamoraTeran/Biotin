@@ -6,30 +6,25 @@ from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils import saves
 from scenarios.utils.button import Button
-from scenarios.valley import last
 from actors.player import Player
 from actors.enemy import Enemy
 from actors.prompt import Prompt
 
-class Hill:
+class Last:
     """
-        Class representing the first part of the valley, recieves
+        Class representing the last part of the valley, recieves
         a Surface as a screen, and a Clock as clock, and slot name
     """
-    def __init__(self, screen, clock, slot):
+    def __init__(self, screen, clock, character):
         self.screen = screen
         self.clock = clock
-        self.slotname = slot
-        self.slot = saves.load_slot(slot)
         self.fx_channel = pygame.mixer.Channel(0)
         self.fx_channel.set_volume(consts.FX_VOLUME)
         self.vx_channel = pygame.mixer.Channel(1)
         self.vx_channel.set_volume(consts.VX_VOLUME)
-        self.next_level = 1
-        self.character = "ena" if self.slot["team_ena"] is True else "diego"
+        self.character = character
         self.background = utils.load_image("background.png", "valley")
         self.background_width = self.background.get_size()[0]
-        self.foreground = utils.load_image("foreground.png", "valley")
         self.interact = Prompt(self.screen,
                                self.clock,
                                (2280, 480),
@@ -43,19 +38,20 @@ class Hill:
                              2400,
                              True,
                              collisionable=True)
-        self.gali = Enemy(self.screen,
-                          self.clock,
-                          (1000, 660),
-                          "monsters/gali",
-                          (300, 1000),
-                          16)
-        self.glopop = Enemy(self.screen,
+        self.gali =  Enemy(self.screen,
                             self.clock,
                             (1000, 620),
-                            "monsters/glopop",
+                            "monsters/gali",
                             (300, 1640),
                             24,
                             35)
+        
+        self.glopop = Enemy(self.screen,
+                            self.clock,
+                            (1940, 540),
+                            "monsters/glopop",
+                            (1100, 2200),
+                            26)
         self.lopop = Enemy(self.screen,
                            self.clock,
                            (1940, 700),
@@ -65,10 +61,11 @@ class Hill:
                            35)
         self.menti = Enemy(self.screen,
                            self.clock,
-                           (1940, 540),
+                           (1000, 660),
                            "monsters/menti",
-                           (1100, 2200),
-                           26)
+                           (300, 1000),
+                           16)
+
 
         self.current_slide = 6
         self.played = [0] * 5
@@ -102,13 +99,9 @@ class Hill:
             if rel_x < consts.WIDTH_SCREEN:
                 self.screen.blit(self.background, (rel_x, 0))
                 self.render_scene(self.current_slide, abs(rel_x))
-                if self.current_slide == 6:
-                    self.screen.blit(self.foreground, (rel_x, 714))
             else:
                 self.screen.blit(self.background, (rel_x - self.background_width, 0))
                 self.render_scene(self.current_slide, rel_x)
-                if self.current_slide == 6:
-                    self.screen.blit(self.foreground, (rel_x - self.background_width, 0))
             pygame.display.flip()
             self.clock.tick(consts.FPS)
             while Gtk.events_pending():
@@ -141,14 +134,7 @@ class Hill:
                             if (self.player.real_x+self.player.rect.width > 2280 and
                                     self.player.real_x+self.player.rect.width < 2401):
                                 utils.loading_screen(self.screen)
-                                ext = last.Last(self.screen, self.clock, self.character)
-                                ext.run()
-                                del ext
                                 running = False
-                                utils.loading_screen(self.screen)
-                                #save here
-                                if not self.slot["stages"]["valle"] is True:
-                                    saves.save(self.slotname, 5, "El Valle de granos", "valle")
                     elif ((event.key == pygame.K_SPACE or event.key == consts.K_CROSS) and
                           (self.player.catching is False)):
                         if self.current_slide == 6:
@@ -183,39 +169,39 @@ class Hill:
             self.actors_load(rel_x)
 
     def actors_load(self, rel_x):
-        if self.player.real_x < 2401 and not self.glopop.defeated:
-            if not self.glopop.alive():
-                self.glopop.add(self.enemies_list)
-            if not self.glopop.transformed:
-                self.glopop.roam(rel_x)
-            else:
-                self.glopop.remove(self.enemies_list)
-                self.screen.blit(self.glopop.sprites["transform"], (self.glopop.x-rel_x, 620))
-        else:
-            if self.glopop.alive():
-                self.glopop.remove(self.enemies_list)
-        if self.player.real_x < 1500 and not self.gali.defeated:
+        if self.player.real_x < 2401 and not self.gali.defeated:
             if not self.gali.alive():
                 self.gali.add(self.enemies_list)
             if not self.gali.transformed:
                 self.gali.roam(rel_x)
             else:
                 self.gali.remove(self.enemies_list)
-                self.screen.blit(self.gali.sprites["transform"], (self.gali.x-rel_x, 660))
+                self.screen.blit(self.gali.sprites["transform"], (self.gali.x-rel_x, 620))
         else:
             if self.gali.alive():
                 self.gali.remove(self.enemies_list)
-        if self.player.real_x > 1000 and not self.menti.defeated:
+        if self.player.real_x < 1500 and not self.menti.defeated:
             if not self.menti.alive():
                 self.menti.add(self.enemies_list)
             if not self.menti.transformed:
                 self.menti.roam(rel_x)
             else:
                 self.menti.remove(self.enemies_list)
-                self.screen.blit(self.menti.sprites["transform"], (self.menti.x-rel_x, 540))
+                self.screen.blit(self.menti.sprites["transform"], (self.menti.x-rel_x, 660))
         else:
             if self.menti.alive():
                 self.menti.remove(self.enemies_list)
+        if self.player.real_x > 1000 and not self.glopop.defeated:
+            if not self.glopop.alive():
+                self.glopop.add(self.enemies_list)
+            if not self.glopop.transformed:
+                self.glopop.roam(rel_x)
+            else:
+                self.glopop.remove(self.enemies_list)
+                self.screen.blit(self.glopop.sprites["transform"], (self.glopop.x-rel_x, 540))
+        else:
+            if self.glopop.alive():
+                self.glopop.remove(self.enemies_list)
         if self.player.real_x > 1000 and not self.lopop.defeated:
             if not self.lopop.alive():
                 self.lopop.add(self.enemies_list)
