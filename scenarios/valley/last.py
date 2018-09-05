@@ -29,7 +29,7 @@ class Last:
                                self.clock,
                                (2280, 480),
                                "interact.png",
-                               "sharqii",
+                               "valley",
                                (400, 600))
         self.player = Player(self.screen,
                              self.clock,
@@ -85,8 +85,8 @@ class Last:
         }
 
         self.enemies_list = pygame.sprite.Group()
-        self.next = Button((1038, 780), "next1.png", "next2.png", 123, 94, "sharqii")
-        self.prev = Button((55, 780), "prev1.png", "prev2.png", 123, 94, "sharqii")
+        self.next = Button((1038, 780), "next1.png", "next2.png", 123, 94, "valley")
+        self.prev = Button((55, 780), "prev1.png", "prev2.png", 123, 94, "valley")
 
     def run(self):
         utils.load_bg("valley.ogg")

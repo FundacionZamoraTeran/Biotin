@@ -13,7 +13,7 @@ SLOT3 = saves["saves"]["slot_3"]
 STAGES = ("aldea_1",
           "aldea_2",
           "bazar",
-          "aldea_3",
+          "bosque",
           "valle",
           "espacio",
           "ciudad",

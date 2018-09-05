@@ -13,7 +13,7 @@ from scenarios.sharqii import start
 from scenarios.saar import entrance
 from scenarios.rahapara import bowling
 from scenarios.valley import hill
-#from scenarios.candy import woods
+from scenarios.candy import woods
 #from scenarios.city import fall
 from scenarios.utils import consts
 from actors import player
@@ -43,7 +43,7 @@ class Biotin:
             "3": bowling.Bowling,
             "4": start.Entrance,
             "5": hill.Hill,
-            #"6": woods.Woods
+            "6": woods.Wood
             #"8": fall.Fall
         }
 
@@ -63,7 +63,7 @@ class Biotin:
         # del meny
         # while self.next_level is not None:
         #     self.level_selector(self.next_level, slot)
-        self.level_selector(5, "slot_2")
+        self.level_selector(6, "slot_2")
         pygame.quit()
         sys.exit(0)
 

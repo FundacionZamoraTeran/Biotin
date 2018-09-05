@@ -10,6 +10,8 @@ from scenarios.map import mapp
 from scenarios.sharqii import start
 from scenarios.saar import entrance
 from scenarios.rahapara import bowling
+from scenarios.valley import hill
+from scenarios.candy import woods
 from scenarios.utils import consts
 from actors import player
 
@@ -35,7 +37,9 @@ class Biotin:
             "1": mapp.Map,
             "2": entrance.Entrance,
             "3": bowling.Bowling,
-            "4": start.Entrance
+            "4": start.Entrance,
+            "5": hill.Hill,
+            "6": woods.Wood
         }
 
     def reset_clock(self):
