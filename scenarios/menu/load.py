@@ -63,7 +63,7 @@ class Load:
                 if event.type == pygame.QUIT:
                     sys.exit(0)
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_ESCAPE or event.key == pygame.K_PAGEUP:
+                    if event.key == pygame.K_ESCAPE or event.key == consts.K_CIRCLE:
                         running = False
                     elif event.key == pygame.K_RETURN or event.key == pygame.K_END:
                         if self.slot1.flag is True:

@@ -161,10 +161,10 @@ class Entrance:
                             #save here
                             if not self.slot["stages"]["aldea_1"] is True:
                                 saves.save(self.slotname, 2, "Aldea Saar", "aldea_1")
-                    elif ((event.key == pygame.K_SPACE or event.key == pygame.K_PAGEDOWN) and
+                    elif ((event.key == pygame.K_SPACE or event.key == consts.K_CROSS) and
                           (self.player.jumping is False and self.player.jump_frames == 0)):
                         self.player.jumping = True
-                    elif event.key == pygame.K_ESCAPE or event.key == pygame.K_PAGEUP:
+                    elif event.key == pygame.K_ESCAPE or event.key == consts.K_CIRCLE:
                         self.help.on_press(self.screen)
                         if self.show_help is False:
                             self.show_help = True

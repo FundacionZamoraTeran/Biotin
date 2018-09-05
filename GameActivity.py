@@ -41,34 +41,34 @@ class GameActivity(activity.Activity):
         self._pygamecanvas.run_pygame(self.game.loop())
 
     def build_toolbar(self):
-            toolbar_box = ToolbarBox()
+        toolbar_box = ToolbarBox()
 
-            view_toolbar = ViewToolbar()
-            view_toolbar.connect('go-fullscreen',
-                                 self.view_toolbar_go_fullscreen_cb)
-            view_toolbar.show()
-            view_toolbar_button = ToolbarButton(
-                page=view_toolbar,
-                icon_name='toolbar-view')
-            toolbar_box.toolbar.insert(view_toolbar_button, -1)
-            view_toolbar_button.show()
+        view_toolbar = ViewToolbar()
+        view_toolbar.connect('go-fullscreen',
+                             self.view_toolbar_go_fullscreen_cb)
+        view_toolbar.show()
+        view_toolbar_button = ToolbarButton(
+            page=view_toolbar,
+            icon_name='toolbar-view')
+        toolbar_box.toolbar.insert(view_toolbar_button, -1)
+        view_toolbar_button.show()
 
-            separator = Gtk.SeparatorToolItem()
-            separator.props.draw = False
-            separator.set_expand(True)
-            toolbar_box.toolbar.insert(separator, -1)
-            separator.show()
+        separator = Gtk.SeparatorToolItem()
+        separator.props.draw = False
+        separator.set_expand(True)
+        toolbar_box.toolbar.insert(separator, -1)
+        separator.show()
 
-            stop_button = StopButton(self)
-            stop_button.props.accelerator = '<Ctrl><Shift>Q'
-            toolbar_box.toolbar.insert(stop_button, -1)
-            stop_button.show()
+        stop_button = StopButton(self)
+        stop_button.props.accelerator = '<Ctrl><Shift>Q'
+        toolbar_box.toolbar.insert(stop_button, -1)
+        stop_button.show()
 
-            self.set_toolbar_box(toolbar_box)
-            toolbar_box.show()
+        self.set_toolbar_box(toolbar_box)
+        toolbar_box.show()
 
     def view_toolbar_go_fullscreen_cb(self, view_toolbar):
-            self.fullscreen()
+        self.fullscreen()
 
 class ViewToolbar(Gtk.Toolbar):
     __gtype_name__ = 'ViewToolbar'

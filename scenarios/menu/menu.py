@@ -95,7 +95,7 @@ class Menu:
                 if event.type == pygame.QUIT:
                     running = False
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RETURN or event.key == pygame.K_END:
+                    if event.key == pygame.K_RETURN or event.key == consts.K_CHECK:
                         if self.start.flag is True:
                             start_state = start.Start(self.screen, self.clock)
                             start_state.run()

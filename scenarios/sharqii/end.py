@@ -108,7 +108,7 @@ class End:
                             if (self.player.rect.x+self.player.rect.width > 525
                                     and self.player.rect.x+self.player.rect.width < 655):
                                 self.current_slide = 2
-                    elif ((event.key == pygame.K_SPACE or event.key == pygame.K_PAGEDOWN) and
+                    elif ((event.key == pygame.K_SPACE or event.key == consts.K_CROSS) and
                           (self.player.jumping is False and self.player.jump_frames == 0)):
                         if self.current_slide == 1:
                             self.player.jumping = True

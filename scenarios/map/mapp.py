@@ -123,7 +123,7 @@ class Map:
                     running = False
                     self.next_level = None
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RETURN or event.key == pygame.K_END:
+                    if event.key == pygame.K_RETURN or event.key == consts.K_CHECK:
                         if self.current_slide == 2:
                             if self.selector["ec"].flag is True:
                                 saves.specific_save(self.slotname, "team_ena", True)
@@ -175,7 +175,7 @@ class Map:
                                     self.marker_level += 1
                             else:
                                 self.marker_level = 8
-                    elif event.key == pygame.K_ESCAPE or event.key == pygame.K_PAGEUP:
+                    elif event.key == pygame.K_ESCAPE or event.key == consts.K_CIRCLE:
                         if self.current_slide == 6:
                             self.hud["help"].on_press(self.screen)
                             if self.show_help is False:

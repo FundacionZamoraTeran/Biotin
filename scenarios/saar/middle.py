@@ -135,13 +135,13 @@ class Middle:
                             end.run()
                             del end
                             running = False
-                    elif event.key == pygame.K_ESCAPE or event.key == pygame.K_PAGEUP:
+                    elif event.key == pygame.K_ESCAPE or event.key == consts.K_CIRCLE:
                         self.help.on_press(self.screen)
                         if self.show_help is False:
                             self.show_help = True
                         elif self.show_help:
                             self.show_help = False
-                    elif ((event.key == pygame.K_SPACE or event.key == pygame.K_PAGEDOWN) and
+                    elif ((event.key == pygame.K_SPACE or event.key == consts.K_CROSS) and
                           (self.player.jumping is False and self.player.jump_frames == 0)):
                         self.player.jumping = True
                 elif event.type == pygame.KEYUP:

@@ -127,7 +127,7 @@ class Game:
                     running = False
                     sys.exit(0)
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RETURN or event.key == pygame.K_END:
+                    if event.key == pygame.K_RETURN or event.key == consts.K_CHECK:
                         if self.current_slide == 5:
                             if self.foods["1"].flag is True:
                                 self.selected_food["base"] = "tortilla"

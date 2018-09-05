@@ -173,7 +173,7 @@ class Dairy:
                                 mea.run()
                                 del mea
                                 running = False
-                    elif ((event.key == pygame.K_SPACE or event.key == pygame.K_PAGEDOWN) and
+                    elif ((event.key == pygame.K_SPACE or event.key == consts.K_CROSS) and
                           (self.player.jumping is False and self.player.jump_frames == 0)):
                         if self.current_slide == 9:
                             self.player.jumping = True

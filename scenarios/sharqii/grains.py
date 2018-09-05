@@ -195,7 +195,7 @@ class Grain:
                                 fru.run()
                                 del fru
                                 running = False
-                    elif ((event.key == pygame.K_SPACE or event.key == pygame.K_PAGEDOWN) and
+                    elif ((event.key == pygame.K_SPACE or event.key == consts.K_CROSS) and
                           (self.player.jumping is False and self.player.jump_frames == 0)):
                         if self.current_slide == 10:
                             self.player.jumping = True

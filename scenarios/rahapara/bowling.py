@@ -118,7 +118,7 @@ class Bowling:
                     running = False
                     self.next_level = None
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_RETURN or event.key == pygame.K_END:
+                    if event.key == pygame.K_RETURN or event.key == consts.K_CHECK:
                         pass
                     elif event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
                         if self.current_slide > 3 and self.current_slide < 9:
