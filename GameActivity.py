@@ -40,7 +40,7 @@ class GameActivity(activity.Activity):
         # activity constructor returns).
         self._pygamecanvas.run_pygame(self.game.loop())
 
-        def build_toolbar(self):
+    def build_toolbar(self):
             toolbar_box = ToolbarBox()
 
             view_toolbar = ViewToolbar()
@@ -67,7 +67,7 @@ class GameActivity(activity.Activity):
             self.set_toolbar_box(toolbar_box)
             toolbar_box.show()
 
-        def view_toolbar_go_fullscreen_cb(self, view_toolbar):
+    def view_toolbar_go_fullscreen_cb(self, view_toolbar):
             self.fullscreen()
 
 class ViewToolbar(Gtk.Toolbar):
