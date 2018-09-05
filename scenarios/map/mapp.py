@@ -2,6 +2,7 @@
 # a clash between this and the map function
 import pygame
 
+from gi.repository import Gtk
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils import saves
@@ -118,6 +119,8 @@ class Map:
                 self.screen.blit(self.modal, (0, 0))
             pygame.display.flip()
             self.clock.tick(consts.FPS)
+            while Gtk.events_pending():
+                Gtk.main_iteration()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False

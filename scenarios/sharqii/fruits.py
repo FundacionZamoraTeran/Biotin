@@ -1,6 +1,7 @@
 import sys
 import pygame
 
+from gi.repository import Gtk
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils.button import Button
@@ -62,7 +63,7 @@ class Fruit:
 
         self.player = Player(self.screen,
                              self.clock,
-                             (150, 480),
+                             (150, 530),
                              self.character,
                              2400,
                              True)
@@ -113,7 +114,8 @@ class Fruit:
                 self.render_scene(self.current_slide, rel_x)
             pygame.display.flip()
             self.clock.tick(consts.FPS)
-
+            while Gtk.events_pending():
+                Gtk.main_iteration()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False

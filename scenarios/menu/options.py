@@ -1,6 +1,8 @@
 import sys
 import os
 import pygame
+
+from gi.repository import Gtk
 from scenarios.utils import utils, consts
 from scenarios.menu.button import Button
 from scenarios.menu.slider import Slider
@@ -55,7 +57,9 @@ class Option:
         """ control the actions happening on the Help modal """
         running = True
         while running:
-            for event in [pygame.event.wait()] + pygame.event.get():
+            while Gtk.events_pending():
+                Gtk.main_iteration()
+            for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit(0)
                 if event.type == pygame.KEYDOWN:

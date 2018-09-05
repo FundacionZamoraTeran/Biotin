@@ -1,5 +1,6 @@
 import pygame
 
+from gi.repository import Gtk
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils import saves
@@ -28,7 +29,7 @@ class Entrance:
         self.background = utils.load_image("background.png", "sharqii/entrance")
         self.player = Player(self.screen,
                              self.clock,
-                             (150, 500),
+                             (150, 550),
                              self.character,
                              1200,
                              False)
@@ -100,7 +101,8 @@ class Entrance:
             self.render_scene(self.current_slide)
             pygame.display.flip()
             self.clock.tick(consts.FPS)
-
+            while Gtk.events_pending():
+                Gtk.main_iteration()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False

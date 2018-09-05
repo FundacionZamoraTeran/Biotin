@@ -1,6 +1,7 @@
 import random
 import pygame
 
+from gi.repository import Gtk
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils import saves
@@ -29,7 +30,7 @@ class Bowling:
         self.scoreboard = utils.load_image("score.png", "rahapara")
         self.team = utils.load_image("team.png", "rahapara")
         self.font = utils.load_font("xxii.ttf", 85)
-        self.current_slide = 9
+        self.current_slide = 1
 
         self.bowl = Bowl(self.screen,
                          self.clock,
@@ -113,6 +114,8 @@ class Bowling:
             self.render_scene(self.current_slide)
             pygame.display.flip()
             self.clock.tick(consts.FPS)
+            while Gtk.events_pending():
+                Gtk.main_iteration()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False

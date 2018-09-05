@@ -1,5 +1,6 @@
 import pygame
 
+from gi.repository import Gtk
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.menu.button import Button
@@ -90,8 +91,9 @@ class Menu:
             self.screen.blit(self.help_but.base, (1050, 0))
             pygame.display.flip()
             self.clock.tick(consts.FPS)
-
-            for event in [pygame.event.wait()] + pygame.event.get():
+            while Gtk.events_pending():
+                Gtk.main_iteration()
+            for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
                 if event.type == pygame.KEYDOWN:

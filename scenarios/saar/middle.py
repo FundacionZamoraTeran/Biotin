@@ -1,6 +1,7 @@
 import sys
 import pygame
 
+from gi.repository import Gtk
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils import saves
@@ -104,7 +105,8 @@ class Middle:
                     self.screen.blit(self.help.base, (1058, 39))
             pygame.display.flip()
             self.clock.tick(consts.FPS)
-
+            while Gtk.events_pending():
+                Gtk.main_iteration()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False

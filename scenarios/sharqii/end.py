@@ -1,6 +1,7 @@
 import sys
 import pygame
 
+from gi.repository import Gtk
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils import saves
@@ -28,7 +29,7 @@ class End:
         self.lock = utils.load_image("lock.png", "sharqii/end")
         self.player = Player(self.screen,
                              self.clock,
-                             (150, 500),
+                             (150, 550),
                              self.character,
                              1200,
                              False)
@@ -72,7 +73,8 @@ class End:
             self.render_scene(self.current_slide)
             pygame.display.flip()
             self.clock.tick(consts.FPS)
-
+            while Gtk.events_pending():
+                Gtk.main_iteration()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
@@ -124,7 +126,14 @@ class End:
             if (self.player.rect.x+self.player.rect.width > 525
                     and self.player.rect.x+self.player.rect.width < 655):
                 self.interact.float(0)
-        elif 1 < number < 4:
+        elif number == 2:
+            if self.played[1] == 0:
+                self.vx_channel.play(self.voices[str(number-1)])
+                self.played[1] = 1
+            self.arrange_team()
+            self.screen.blit(self.conversation[str(number-1)], (0, 617))
+            self.screen.blit(self.next.base, (1038, 780))
+        elif number == 3:
             if self.played[number-1] == 0:
                 self.vx_channel.play(self.voices[str(number-1)])
                 self.played[number-1] = 1
