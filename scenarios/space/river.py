@@ -7,7 +7,7 @@ from scenarios.utils import consts
 from scenarios.utils import saves
 from scenarios.utils.button import Button
 from scenarios.space import asteroid
-#from scenarios.space import island
+from scenarios.space import dam
 from actors.boat import Boat
 from actors.prompt import Prompt
 
@@ -118,16 +118,15 @@ class River:
                                 self.player.update_sprites()
                                 self.player.velocity = abs(self.player.velocity)
                             if (950 < self.player.rect.right < 1300) and self.strong:
-                                pass
-                                # utils.loading_screen(self.screen)
-                                # isl = last.Last(self.screen, self.clock, self.character)
-                                # isl.run()
-                                # del isl
-                                # running = False
-                                # utils.loading_screen(self.screen)
-                                # #save here
-                                # if not self.slot["stages"]["espacio"] is True:
-                                #     saves.save(self.slotname, 7, "El Espacio", "espacio")
+                                utils.loading_screen(self.screen)
+                                dam = dam.Dam(self.screen, self.clock, self.character)
+                                dam.run()
+                                del dam
+                                running = False
+                                utils.loading_screen(self.screen)
+                                #save here
+                                if not self.slot["stages"]["espacio"] is True:
+                                    saves.save(self.slotname, 7, "El Espacio", "espacio")
                     elif ((event.key == pygame.K_SPACE or event.key == consts.K_CROSS) and
                           (self.player.catching is False)):
                         if self.current_slide == 8:

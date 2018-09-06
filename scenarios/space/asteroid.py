@@ -20,7 +20,6 @@ class Asteroid:
         self.fx_channel.set_volume(consts.FX_VOLUME)
         self.vx_channel = pygame.mixer.Channel(1)
         self.vx_channel.set_volume(consts.VX_VOLUME)
-        self.next_level = 1
         self.character = character
         self.background_1 = utils.load_image("background1.png", "space/asteroid")
         self.background_2 = utils.load_image("background2.png", "space/asteroid")
@@ -44,7 +43,7 @@ class Asteroid:
                              False)
 
         self.current_slide = 1
-        self.played = [0] * 8
+        self.played = [0] * 2
         self.conversation = {
             "1" : utils.load_image("d1.png", "space/asteroid/dialogue"),
             "2" : utils.load_image("d2.png", "space/asteroid/dialogue"),
