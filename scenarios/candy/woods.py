@@ -112,7 +112,7 @@ class Wood:
                             utils.loading_screen(self.screen)
                             # save here
                             if not self.slot["stages"]["bosque"] is True:
-                                saves.save(self.slotname, 6, "El Bosque de caramelo", "bosque")
+                                saves.save(self.slotname, 6, "Bosque de caramelo", "bosque")
                     elif ((event.key == pygame.K_SPACE or event.key == consts.K_CROSS) and
                           (self.player.catching is False)):
                         self.player.catching = True

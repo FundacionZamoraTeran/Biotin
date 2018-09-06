@@ -70,14 +70,14 @@ class Hill:
                            (1100, 2200),
                            26)
 
-        self.current_slide = 6
+        self.current_slide = 1
         self.played = [0] * 5
         self.conversation = {
             "1" : utils.load_image("d1.png", "valley/dialogue"),
             "2" : utils.load_image("d2.png", "valley/dialogue"),
             "3" : utils.load_image("d3.png", "valley/dialogue"),
             "4" : utils.load_image("d4.png", "valley/dialogue"),
-            "5" : utils.load_image("d5.png", "valley/dialogue"),
+            "5" : utils.load_image("d5.png", "valley/dialogue")
         }
         self.voices = {
             "1" : utils.load_vx("valley/1.ogg"),

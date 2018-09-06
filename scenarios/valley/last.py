@@ -66,24 +66,6 @@ class Last:
                            (300, 1000),
                            16)
 
-
-        self.current_slide = 6
-        self.played = [0] * 5
-        self.conversation = {
-            "1" : utils.load_image("d1.png", "valley/dialogue"),
-            "2" : utils.load_image("d2.png", "valley/dialogue"),
-            "3" : utils.load_image("d3.png", "valley/dialogue"),
-            "4" : utils.load_image("d4.png", "valley/dialogue"),
-            "5" : utils.load_image("d5.png", "valley/dialogue"),
-        }
-        self.voices = {
-            "1" : utils.load_vx("valley/1.ogg"),
-            "2" : utils.load_vx("valley/2.ogg"),
-            "3" : utils.load_vx("valley/3.ogg"),
-            "4" : utils.load_vx("valley/4.ogg"),
-            "5" : utils.load_vx("valley/5.ogg")
-        }
-
         self.enemies_list = pygame.sprite.Group()
         self.next = Button((1038, 780), "next1.png", "next2.png", 123, 94, "valley")
         self.prev = Button((55, 780), "prev1.png", "prev2.png", 123, 94, "valley")
@@ -98,10 +80,10 @@ class Last:
             rel_x = self.player.stage["x"]
             if rel_x < consts.WIDTH_SCREEN:
                 self.screen.blit(self.background, (rel_x, 0))
-                self.render_scene(self.current_slide, abs(rel_x))
+                self.actors_load(abs(rel_x))
             else:
                 self.screen.blit(self.background, (rel_x - self.background_width, 0))
-                self.render_scene(self.current_slide, rel_x)
+                self.actors_load(rel_x)
             pygame.display.flip()
             self.clock.tick(consts.FPS)
             while Gtk.events_pending():
@@ -112,61 +94,28 @@ class Last:
                     sys.exit(0)
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
-                        if 1 < self.current_slide < 6:
-                            self.vx_channel.stop()
-                            self.prev.on_press(self.screen)
-                            self.played[self.current_slide-1] = 0
-                            self.current_slide -= 1
-                        elif self.current_slide == 6:
-                            self.player.direction = "left"
-                            self.player.velocity = -abs(self.player.velocity)
+                        self.player.direction = "left"
+                        self.player.velocity = -abs(self.player.velocity)
                     elif event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
-                        if  self.current_slide < 6:
-                            self.vx_channel.stop()
-                            self.next.on_press(self.screen)
-                            self.played[self.current_slide-1] = 0
-                            self.current_slide += 1
-                        elif self.current_slide == 6:
-                            self.player.direction = "right"
-                            self.player.velocity = abs(self.player.velocity)
+                        self.player.direction = "right"
+                        self.player.velocity = abs(self.player.velocity)
                     elif event.key == pygame.K_DOWN or event.key == pygame.K_KP2:
-                        if self.current_slide == 6:
-                            if (self.player.real_x+self.player.rect.width > 2280 and
-                                    self.player.real_x+self.player.rect.width < 2401):
-                                utils.loading_screen(self.screen)
-                                running = False
+                        if (self.player.real_x+self.player.rect.width > 2280 and
+                                self.player.real_x+self.player.rect.width < 2401):
+                            utils.loading_screen(self.screen)
+                            running = False
                     elif ((event.key == pygame.K_SPACE or event.key == consts.K_CROSS) and
                           (self.player.catching is False)):
-                        if self.current_slide == 6:
-                            self.player.catching = True
+                        self.player.catching = True
 
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
-                        if self.current_slide == 6:
-                            self.player.direction = "stand"
+                        self.player.direction = "stand"
                     elif event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
-                        if self.current_slide == 6:
-                            self.player.direction = "stand"
+                        self.player.direction = "stand"
                     elif ((event.key == pygame.K_SPACE or event.key == consts.K_CROSS) and
                           (self.player.catching is True)):
-                        if self.current_slide == 6:
-                            self.player.catching = False
-    def render_scene(self, number, rel_x):
-        if number == 1:
-            if self.played[number-1] == 0:
-                self.vx_channel.play(self.voices["1"])
-                self.played[number-1] = 1
-            self.screen.blit(self.conversation["1"], (0, 0))
-            self.screen.blit(self.next.base, (1038, 780))
-        elif 1 < number < 6:
-            if self.played[number-1] == 0:
-                self.vx_channel.play(self.voices[str(number)])
-                self.played[number-1] = 1
-            self.screen.blit(self.conversation[str(number)], (0, 0))
-            self.screen.blit(self.next.base, (1038, 780))
-            self.screen.blit(self.prev.base, (55, 780))
-        elif number == 6:
-            self.actors_load(rel_x)
+                        self.player.catching = False
 
     def actors_load(self, rel_x):
         if self.player.real_x < 2401 and not self.gali.defeated:
