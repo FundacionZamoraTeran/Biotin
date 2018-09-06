@@ -17,7 +17,6 @@ from scenarios.candy import woods
 from scenarios.space import river
 from scenarios.city import fall
 from scenarios.utils import consts
-from actors import player
 
 pygame.mixer.pre_init(44100, -16, 4, 2048)
 pygame.mixer.init()

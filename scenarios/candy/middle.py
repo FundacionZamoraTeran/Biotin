@@ -23,7 +23,6 @@ class Middle:
         self.fx_channel.set_volume(consts.FX_VOLUME)
         self.vx_channel = pygame.mixer.Channel(1)
         self.vx_channel.set_volume(consts.VX_VOLUME)
-        self.next_level = 1
         self.character = character
         self.background = utils.load_image("mid.png", "candy")
         self.background_width = self.background.get_size()[0]

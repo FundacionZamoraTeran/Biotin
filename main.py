@@ -13,7 +13,7 @@ from scenarios.rahapara import bowling
 from scenarios.valley import hill
 from scenarios.candy import woods
 from scenarios.space import river
-#from scenarios.city import fall
+from scenarios.city import fall
 from scenarios.utils import consts
 from actors import player
 
@@ -43,7 +43,7 @@ class Biotin:
             "5": hill.Hill,
             "6": woods.Wood,
             "7": river.River
-            #"8": fall.Fall
+            "8": fall.Fall
         }
 
     def reset_clock(self):
