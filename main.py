@@ -42,7 +42,7 @@ class Biotin:
             "4": start.Entrance,
             "5": hill.Hill,
             "6": woods.Wood,
-            "7": river.River
+            "7": river.River,
             "8": fall.Fall
         }
 
