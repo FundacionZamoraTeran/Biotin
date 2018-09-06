@@ -1,1 +1,7 @@
-{"saves": {"slot_3": null, "slot_2": {"team_ena": true, "food": {"base": "bread", "extra": "cereal"}, "stages": {"casa": true, "espacio": false, "valle": false, "cuerpo": false, "ciudad": false, "bazar": false, "completado": false, "aldea_1": false, "aldea_3": false, "aldea_2": false}, "last_level_passed": {"code": 1, "name": "Casa"}}, "slot_1": {"team_ena": false, "food": null, "stages": {"casa": true, "espacio": false, "valle": false, "cuerpo": false, "ciudad": false, "bazar": false, "castillo": false, "completado": false, "aldea_1": true, "aldea_3": false, "aldea_2": true}, "last_level_passed": {"code": 3, "name": "Aldea Rahapara"}}}}
+{
+  "saves": {
+    "slot_3": null,
+    "slot_2": null,
+    "slot_1": null
+  }
+}
