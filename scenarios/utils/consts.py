@@ -4,7 +4,7 @@ MAIN_DIR = os.path.split(os.path.abspath(__file__))[0]
 
 # General constants
 
-FPS = 20
+FPS = 60
 WIDTH_SCREEN = 1200
 HEIGHT_SCREEN = 900
 RESOLUTION = (WIDTH_SCREEN, HEIGHT_SCREEN)
