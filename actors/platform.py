@@ -19,4 +19,7 @@ class Platform(pygame.sprite.Sprite):
         self.rect = pygame.Rect(pos, self.image.get_size())
         self.rect.topleft = pos
 
+    def update(self):
+        self.screen.blit(self.image, (self.rect.x, self.rect.y))
+
     # might expand

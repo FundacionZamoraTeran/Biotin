@@ -43,7 +43,7 @@ class Asteroid:
                              False)
 
         self.current_slide = 1
-        self.played = [0] * 2
+        self.played = [0] * 8
         self.conversation = {
             "1" : utils.load_image("d1.png", "space/asteroid/dialogue"),
             "2" : utils.load_image("d2.png", "space/asteroid/dialogue"),
@@ -109,7 +109,7 @@ class Asteroid:
                             if 250 < self.player.rect.left < 350:
                                 self.current_slide = 3
                                 self.visited = True
-                            if (750 < self.player.rect.left < 850) and self.visited:
+                            if (650 < self.player.rect.left < 950) and self.visited:
                                 running = False
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:

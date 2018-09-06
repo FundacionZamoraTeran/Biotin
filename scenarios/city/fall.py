@@ -7,7 +7,7 @@ from scenarios.utils import dialogue
 from scenarios.utils.button import Button
 from scenarios.house import kitchen
 
-class Outside:
+class Fall:
     """
         Class representing the prologue comics before minigame, recieves
         a Surface as a screen, and a Clock as clock

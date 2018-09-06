@@ -119,9 +119,9 @@ class River:
                                 self.player.velocity = abs(self.player.velocity)
                             if (950 < self.player.rect.right < 1300) and self.strong:
                                 utils.loading_screen(self.screen)
-                                dam = dam.Dam(self.screen, self.clock, self.character)
-                                dam.run()
-                                del dam
+                                damm = dam.Dam(self.screen, self.clock, self.character)
+                                damm.run()
+                                del damm
                                 running = False
                                 utils.loading_screen(self.screen)
                                 #save here

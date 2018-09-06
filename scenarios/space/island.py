@@ -5,6 +5,7 @@ from gi.repository import Gtk
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils.button import Button
+from scenarios.space import game
 from actors.player import Player
 from actors.prompt import Prompt
 
@@ -104,11 +105,12 @@ class Island:
                             self.played[self.current_slide-1] = 0
                             self.current_slide += 1
                         elif self.current_slide == 11:
+                            self.vx_channel.stop()
                             utils.loading_screen(self.screen)
-                            # isl = island.Island(self.screen, self.clock, self.character)
-                            # isl.run()
-                            # del isl
-                            # running = False
+                            gam = game.Game(self.screen, self.clock, self.character)
+                            gam.run()
+                            del gam
+                            running = False
 
     def render_scene(self, number):
         if number == 1:
