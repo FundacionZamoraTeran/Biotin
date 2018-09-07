@@ -25,6 +25,7 @@ class Fall:
         self.character = "ena" if self.slot["team_ena"] is True else "diego"
         self.background = utils.load_image("background.png", "city/fall/")
         self.plant = utils.load_image("plant.png", "city/fall/")
+        self.next_level = 1
         self.frame = 0
         self.current_slide = 1
         self.played = [0] * 21

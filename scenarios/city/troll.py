@@ -5,6 +5,7 @@ from gi.repository import Gtk
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils.button import Button
+from scenarios.city import road
 
 class Troll:
     """
@@ -85,6 +86,10 @@ class Troll:
                             self.current_slide += 1
                         elif self.current_slide == 11:
                             self.vx_channel.stop()
+                            utils.loading_screen(self.screen)
+                            roa = road.Road(self.screen, self.clock, self.character)
+                            roa.run()
+                            del roa
                             running = False
 
     def render_scene(self, number):
