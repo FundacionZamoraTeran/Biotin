@@ -95,7 +95,7 @@ class End:
                             self.no.on_press(self.screen)
                             self.next_level = 1
                             running = False
-                        elif self.current_slide > 1:
+                        elif 1 < self.current_slide < 15:
                             self.vx_channel.stop()
                             self.prev.on_press(self.screen)
                             self.played[self.current_slide-1] = 0
