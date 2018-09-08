@@ -10,7 +10,6 @@ STAGES = ("casa",
           "espacio",
           "ciudad",
           "castillo",
-          "cuerpo",
           "completado")
 
 class SaveState(pygame.sprite.Sprite):
