@@ -259,7 +259,7 @@ class Map:
             pos = (585, 10) # moon
         elif self.marker_level == 7:
             pos = (730, 650) # city
-        elif self.session["completed"] or self.marker_level == 8:
+        elif self.session["completed"] or self.marker_level >= 8:
             pos = (1073, 540) # castle
         self.frame += 1
         if self.frame > 5:

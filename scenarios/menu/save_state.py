@@ -9,6 +9,7 @@ STAGES = ("casa",
           "valle",
           "espacio",
           "ciudad",
+          "castillo",
           "cuerpo",
           "completado")
 

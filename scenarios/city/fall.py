@@ -127,7 +127,7 @@ class Fall:
                             utils.loading_screen(self.screen)
                             # save here
                             if not self.slot["stages"]["ciudad"] is True:
-                                saves.save(self.slotname, 6, "Al Mohren", "ciudad")
+                                saves.save(self.slotname, 8, "Al Mohren", "ciudad")
 
     def render_scene(self, number):
         if number == 1:

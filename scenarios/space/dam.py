@@ -6,8 +6,6 @@ from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils.button import Button
 from scenarios.space import island
-from actors.player import Player
-from actors.prompt import Prompt
 
 class Dam:
     """
@@ -23,25 +21,6 @@ class Dam:
         self.vx_channel.set_volume(consts.VX_VOLUME)
         self.character = character
         self.background = utils.load_image("background.png", "space/dam")
-        self.interact = Prompt(self.screen,
-                               self.clock,
-                               (300, 330),
-                               "interact.png",
-                               "space",
-                               (250, 400))
-        self.interact_2 = Prompt(self.screen,
-                                 self.clock,
-                                 (850, 330),
-                                 "interact.png",
-                                 "space",
-                                 (250, 400))
-        self.player = Player(self.screen,
-                             self.clock,
-                             (850, 450),
-                             self.character,
-                             1200,
-                             False)
-
         self.current_slide = 1
         self.played = [0] * 2
         self.conversation = {

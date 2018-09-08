@@ -18,6 +18,7 @@ STAGES = ("aldea_1",
           "espacio",
           "ciudad",
           "cuerpo",
+          "castillo",
           "completado")
 
 def load():

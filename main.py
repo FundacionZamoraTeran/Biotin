@@ -14,6 +14,9 @@ from scenarios.valley import hill
 from scenarios.candy import woods
 from scenarios.space import river
 from scenarios.city import fall
+from scenarios.castle import lab
+from scenarios.luis import descend
+from scenarios.epilogue import epilogue
 from scenarios.utils import consts
 from actors import player
 
@@ -43,7 +46,10 @@ class Biotin:
             "5": hill.Hill,
             "6": woods.Wood,
             "7": river.River,
-            "8": fall.Fall
+            "8": fall.Fall,
+            "9": lab.Lab,
+            "10": descend.Descend,
+            "11": epilogue.Epilogue
         }
 
     def reset_clock(self):

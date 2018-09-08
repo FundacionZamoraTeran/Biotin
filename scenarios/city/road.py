@@ -12,7 +12,7 @@ from actors.prompt import Prompt
 
 class Road:
     """
-        Class representing the first stage of City village, recieves
+        Class representing the last stage of City village, recieves
         a Surface as a screen, and a Clock as clock, and a character name
     """
     def __init__(self, screen, clock, character):

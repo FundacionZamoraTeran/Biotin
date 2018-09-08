@@ -12,7 +12,6 @@ class Help:
                                       flags=pygame.SRCALPHA).convert_alpha()
         self.clock = clock
         self.background = utils.load_image("help/background.png", "menu")
-        self.title = utils.load_image("help/title.png", "menu")
         self.exit_button = Button(1030,
                                   120,
                                   "exit.png",
@@ -37,7 +36,6 @@ class Help:
                         running = False
 
             self.screen2.blit(self.background, (0, 0))
-            self.screen2.blit(self.title, (520, 160))
             self.screen.blit(self.screen2, (0, 0))
             self.screen.blit(self.exit_button.base, (1030, 120))
             pygame.display.flip()
