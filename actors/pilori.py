@@ -18,11 +18,13 @@ class Pilori(pygame.sprite.Sprite):
         self.limits = limits
         self.velocity = velocity
         self.defeated = defeated
-        self.health = 8
+        self.health = 16
         self.image = utils.load_image("pilori.png","castle/game")
         self.rect = pygame.Rect(pos, self.image.get_size())
         self.rect.topleft = (self.rect.x, self.rect.y)
         self.projectile = None
+        self.vx_channel = pygame.mixer.Channel(1)
+        self.vx_channel.set_volume(consts.VX_VOLUME)
 
     def control(self, x, y):
         self.rect.x += x
@@ -50,3 +52,4 @@ class Pilori(pygame.sprite.Sprite):
             self.health -= 1
             self.projectile.throw = False
             self.projectile.rect.y = 900
+            self.vx_channel.play(utils.load_fx("goodthrow.ogg"))
