@@ -140,7 +140,7 @@ class Grain:
                             self.prev.on_press(self.screen)
                             self.played[self.current_slide-1] = 0
                             self.current_slide -= 1
-                        elif 3 < self.current_slide < 10:
+                        elif 3 < self.current_slide < 9:
                             self.vx_channel.stop()
                             self.prev.on_press(self.screen)
                             self.played[self.current_slide-1] = 0

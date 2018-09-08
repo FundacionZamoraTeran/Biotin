@@ -126,7 +126,7 @@ class Meat:
                             self.prev.on_press(self.screen)
                             self.played[self.current_slide-1] = 0
                             self.current_slide -= 1
-                        elif 4 < self.current_slide < 9:
+                        elif 4 < self.current_slide < 8:
                             self.vx_channel.stop()
                             self.prev.on_press(self.screen)
                             self.played[self.current_slide-1] = 0
