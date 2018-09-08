@@ -5,7 +5,7 @@ from gi.repository import Gtk
 from scenarios.utils import utils
 from scenarios.utils import consts
 from scenarios.utils.button import Button
-#from scenarios.space import moon
+from scenarios.space import moon
 from actors.player import Player
 from actors.prompt import Prompt
 
@@ -61,9 +61,9 @@ class Island2:
                         elif self.current_slide == 4:
                             self.vx_channel.stop()
                             utils.loading_screen(self.screen)
-                            # mon = moon.Moon(self.screen, self.clock, self.character)
-                            # mon.run()
-                            # del mon
+                            mon = moon.Moon(self.screen, self.clock, self.character)
+                            mon.run()
+                            del mon
                             running = False
 
     def render_scene(self, number):
