@@ -3,4 +3,4 @@ name = Biotin
 bundle_id = org.fundacionzt.biotin
 exec = sugar-activity GameActivity.GameActivity
 icon = bio
-activity_version = 0.1
+activity_version = 1.0
