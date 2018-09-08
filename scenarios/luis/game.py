@@ -25,6 +25,8 @@ class Game:
         self.vx_channel.set_volume(consts.VX_VOLUME)
         self.character = character
         self.background = utils.load_image("background.png", "luis/game")
+        self.background_2 = utils.load_image("background2.png", "luis/game")
+        self.background_3 = utils.load_image("background3.png", "luis/game")
         self.help = utils.load_image("help.png", "luis/game")
         self.congrats = utils.load_image("congrats.png", "luis/game")
         self.player = Player(self.screen,
@@ -140,14 +142,14 @@ class Game:
             if self.played[number-3] == 0:
                 self.vx_channel.play(self.voices[str(number-3)])
                 self.played[number-3] = 1
-            self.screen.blit(self.background, (0, 0))
+            self.screen.blit(self.background_2, (0, 0))
             self.screen.blit(self.conversation[str(number-3)], (0, 617))
             self.screen.blit(self.next.base, (1038, 780))
         elif 4 < number < 7:
             if self.played[number-3] == 0:
                 self.vx_channel.play(self.voices[str(number-3)])
                 self.played[number-3] = 1
-            self.screen.blit(self.background, (0, 0))
+            self.screen.blit(self.background_3, (0, 0))
             self.screen.blit(self.conversation[str(number-3)], (0, 617))
             self.screen.blit(self.next.base, (1038, 780))
             self.screen.blit(self.prev.base, (55, 780))
