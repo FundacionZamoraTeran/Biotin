@@ -61,6 +61,8 @@ class End:
         }
         self.next = Button((1038, 780), "next1.png", "next2.png", 123, 94, "epilogue")
         self.prev = Button((55, 780), "prev1.png", "prev2.png", 123, 94, "epilogue")
+        self.exit = Button((888, 780), "exit1.png", "exit2.png", 273, 99, "epilogue/end")
+        self.back = Button((55, 780), "back1.png", "back2.png", 350, 100, "epilogue/end")
         self.no = Button((430, 580), "no1.png", "no2.png", 163, 124, "epilogue/end")
         self.si = Button((600, 580), "si1.png", "si2.png", 163, 124, "epilogue/end")
 
@@ -83,6 +85,11 @@ class End:
                     self.next_level = None
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
+                        if self.current_slide == 15:
+                            self.vx_channel.stop()
+                            self.back.on_press(self.screen)
+                            self.next_level = 1
+                            running = False
                         if self.current_slide == 16:
                             self.vx_channel.stop()
                             self.no.on_press(self.screen)
@@ -95,7 +102,12 @@ class End:
                             self.current_slide -= 1
 
                     if event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
-                        if self.current_slide < 16:
+                        if  self.current_slide == 15:
+                            self.vx_channel.stop()
+                            self.exit.on_press(self.screen)
+                            self.played[self.current_slide-1] = 0
+                            self.current_slide += 1
+                        elif self.current_slide < 16:
                             self.vx_channel.stop()
                             self.next.on_press(self.screen)
                             self.played[self.current_slide-1] = 0
@@ -112,13 +124,20 @@ class End:
                 self.played[number-1] = 1
             self.screen.blit(self.background, (0, 0))
             self.screen.blit(self.next.base, (1038, 780))
-        elif number < 16:
+        elif number < 15:
             if self.played[number-1] == 0:
                 self.vx_channel.play(self.voices[str(number-1)])
                 self.played[number-1] = 1
             self.screen.blit(self.conversation[str(number-1)], (0, 0))
             self.screen.blit(self.next.base, (1038, 780))
             self.screen.blit(self.prev.base, (55, 780))
+        elif number == 15:
+            if self.played[number-1] == 0:
+                self.vx_channel.play(self.voices[str(number-1)])
+                self.played[number-1] = 1
+            self.screen.blit(self.conversation[str(number-1)], (0, 0))
+            self.screen.blit(self.exit.base, (888, 780))
+            self.screen.blit(self.back.base, (55, 780))
         elif number == 16:
             self.screen.blit(self.conversation["14"], (0, 0))
             self.screen.blit(self.modal, (0, 0))
