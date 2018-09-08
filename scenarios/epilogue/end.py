@@ -24,7 +24,7 @@ class End:
         self.next_level = None
         self.food = food
         self.path = "epilogue/end/"+self.food
-        self.current_slide = 16
+        self.current_slide = 1
         self.played = [0] * 15
         self.conversation = {
             "1" : utils.load_image("d1.png", self.path),
