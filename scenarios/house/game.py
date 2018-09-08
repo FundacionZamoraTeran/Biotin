@@ -4,7 +4,6 @@ import pygame
 from gi.repository import Gtk
 from scenarios.utils import utils
 from scenarios.utils import consts
-from scenarios.utils import dialogue
 from scenarios.utils import saves
 from scenarios.utils.button import Button
 from scenarios.house.slider import Slider
@@ -23,8 +22,6 @@ class Game:
         self.fx_channel.set_volume(consts.FX_VOLUME)
         self.vx_channel = pygame.mixer.Channel(1)
         self.vx_channel.set_volume(consts.VX_VOLUME)
-        self.font = utils.load_font("notoregu.ttf", 20)
-
         self.current_slide = 1
 
         self.title = utils.load_image("title.png", "house/game")
@@ -103,7 +100,13 @@ class Game:
             "5" : utils.load_vx("house/game/5.ogg")
         }
 
-        self.dialogue = dialogue.get_dialogue_subscenario("casa", "juego")
+        self.text = {
+            "1": utils.load_image("d1.png", "house/game/"),
+            "2": utils.load_image("d2.png", "house/game/"),
+            "3": utils.load_image("d3.png", "house/game/"),
+            "4": utils.load_image("d4.png", "house/game/")
+        }
+
         self.next = Button((918, 780), "game/next1.png", "game/next2.png", 257, 99, "house")
         self.prev = Button((25, 780), "game/prev1.png", "game/prev2.png", 257, 99, "house")
         self.played = [0, 0, 0, 0, 0]
@@ -251,40 +254,28 @@ class Game:
             if self.played[0] == 0:
                 self.vx_channel.play(self.voices["1"])
                 self.played[0] = 1
-            text = self.font.render(self.dialogue['1'],
-                                    True,
-                                    (246, 212, 0))
-            self.screen.blit(text, (350, 810))
+            self.screen.blit(self.text["1"], (310, 770))
             self.screen.blit(self.next.base, (918, 780))
             self.screen.blit(self.prev.base, (25, 780))
         elif number == 2:
             if self.played[1] == 0:
                 self.vx_channel.play(self.voices["2"])
                 self.played[1] = 1
-            text = self.font.render(self.dialogue['2'],
-                                    True,
-                                    (246, 212, 0))
-            self.screen.blit(text, (440, 810))
+            self.screen.blit(self.text["2"], (310, 770))
             self.screen.blit(self.next.base, (918, 780))
             self.screen.blit(self.prev.base, (25, 780))
         elif number == 3:
             if self.played[2] == 0:
                 self.vx_channel.play(self.voices["3"])
                 self.played[2] = 1
-            text = self.font.render(self.dialogue['3'],
-                                    True,
-                                    (246, 212, 0))
-            self.screen.blit(text, (390, 810))
+            self.screen.blit(self.text["3"], (310, 770))
             self.screen.blit(self.next.base, (918, 780))
             self.screen.blit(self.prev.base, (25, 780))
         elif number == 4:
             if self.played[3] == 0:
                 self.vx_channel.play(self.voices["4"])
                 self.played[3] = 1
-            text = self.font.render(self.dialogue['4'],
-                                    True,
-                                    (246, 212, 0))
-            self.screen.blit(text, (530, 810))
+            self.screen.blit(self.text["4"], (310, 770))
             self.screen.blit(self.next.base, (918, 780))
             self.screen.blit(self.prev.base, (25, 780))
         elif number == 5:

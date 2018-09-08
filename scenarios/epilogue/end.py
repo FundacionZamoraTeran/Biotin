@@ -100,7 +100,6 @@ class End:
                             self.prev.on_press(self.screen)
                             self.played[self.current_slide-1] = 0
                             self.current_slide -= 1
-
                     if event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
                         if  self.current_slide == 15:
                             self.vx_channel.stop()
