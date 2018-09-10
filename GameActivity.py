@@ -23,7 +23,7 @@ class GameActivity(Activity):
         self.game = main.Biotin()
 
         # Build the activity toolbar.
-        self.build_toolbar()
+        #self.build_toolbar()
 
         # Build the Pygame canvas and start the game running
         # (self.game.run is called when the activity constructor
