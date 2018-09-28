@@ -100,46 +100,46 @@ class Kitchen:
             if self.played[0] == 0:
                 self.vx_channel.play(self.voice_1)
                 self.played[0] = 1
-            self.screen.blit(self.bubble_1, (480,390))
+            self.screen.blit(self.bubble_1, (480, 390))
         elif number == 2:
             self.screen.blit(self.slide_2, (0, 0))
             if self.played[1] == 0:
                 self.vx_channel.play(self.voice_2)
                 self.played[1] = 1
-            self.screen.blit(self.bubble_2, (200,620))
+            self.screen.blit(self.bubble_2, (200, 620))
         elif number == 3:
             self.screen.blit(self.slide_3, (0, 0))
             if self.played[2] == 0:
                 self.vx_channel.play(self.voice_3)
                 self.played[2] = 1
-            self.screen.blit(self.bubble_3, (270,250))
+            self.screen.blit(self.bubble_3, (270, 250))
         elif number == 4:
             self.screen.blit(self.slide_4, (0, 0))
             if self.played[3] == 0:
                 self.vx_channel.play(self.voice_4)
                 self.played[3] = 1
-            self.screen.blit(self.bubble_4, (120,500))
+            self.screen.blit(self.bubble_4, (205, 590))
         elif number == 5:
             self.screen.blit(self.slide_5, (0, 0))
             if self.played[4] == 0:
                 self.vx_channel.play(self.voice_5)
                 self.played[4] = 1
-            self.screen.blit(self.bubble_5, (50,250))
+            self.screen.blit(self.bubble_5, (15, 242))
         elif number == 6:
             self.screen.blit(self.slide_6, (0, 0))
             if self.played[5] == 0:
                 self.vx_channel.play(self.voice_6)
                 self.played[5] = 1
-            self.screen.blit(self.bubble_6, (740,50))
+            self.screen.blit(self.bubble_6, (740, 50))
         elif number == 7:
             self.screen.blit(self.slide_7, (0, 0))
             if self.played[6] == 0:
                 self.vx_channel.play(self.voice_7)
                 self.played[6] = 1
-            self.screen.blit(self.bubble_7, (860,390))
+            self.screen.blit(self.bubble_7, (860, 390))
         elif number == 8:
             self.screen.blit(self.slide_8, (0, 0))
             if self.played[7] == 0:
                 self.vx_channel.play(self.voice_8)
                 self.played[7] = 1
-            self.screen.blit(self.bubble_8, (360,200))
+            self.screen.blit(self.bubble_8, (360, 200))
