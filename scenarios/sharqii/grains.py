@@ -45,7 +45,7 @@ class Grain:
         self.interact_4 = Prompt(self.screen,
                                  self.clock,
                                  (1867, 480),
-                                 "quinoa.png",
+                                 "wheat.png",
                                  "sharqii/grains/prompts",
                                  (400, 600))
         self.interact_5 = Prompt(self.screen,
@@ -81,7 +81,7 @@ class Grain:
             "3" : utils.load_image("d3.png", "sharqii/grains/"),
             "4" : utils.load_image("oat.png", "sharqii/grains/"),
             "5" : utils.load_image("maize.png", "sharqii/grains/"),
-            "6" : utils.load_image("quinoa.png", "sharqii/grains/"),
+            "6" : utils.load_image("wheat.png", "sharqii/grains/"),
             "7" : utils.load_image("rice.png", "sharqii/grains/"),
             "8" : utils.load_image("beans.png", "sharqii/grains/"),
             "9" : utils.load_image("key.png", "sharqii/grains/")
