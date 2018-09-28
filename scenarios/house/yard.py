@@ -18,8 +18,6 @@ class Yard:
         self.fx_channel.set_volume(consts.FX_VOLUME)
         self.vx_channel = pygame.mixer.Channel(1)
         self.vx_channel.set_volume(consts.VX_VOLUME)
-        self.font = utils.load_font("notoregu.ttf", 20)
-
         self.current_slide = 1
 
         # using a dict to avoid creating >30 variables per elements
