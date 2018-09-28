@@ -27,7 +27,7 @@ class Credit:
         self.team = utils.load_image("credits_door/team.png", "menu")
 
     def run(self):
-        """ control the actions happening on the Help modal"""
+        """ control the actions happening on the credit modal"""
 
         running = True
         while running:

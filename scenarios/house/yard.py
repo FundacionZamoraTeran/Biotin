@@ -4,7 +4,6 @@ import pygame
 from gi.repository import Gtk
 from scenarios.utils import utils
 from scenarios.utils import consts
-from scenarios.utils import dialogue
 from scenarios.utils.button import Button
 
 class Yard:
@@ -68,6 +67,7 @@ class Yard:
             "3" : utils.load_image("D3.png", "house/yard"),
             "4" : utils.load_image("D4.png", "house/yard"),
             "5" : utils.load_image("D5.png", "house/yard"),
+            "6" : utils.load_image("D6.png", "house/yard"),
             "7" : utils.load_image("D7.png", "house/yard"),
             "8" : utils.load_image("D8.png", "house/yard"),
             "9" : utils.load_image("D9.png", "house/yard"),
@@ -75,6 +75,7 @@ class Yard:
             "11" : utils.load_image("D11.png", "house/yard"),
             "12" : utils.load_image("D12.png", "house/yard"),
             "13" : utils.load_image("D13.png", "house/yard"),
+            "14" : utils.load_image("D14.png", "house/yard"),
             "15" : utils.load_image("D15.png", "house/yard"),
             "16" : utils.load_image("D16.png", "house/yard"),
             "17" : utils.load_image("D17.png", "house/yard"),
@@ -125,7 +126,6 @@ class Yard:
             "29" : utils.load_vx("house/yard/29.ogg"),
             "30" : utils.load_vx("house/yard/30.ogg")
         }
-        self.dialogue = dialogue.get_dialogue_subscenario("casa", "patio")
         self.next = Button((918, 780), "yard/next1.png", "yard/next2.png", 257, 99, "house")
         self.prev = Button((25, 780), "yard/prev1.png", "yard/prev2.png", 257, 99, "house")
         self.played = [0] * 30
@@ -200,10 +200,7 @@ class Yard:
             if self.played[5] == 0:
                 self.vx_channel.play(self.voices["6"])
                 self.played[5] = 1
-            text = self.font.render(self.dialogue['6'],
-                                    True,
-                                    (246, 212, 0))
-            self.screen.blit(text, (300, 810))
+            self.screen.blit(self.bubbles["6"], (305, 810))
         elif number == 7:
             self.screen.blit(self.slides["7"], (0, 0))
             if self.played[6] == 0:
@@ -254,10 +251,7 @@ class Yard:
                 self.screen.blit(self.slides["14-1"], (0, 0))
                 self.screen.blit(self.next.base, (918, 780))
                 self.screen.blit(self.prev.base, (25, 780))
-                text = self.font.render(self.dialogue['14'],
-                                        True,
-                                        (246, 212, 0))
-                self.screen.blit(text, (360, 810))
+                self.screen.blit(self.bubbles["14"], (315, 810))
                 pygame.display.flip()
                 pygame.display.update(self.screen.blit(self.slides["14-2"], (732, 262)))
                 pygame.time.delay(60)
