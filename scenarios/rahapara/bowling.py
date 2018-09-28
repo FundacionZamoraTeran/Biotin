@@ -183,7 +183,7 @@ class Bowling:
             self.screen.blit(self.prev.base, (25, 780))
             self.screen.blit(self.next.base, (918, 780))
         elif number == 9:
-            self.screen.blit(self.scoreboard, (1007, 704)) #37x33
+            self.screen.blit(self.scoreboard, (980, 704)) #37x33
             text = self.font.render(str(self.bowl.score),
                                     True,
                                     (240, 211, 8),
@@ -194,14 +194,14 @@ class Bowling:
             self.bowl.update()
             self.bowl.collision_food()
             if self.bowl.score > 9 and self.bowl.score < 16:
-                self.screen.blit(text, (1035, 725))
+                self.screen.blit(text, (988, 715))
             elif self.bowl.score >= 30:
                 self.bowl.score = 0
                 self.current_slide = 10
                 self.screen.blit(self.congrats["bg"], (0, 0))
             else:
-                self.screen.blit(text, (1060, 725))
+                self.screen.blit(text, (1010, 715))
         elif number == 10:
             self.screen.blit(self.congrats["bg"], (0, 0))
-            self.screen.blit(self.congrats["prev"].base, (100, 798))
+            self.screen.blit(self.congrats["prev"].base, (100, 780))
             self.screen.blit(self.next.base, (918, 780))
