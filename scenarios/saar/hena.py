@@ -85,6 +85,7 @@ class Hena:
             "cesar": utils.load_image("down1.png", "cesar")
         }
 
+        self.talked = False
         self.next = Button((1038, 780), "hena/next1.png", "hena/next2.png", 123, 94, "saar/stage_1")
         self.prev = Button((55, 780), "hena/prev1.png", "hena/prev2.png", 123, 94, "saar/stage_1")
 
@@ -151,7 +152,8 @@ class Hena:
                     and self.player.rect.x+self.player.rect.width < 765):
                 self.interact.float(0)
             if (self.player.rect.x+self.player.rect.width > 45
-                    and self.player.rect.x+self.player.rect.width < 175):
+                    and self.player.rect.x+self.player.rect.width < 175
+                    and self.talked):
                 self.interact_2.float(0)
         elif number == 2:
             if self.played[1] == 0:
@@ -161,6 +163,7 @@ class Hena:
             self.screen.blit(self.conversation["1"], (0, 617))
             self.screen.blit(self.next.base, (1038, 780))
             self.screen.blit(self.prev.base, (55, 780))
+            self.talked = True
         elif number == 7:
             self.arrange_team(number)
             self.screen.blit(self.conversation["6"], (0, 617))
@@ -195,7 +198,7 @@ class Hena:
         elif self.character == "diego":
             self.screen.blit(self.biotin["cesar"], (400, 500))
             self.screen.blit(self.biotin["ena"], (250, 450))
-            self.screen.blit(self.biotin["ezer"], (180, 700))
+            self.screen.blit(self.biotin["ezer"], (180, 460))
             if number == 1:
                 self.player.update()
             else:

@@ -86,6 +86,7 @@ class Hdiego:
             "cesar": utils.load_image("down1.png", "cesar")
         }
 
+        self.talked = False
         self.next = Button((1038, 780), "hdiego/next1.png", "hdiego/next2.png", 123, 94, "saar/stage_2")
         self.prev = Button((55, 780), "hdiego/prev1.png", "hdiego/prev2.png", 123, 94, "saar/stage_2")
 
@@ -152,7 +153,8 @@ class Hdiego:
                     and self.player.rect.x+self.player.rect.width < 915):
                 self.interact.float(0)
             if (self.player.rect.x+self.player.rect.width > 45
-                    and self.player.rect.x+self.player.rect.width < 175):
+                    and self.player.rect.x+self.player.rect.width < 175
+                    and self.talked):
                 self.interact_2.float(0)
         elif number == 2:
             if self.played[1] == 0:
@@ -162,6 +164,7 @@ class Hdiego:
             self.screen.blit(self.conversation["1"], (0, 617))
             self.screen.blit(self.next.base, (1038, 780))
             self.screen.blit(self.prev.base, (55, 780))
+            self.talked = True
         elif number < 16:
             if self.played[number-1] == 0:
                 self.vx_channel.play(self.voices[str(number-1)])

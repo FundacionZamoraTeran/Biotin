@@ -83,7 +83,7 @@ class Hcesar:
             "ezer": utils.load_image("down1.png", "ezer"),
             "cesar": utils.load_image("down1.png", "cesar")
         }
-
+        self.talked = False
         self.next = Button((1038, 780), "hcesar/next1.png", "hcesar/next2.png", 123, 94, "saar/stage_1")
         self.prev = Button((55, 780), "hcesar/prev1.png", "hcesar/prev2.png", 123, 94, "saar/stage_1")
 
@@ -150,7 +150,8 @@ class Hcesar:
                     and self.player.rect.x+self.player.rect.width < 865):
                 self.interact.float(0)
             if (self.player.rect.x+self.player.rect.width > 45
-                    and self.player.rect.x+self.player.rect.width < 175):
+                    and self.player.rect.x+self.player.rect.width < 175
+                    and self.talked):
                 self.interact_2.float(0)
         elif number == 2:
             if self.played[1] == 0:
@@ -160,6 +161,7 @@ class Hcesar:
             self.screen.blit(self.conversation["1"], (0, 617))
             self.screen.blit(self.next.base, (1038, 780))
             self.screen.blit(self.prev.base, (55, 780))
+            self.talked = True
         elif number < 15:
             if self.played[number-1] == 0:
                 self.vx_channel.play(self.voices[str(number-1)])
