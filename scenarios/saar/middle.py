@@ -60,7 +60,14 @@ class Middle:
                             (1000, 700),
                             "monsters/glopop",
                             (300, 1000),
-                            24)
+                            24,
+                            35)
+        self.gali = Enemy(self.screen,
+                            self.clock,
+                            (1000, 650),
+                            "monsters/gali",
+                            (300, 1100),
+                            28)
         self.vlopop = Enemy(self.screen,
                             self.clock,
                             (1940, 700),
@@ -68,6 +75,12 @@ class Middle:
                             (1300, 1940),
                             22,
                             35)
+        self.arequi = Enemy(self.screen,
+                            self.clock,
+                            (1940, 650),
+                            "monsters/arequi",
+                            (1300, 1940),
+                            12)
         self.platforms_list = pygame.sprite.Group()
         self.enemies_list = pygame.sprite.Group()
         self.platforms_list.add(self.ground)
@@ -160,6 +173,13 @@ class Middle:
         else:
             if self.glopop.alive():
                 self.glopop.remove(self.enemies_list)
+        if self.player.real_x < 1500 and not self.gali.defeated:
+            if not self.gali.alive():
+                self.gali.add(self.enemies_list)
+            self.gali.roam(rel_x)
+        else:
+            if self.gali.alive():
+                self.gali.remove(self.enemies_list)
         if self.player.real_x > 1000 and not self.vlopop.defeated:
             if not self.vlopop.alive():
                 self.vlopop.add(self.enemies_list)
@@ -167,6 +187,13 @@ class Middle:
         else:
             if self.vlopop.alive():
                 self.vlopop.remove(self.enemies_list)
+        if self.player.real_x > 1000 and not self.arequi.defeated:
+            if not self.arequi.alive():
+                self.arequi.add(self.enemies_list)
+            self.arequi.roam(rel_x)
+        else:
+            if self.arequi.alive():
+                self.arequi.remove(self.enemies_list)
         if (self.player.real_x+self.player.rect.width > 2050
                 and self.player.real_x+self.player.rect.width < 2190):
             self.interact.float(1200)
