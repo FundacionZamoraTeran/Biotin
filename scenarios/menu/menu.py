@@ -182,3 +182,7 @@ class Menu:
                             self.load_but.flag = True
                             self.credits_but.on_focus(self.screen)
                             self.load_but.on_focus(self.screen)
+                    if event.key == pygame.K_ESCAPE or event.key == consts.K_CIRCLE:
+                        hjelp = help.Help(self.screen, self.clock)
+                        hjelp.run()
+                        del hjelp
