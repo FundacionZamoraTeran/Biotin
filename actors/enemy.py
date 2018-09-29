@@ -57,6 +57,7 @@ class Enemy(pygame.sprite.Sprite):
                 self.direction = "lsquash"
             else:
                 self.direction = "rsquash"
+            self.frame += 1
             if self.frame > 5:
                 self.frame = 0
                 self.defeated = True
@@ -71,6 +72,7 @@ class Enemy(pygame.sprite.Sprite):
                 self.direction = "lsquash"
             else:
                 self.direction = "rsquash"
+            self.frame += 1
             if self.frame > 5:
                 self.frame = 0
                 self.defeated = True
