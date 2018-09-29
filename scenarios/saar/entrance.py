@@ -72,12 +72,38 @@ class Entrance:
                           "monsters/gali",
                           (300, 1000),
                           16)
+        self.menti = Enemy(self.screen,
+                           self.clock,
+                           (1000, 640),
+                           "monsters/menti",
+                           (500, 1200),
+                           26)
+        self.arequi = Enemy(self.screen,
+                           self.clock,
+                           (1000, 640),
+                           "monsters/arequi",
+                           (300, 1200),
+                           10)
         self.lopop = Enemy(self.screen,
                            self.clock,
                            (1940, 700),
                            "monsters/lopop",
                            (1300, 1940),
                            10,
+                           35)
+        self.vlopop = Enemy(self.screen,
+                           self.clock,
+                           (1940, 700),
+                           "monsters/vlopop",
+                           (1200, 1640),
+                           18,
+                           35)
+        self.glopop = Enemy(self.screen,
+                           self.clock,
+                           (1940, 700),
+                           "monsters/glopop",
+                           (1100, 2040),
+                           30,
                            35)
         #collision lists
         self.platforms_list = pygame.sprite.Group()
@@ -187,6 +213,20 @@ class Entrance:
         else:
             if self.gali.alive():
                 self.gali.remove(self.enemies_list)
+        if self.player.real_x < 1500 and not self.menti.defeated:
+            if not self.menti.alive():
+                self.menti.add(self.enemies_list)
+            self.menti.roam(rel_x)
+        else:
+            if self.menti.alive():
+                self.menti.remove(self.enemies_list)
+        if self.player.real_x < 1500 and not self.arequi.defeated:
+            if not self.arequi.alive():
+                self.arequi.add(self.enemies_list)
+            self.arequi.roam(rel_x)
+        else:
+            if self.arequi.alive():
+                self.arequi.remove(self.enemies_list)
         if self.player.real_x > 1000 and not self.lopop.defeated:
             if not self.lopop.alive():
                 self.lopop.add(self.enemies_list)
@@ -194,6 +234,20 @@ class Entrance:
         else:
             if self.lopop.alive():
                 self.lopop.remove(self.enemies_list)
+        if self.player.real_x > 1000 and not self.vlopop.defeated:
+            if not self.vlopop.alive():
+                self.vlopop.add(self.enemies_list)
+            self.vlopop.roam(rel_x)
+        else:
+            if self.vlopop.alive():
+                self.vlopop.remove(self.enemies_list)
+        if self.player.real_x > 1000 and not self.glopop.defeated:
+            if not self.glopop.alive():
+                self.glopop.add(self.enemies_list)
+            self.glopop.roam(rel_x)
+        else:
+            if self.glopop.alive():
+                self.glopop.remove(self.enemies_list)
         if (self.player.real_x+self.player.rect.width > 620
                 and self.player.real_x+self.player.rect.width < 745):
             self.interact.float(rel_x)
