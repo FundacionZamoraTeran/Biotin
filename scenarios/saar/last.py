@@ -66,13 +66,25 @@ class Last:
                            "monsters/menti",
                            (300, 1000),
                            15)
+        self.lopop = Enemy(self.screen,
+                          self.clock,
+                          (1940, 700),
+                          "monsters/lopop",
+                          (250, 1100),
+                          26,
+                          35)
         self.gali = Enemy(self.screen,
                           self.clock,
                           (1940, 640),
                           "monsters/gali",
                           (1300, 1940),
-                          16,
-                          35)
+                          16)
+        self.arequi = Enemy(self.screen,
+                          self.clock,
+                          (1940, 640),
+                          "monsters/arequi",
+                          (1300, 1940),
+                            10)
         self.platforms_list = pygame.sprite.Group()
         self.enemies_list = pygame.sprite.Group()
         self.platforms_list.add(self.ground)
@@ -172,6 +184,13 @@ class Last:
         else:
             if self.menti.alive():
                 self.menti.remove(self.enemies_list)
+        if self.player.real_x < 1500 and not self.lopop.defeated:
+            if not self.lopop.alive():
+                self.lopop.add(self.enemies_list)
+            self.lopop.roam(rel_x)
+        else:
+            if self.lopop.alive():
+                self.lopop.remove(self.enemies_list)
         if self.player.real_x > 1000 and not self.gali.defeated:
             if not self.gali.alive():
                 self.gali.add(self.enemies_list)
@@ -179,6 +198,13 @@ class Last:
         else:
             if self.gali.alive():
                 self.gali.remove(self.enemies_list)
+        if self.player.real_x > 1000 and not self.arequi.defeated:
+            if not self.arequi.alive():
+                self.arequi.add(self.enemies_list)
+            self.arequi.roam(rel_x)
+        else:
+            if self.arequi.alive():
+                self.arequi.remove(self.enemies_list)
         if (self.player.real_x+self.player.rect.width > 810
                 and self.player.real_x+self.player.rect.width < 935):
             self.interact.float(rel_x)
