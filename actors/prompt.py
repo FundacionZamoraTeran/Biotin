@@ -14,7 +14,7 @@ class Prompt(pygame.sprite.Sprite):
         self.x = pos[0]
         self.y = pos[1]
         self.limits = limits
-        self.velocity = 16
+        self.velocity = 10
         self.rect = pygame.Rect(pos, self.image.get_size())
         self.rect.topleft = pos
 
