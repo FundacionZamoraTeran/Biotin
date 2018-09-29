@@ -65,7 +65,7 @@ class Vegetables:
                              self.clock,
                              (150, 530),
                              self.character,
-                             2400,
+                             2394,
                              True)
         self.current_slide = 1
         self.played = [0] * 9
