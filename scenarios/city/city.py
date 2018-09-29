@@ -29,6 +29,7 @@ class City:
         self.character = character
         self.background = utils.load_image("background.png", "city/city")
         self.background_width = self.background.get_size()[0]
+        self.plant = utils.load_image("plant.png", "city/city/")
         self.interact = Prompt(self.screen,
                                self.clock,
                                (1475, 280),
@@ -94,6 +95,7 @@ class City:
             if rel_x < consts.WIDTH_SCREEN:
                 self.screen.blit(self.background, (rel_x, 0))
                 self.render_scene(self.current_slide, abs(rel_x))
+                self.screen.blit(self.plant, (1860-abs(rel_x), 580))
             else:
                 self.screen.blit(self.background, (rel_x - self.background_width, 0))
                 self.render_scene(self.current_slide, rel_x)

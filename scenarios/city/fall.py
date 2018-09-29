@@ -81,6 +81,7 @@ class Fall:
             "1" : utils.load_image("portal2.png", "city/fall/"),
         }
         self.biotin = {
+            "knight": utils.load_image("knight.png", "city/fall/"),
             "fall": utils.load_image("fall.png", "city/fall/"),
             "team": utils.load_image("team.png", "city/fall/"),
         }
@@ -132,7 +133,7 @@ class Fall:
     def render_scene(self, number):
         if number == 1:
             self.render_portal()
-            self.screen.blit(self.biotin["fall"], (250, 237))
+            self.screen.blit(self.biotin["knight"], (460, 417))
             self.screen.blit(self.plant, (100, 587))
             self.screen.blit(self.conversation["1"], (0, 617))
             self.screen.blit(self.next.base, (1038, 780))
