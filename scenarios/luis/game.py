@@ -44,6 +44,21 @@ class Game:
             "2" : utils.load_image("d2.png", "luis/game/dialogue"),
             "3" : utils.load_image("d3.png", "luis/game/dialogue")
         }
+
+        self.hp_bar = {
+            "0" : utils.load_image("0.png", "luis/game/hp_bar"),
+            "1" : utils.load_image("1.png", "luis/game/hp_bar"),
+            "2" : utils.load_image("2.png", "luis/game/hp_bar"),
+            "3" : utils.load_image("3.png", "luis/game/hp_bar"),
+            "4" : utils.load_image("4.png", "luis/game/hp_bar"),
+            "5" : utils.load_image("5.png", "luis/game/hp_bar"),
+            "6" : utils.load_image("6.png", "luis/game/hp_bar"),
+            "7" : utils.load_image("7.png", "luis/game/hp_bar"),
+            "8" : utils.load_image("8.png", "luis/game/hp_bar"),
+            "9" : utils.load_image("9.png", "luis/game/hp_bar"),
+            "10" : utils.load_image("10.png", "luis/game/hp_bar"),
+        }
+
         self.voices = {
             "0" : utils.load_vx("luis/game/0.ogg"),
             "1" : utils.load_vx("luis/game/1.ogg"),
@@ -157,6 +172,24 @@ class Game:
     def actors_load(self):
         if self.masakh.health > 0:
             self.masakh.update()
+            if self.masakh.health == 22:
+                self.screen.blit(self.hp_bar["10"], (665, 16))
+            elif self.masakh.health > 18:
+                self.screen.blit(self.hp_bar["9"], (665, 16))
+            elif self.masakh.health > 16:
+                self.screen.blit(self.hp_bar["8"], (665, 16))
+            elif self.masakh.health > 14:
+                self.screen.blit(self.hp_bar["7"], (665, 16))
+            elif self.masakh.health > 10:
+                self.screen.blit(self.hp_bar["6"], (665, 16))
+            elif self.masakh.health > 8:
+                self.screen.blit(self.hp_bar["5"], (665, 16))
+            elif self.masakh.health > 6:
+                self.screen.blit(self.hp_bar["4"], (665, 16))
+            elif self.masakh.health > 4:
+                self.screen.blit(self.hp_bar["2"], (665, 16))
+            elif self.masakh.health > 0:
+                self.screen.blit(self.hp_bar["1"], (665, 16))
             if self.masakh.jumping is False and self.masakh.jump_frames == 0:
                 self.masakh.jumping = True
             self.vitamin.update()

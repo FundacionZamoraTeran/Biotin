@@ -44,8 +44,22 @@ class Game:
             "5" : utils.load_image("d5.png", "castle/game/dialogue"),
             "6" : utils.load_image("d6.png", "castle/game/dialogue"),
             "7" : utils.load_image("d7.png", "castle/game/dialogue")
-
         }
+
+        self.hp_bar = {
+            "0" : utils.load_image("0.png", "castle/game/hp_bar"),
+            "1" : utils.load_image("1.png", "castle/game/hp_bar"),
+            "2" : utils.load_image("2.png", "castle/game/hp_bar"),
+            "3" : utils.load_image("3.png", "castle/game/hp_bar"),
+            "4" : utils.load_image("4.png", "castle/game/hp_bar"),
+            "5" : utils.load_image("5.png", "castle/game/hp_bar"),
+            "6" : utils.load_image("6.png", "castle/game/hp_bar"),
+            "7" : utils.load_image("7.png", "castle/game/hp_bar"),
+            "8" : utils.load_image("8.png", "castle/game/hp_bar"),
+            "9" : utils.load_image("9.png", "castle/game/hp_bar"),
+            "10" : utils.load_image("10.png", "castle/game/hp_bar"),
+        }
+
         self.voices = {
             "1" : utils.load_vx("castle/game/1.ogg"),
             "2" : utils.load_vx("castle/game/2.ogg"),
@@ -109,7 +123,7 @@ class Game:
                             running = False
                     elif (event.key == pygame.K_SPACE or event.key == consts.K_SQUARE):
                         if self.current_slide == 2:
-                            self.food.throw= True
+                            self.food.throw = True
                 elif event.type == pygame.KEYUP:
                     if event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
                         if self.current_slide == 2:
@@ -148,6 +162,25 @@ class Game:
 
     def actors_load(self):
         if self.pilori.health > 0:
+            self.pilori.move()
+            if self.pilori.health == 16:
+                self.screen.blit(self.hp_bar["10"], (665, 16))
+            elif self.pilori.health > 14:
+                self.screen.blit(self.hp_bar["9"], (665, 16))
+            elif self.pilori.health > 12:
+                self.screen.blit(self.hp_bar["8"], (665, 16))
+            elif self.pilori.health > 10:
+                self.screen.blit(self.hp_bar["7"], (665, 16))
+            elif self.pilori.health > 8:
+                self.screen.blit(self.hp_bar["6"], (665, 16))
+            elif self.pilori.health > 6:
+                self.screen.blit(self.hp_bar["5"], (665, 16))
+            elif self.pilori.health > 4:
+                self.screen.blit(self.hp_bar["4"], (665, 16))
+            elif self.pilori.health > 2:
+                self.screen.blit(self.hp_bar["2"], (665, 16))
+            elif self.pilori.health > 0:
+                self.screen.blit(self.hp_bar["1"], (665, 16))
             self.pilori.move()
             self.food.update()
             self.player.update()
