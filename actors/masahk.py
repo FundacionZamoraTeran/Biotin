@@ -18,7 +18,7 @@ class Masakh(pygame.sprite.Sprite):
         self.limits = limits
         self.velocity = velocity
         self.defeated = defeated
-        self.health = 22
+        self.health = 22 # remember, the hp bar must change if this value changes
         self.monster = (
             utils.load_image("monster2.png","luis/game"),
             utils.load_image("monster1.png","luis/game")

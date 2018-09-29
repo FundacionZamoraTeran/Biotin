@@ -124,7 +124,7 @@ class Bowling:
                     if event.key == pygame.K_RETURN or event.key == consts.K_CHECK:
                         pass
                     elif event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
-                        if self.current_slide > 3 and self.current_slide < 9:
+                        if 1< self.current_slide <7:
                             self.vx_channel.stop()
                             self.prev.on_press(self.screen)
                             self.played[self.current_slide-1] = 0
@@ -134,7 +134,7 @@ class Bowling:
                             self.bowl.velocity = -abs(self.bowl.velocity)
                         elif self.current_slide == 10:
                             self.congrats["prev"].on_press(self.screen)
-                            self.current_slide = 3
+                            self.current_slide = 9
                     elif event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
                         if self.current_slide < 9:
                             self.vx_channel.stop()
@@ -159,28 +159,28 @@ class Bowling:
     def render_scene(self, number):
         if number == 1:
             if self.played[0] == 0:
-                self.vx_channel.play(self.voices["h1"])
-                self.played[0] = 1
-            self.screen.blit(self.modal["1"], (0, 0))
-            self.screen.blit(self.next.base, (918, 780))
-        elif number == 2:
-            if self.played[1] == 0:
-                self.vx_channel.play(self.voices["h2"])
-                self.played[1] = 1
-            self.screen.blit(self.modal["2"], (0, 0))
-            self.screen.blit(self.next.base, (918, 780))
-        elif number == 3:
-            if self.played[2] == 0:
                 self.vx_channel.play(self.voices["1"])
-                self.played[2] = 1
+                self.played[0] = 1
             self.screen.blit(self.dialogue["1"], (0, 0))
             self.screen.blit(self.next.base, (918, 780))
-        elif 3 < number < 9:
-            if self.played[number-1] == 0:
-                self.vx_channel.play(self.voices[str(number-2)])
-                self.played[number-1] = 1
-            self.screen.blit(self.dialogue[str(number-2)], (0, 0))
+        elif 1 < number < 7:
+            if self.played[number] == 0:
+                self.vx_channel.play(self.voices[str(number)])
+                self.played[number] = 1
+            self.screen.blit(self.dialogue[str(number)], (0, 0))
             self.screen.blit(self.prev.base, (25, 780))
+            self.screen.blit(self.next.base, (918, 780))
+        if number == 7:
+            if self.played[6] == 0:
+                self.vx_channel.play(self.voices["h1"])
+                self.played[6] = 1
+            self.screen.blit(self.modal["1"], (0, 0))
+            self.screen.blit(self.next.base, (918, 780))
+        elif number == 8:
+            if self.played[7] == 0:
+                self.vx_channel.play(self.voices["h2"])
+                self.played[7] = 1
+            self.screen.blit(self.modal["2"], (0, 0))
             self.screen.blit(self.next.base, (918, 780))
         elif number == 9:
             self.screen.blit(self.scoreboard, (980, 704)) #37x33
