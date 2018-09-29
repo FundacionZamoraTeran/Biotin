@@ -49,6 +49,12 @@ class Hill:
                           "monsters/gali",
                           (300, 1000),
                           16)
+        self.arequi = Enemy(self.screen,
+                            self.clock,
+                            (1000, 660),
+                            "monsters/arequi",
+                            (200, 1200),
+                            18)
         self.glopop = Enemy(self.screen,
                             self.clock,
                             (1000, 620),
@@ -63,6 +69,13 @@ class Hill:
                            (1300, 1940),
                            18,
                            35)
+        self.vlopop = Enemy(self.screen,
+                            self.clock,
+                            (1940, 700),
+                            "monsters/vlopop",
+                            (1100, 2040),
+                            18,
+                            35)
         self.menti = Enemy(self.screen,
                            self.clock,
                            (1940, 540),
@@ -205,6 +218,17 @@ class Hill:
         else:
             if self.gali.alive():
                 self.gali.remove(self.enemies_list)
+        if self.player.real_x < 1500 and not self.arequi.defeated:
+            if not self.arequi.alive():
+                self.arequi.add(self.enemies_list)
+            if not self.arequi.transformed:
+                self.arequi.roam(rel_x)
+            else:
+                self.arequi.remove(self.enemies_list)
+                self.screen.blit(self.arequi.sprites["transform"], (self.arequi.x-rel_x, 660))
+        else:
+            if self.arequi.alive():
+                self.arequi.remove(self.enemies_list)
         if self.player.real_x > 1000 and not self.menti.defeated:
             if not self.menti.alive():
                 self.menti.add(self.enemies_list)
@@ -227,6 +251,17 @@ class Hill:
         else:
             if self.lopop.alive():
                 self.lopop.remove(self.enemies_list)
+        if self.player.real_x > 1000 and not self.vlopop.defeated:
+            if not self.vlopop.alive():
+                self.vlopop.add(self.enemies_list)
+            if not self.vlopop.transformed:
+                self.vlopop.roam(rel_x)
+            else:
+                self.vlopop.remove(self.enemies_list)
+                self.screen.blit(self.vlopop.sprites["transform"], (self.vlopop.x-rel_x, 700))
+        else:
+            if self.vlopop.alive():
+                self.vlopop.remove(self.enemies_list)
 
         if (self.player.real_x+self.player.rect.width > 2280
                 and self.player.real_x+self.player.rect.width < 2401):
