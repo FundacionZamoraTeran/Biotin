@@ -182,7 +182,7 @@ class Hena:
         if self.character == "ena":
             self.screen.blit(self.biotin["cesar"], (400, 500))
             self.screen.blit(self.biotin["ezer"], (250, 450))
-            self.screen.blit(self.biotin["diego"], (180, 700))
+            self.screen.blit(self.biotin["diego"], (330, 480))
             if number == 1:
                 self.player.update()
             else:
@@ -190,7 +190,7 @@ class Hena:
         elif self.character == "ezer":
             self.screen.blit(self.biotin["cesar"], (400, 500))
             self.screen.blit(self.biotin["ena"], (250, 450))
-            self.screen.blit(self.biotin["diego"], (180, 700))
+            self.screen.blit(self.biotin["diego"], (330, 480))
             if number == 1:
                 self.player.update()
             else:
@@ -198,7 +198,7 @@ class Hena:
         elif self.character == "diego":
             self.screen.blit(self.biotin["cesar"], (400, 500))
             self.screen.blit(self.biotin["ena"], (250, 450))
-            self.screen.blit(self.biotin["ezer"], (180, 460))
+            self.screen.blit(self.biotin["ezer"], (330, 480))
             if number == 1:
                 self.player.update()
             else:
@@ -206,7 +206,7 @@ class Hena:
         elif self.character == "cesar":
             self.screen.blit(self.biotin["diego"], (400, 460))
             self.screen.blit(self.biotin["ezer"], (250, 450))
-            self.screen.blit(self.biotin["ena"], (180, 700))
+            self.screen.blit(self.biotin["ena"], (330, 480))
             if number == 1:
                 self.player.update()
             else:
