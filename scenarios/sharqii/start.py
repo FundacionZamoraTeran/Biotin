@@ -97,7 +97,7 @@ class Entrance:
 
         while running:
             self.screen.blit(self.background, (0, 0))
-            self.screen.blit(self.pilori, (725, 370))
+            #self.screen.blit(self.pilori, (725, 370))
             self.render_scene(self.current_slide)
             pygame.display.flip()
             self.clock.tick(consts.FPS)
@@ -161,8 +161,11 @@ class Entrance:
     def render_scene(self, number):
         if number == 1:
             self.arrange_team(number)
+            if not self.visited:
+                self.screen.blit(self.pilori, (725, 370))
             if (self.player.rect.x+self.player.rect.width > 730
-                    and self.player.rect.x+self.player.rect.width < 875):
+                    and self.player.rect.x+self.player.rect.width < 875
+                    and not self.visited):
                 self.interact.float(0)
             if (self.player.rect.x+self.player.rect.width > 525
                     and self.player.rect.x+self.player.rect.width < 655 and
@@ -172,8 +175,18 @@ class Entrance:
             if self.played[1] == 0:
                 self.vx_channel.play(self.voices["1"])
                 self.played[1] = 1
+            self.screen.blit(self.pilori, (725, 370))
             self.arrange_team(number)
             self.screen.blit(self.conversation["1"], (0, 617))
+            self.screen.blit(self.next.base, (1038, 780))
+            self.screen.blit(self.prev.base, (55, 780))
+        elif number < 8:
+            if self.played[number-1] == 0:
+                self.vx_channel.play(self.voices[str(number-1)])
+                self.played[number-1] = 1
+            self.screen.blit(self.pilori, (725, 370))
+            self.arrange_team(number)
+            self.screen.blit(self.conversation[str(number-1)], (0, 617))
             self.screen.blit(self.next.base, (1038, 780))
             self.screen.blit(self.prev.base, (55, 780))
         elif number < 15:
