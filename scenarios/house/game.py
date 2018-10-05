@@ -94,22 +94,13 @@ class Game:
 
         self.voices = {
             "1" : utils.load_vx("house/game/1.ogg"),
-            "2" : utils.load_vx("house/game/2.ogg"),
-            "3" : utils.load_vx("house/game/3.ogg"),
-            "4" : utils.load_vx("house/game/4.ogg"),
-            "5" : utils.load_vx("house/game/5.ogg")
+            "2" : utils.load_vx("house/game/2.ogg")
         }
 
-        self.text = {
-            "1": utils.load_image("d1.png", "house/game/"),
-            "2": utils.load_image("d2.png", "house/game/"),
-            "3": utils.load_image("d3.png", "house/game/"),
-            "4": utils.load_image("d4.png", "house/game/")
-        }
-
+        self.help_modal = utils.load_image("help.png", "house/game")
         self.next = Button((918, 780), "game/next1.png", "game/next2.png", 257, 99, "house")
         self.prev = Button((25, 780), "game/prev1.png", "game/prev2.png", 257, 99, "house")
-        self.played = [0, 0, 0, 0, 0]
+        self.played = [0, 0]
         self.selected_food = {"base": None, "extra": None}
         self.food_code = None
         self.pos = (110, 480)
@@ -122,7 +113,7 @@ class Game:
         running = True
 
         while running:
-            self.screen.blit(self.background, (0,0))
+            self.screen.blit(self.background, (0, 0))
             self.render_scene(self.current_slide)
             pygame.display.flip()
             self.clock.tick(consts.FPS)
@@ -134,41 +125,37 @@ class Game:
                     sys.exit(0)
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_RETURN or event.key == consts.K_CHECK:
-                        if self.current_slide == 5:
+                        if self.current_slide == 2:
                             if self.foods["1"].flag is True:
                                 self.selected_food["base"] = "tortilla"
-                                self.current_slide = 6
+                                self.current_slide = 3
                                 self.food_code = self.food_1
                             elif self.foods["2"].flag is True:
                                 self.selected_food["base"] = "beans"
-                                self.current_slide = 6
+                                self.current_slide = 3
                                 self.food_code = self.food_2
                             elif self.foods["3"].flag is True:
                                 self.selected_food["base"] = "bread"
-                                self.current_slide = 6
+                                self.current_slide = 3
                                 self.food_code = self.food_3
                             self.reset_slider()
-                        elif self.current_slide == 6:
+                        elif self.current_slide == 3:
                             if self.pos == (110, 480):
                                 self.selected_food["extra"] = self.food_code["1"][1]
-                                self.current_slide = 7
+                                self.current_slide = 4
                             elif self.pos == (350, 480):
                                 self.selected_food["extra"] = self.food_code["2"][1]
-                                self.current_slide = 7
+                                self.current_slide = 4
                             elif self.pos == (590, 480):
                                 self.selected_food["extra"] = self.food_code["3"][1]
-                                self.current_slide = 7
+                                self.current_slide = 4
                             elif self.pos == (830, 480):
                                 self.selected_food["extra"] = self.food_code["4"][1]
-                                self.current_slide = 7
+                                self.current_slide = 4
 
                     elif event.key == pygame.K_LEFT or event.key == pygame.K_KP4:
-                        if self.current_slide != 1 and self.current_slide < 5:
+                        if self.current_slide == 2:
                             self.vx_channel.stop()
-                            self.prev.on_press(self.screen)
-                            self.played[self.current_slide-1] = 0
-                            self.current_slide -= 1
-                        elif self.current_slide == 5:
                             if self.foods["2"].flag is True:
                                 self.foods["2"].flag = False
                                 self.foods["1"].flag = True
@@ -179,7 +166,7 @@ class Game:
                                 self.foods["2"].flag = True
                                 self.foods["3"].on_focus(self.screen)
                                 self.foods["2"].on_focus(self.screen)
-                        elif self.current_slide == 6:
+                        elif self.current_slide == 3:
                             if self.pos == (350, 480):
                                 self.reset_slider()
                                 self.metrics["nutrients_slider"].increase_level(self.screen, self.food_code["1"][2][0])
@@ -200,12 +187,12 @@ class Game:
                                 self.pos = (590, 480)
 
                     elif event.key == pygame.K_RIGHT or event.key == pygame.K_KP6:
-                        if self.current_slide < 5:
+                        if self.current_slide == 1:
                             self.vx_channel.stop()
                             self.next.on_press(self.screen)
                             self.played[self.current_slide-1] = 0
                             self.current_slide += 1
-                        elif self.current_slide == 5:
+                        elif self.current_slide == 2:
                             if self.foods["1"].flag is True:
                                 self.foods["1"].flag = False
                                 self.foods["2"].flag = True
@@ -216,7 +203,7 @@ class Game:
                                 self.foods["3"].flag = True
                                 self.foods["2"].on_focus(self.screen)
                                 self.foods["3"].on_focus(self.screen)
-                        elif self.current_slide == 6:
+                        elif self.current_slide == 3:
                             if self.pos == (110, 480):
                                 self.reset_slider()
                                 self.metrics["nutrients_slider"].increase_level(self.screen, self.food_code["2"][2][0])
@@ -235,7 +222,7 @@ class Game:
                                 self.metrics["energy_slider"].increase_level(self.screen, self.food_code["4"][2][1])
                                 self.metrics["fats_slider"].increase_level(self.screen, self.food_code["4"][2][2])
                                 self.pos = (830, 480)
-                        elif self.current_slide == 7:
+                        elif self.current_slide == 4:
                             self.next.on_press(self.screen)
                             utils.loading_screen(self.screen)
                             courtyard = yard.Yard(self.screen, self.clock)
@@ -254,38 +241,16 @@ class Game:
             if self.played[0] == 0:
                 self.vx_channel.play(self.voices["1"])
                 self.played[0] = 1
-            self.screen.blit(self.text["1"], (310, 770))
+            self.screen.blit(self.help_modal, (0, 0))
             self.screen.blit(self.next.base, (918, 780))
-            self.screen.blit(self.prev.base, (25, 780))
         elif number == 2:
-            if self.played[1] == 0:
-                self.vx_channel.play(self.voices["2"])
-                self.played[1] = 1
-            self.screen.blit(self.text["2"], (310, 770))
-            self.screen.blit(self.next.base, (918, 780))
-            self.screen.blit(self.prev.base, (25, 780))
-        elif number == 3:
-            if self.played[2] == 0:
-                self.vx_channel.play(self.voices["3"])
-                self.played[2] = 1
-            self.screen.blit(self.text["3"], (310, 770))
-            self.screen.blit(self.next.base, (918, 780))
-            self.screen.blit(self.prev.base, (25, 780))
-        elif number == 4:
-            if self.played[3] == 0:
-                self.vx_channel.play(self.voices["4"])
-                self.played[3] = 1
-            self.screen.blit(self.text["4"], (310, 770))
-            self.screen.blit(self.next.base, (918, 780))
-            self.screen.blit(self.prev.base, (25, 780))
-        elif number == 5:
-            self.screen.blit(self.minibg, (0,0))
+            self.screen.blit(self.minibg, (0, 0))
             self.screen.blit(self.title, (190, 50))
             self.screen.blit(self.foods["1"].end, (40, 200))
             self.screen.blit(self.foods["2"].base, (410, 200))
             self.screen.blit(self.foods["3"].base, (780, 200))
-        elif number == 6:
-            self.screen.blit(self.minibg, (0,0))
+        elif number == 3:
+            self.screen.blit(self.minibg, (0, 0))
             self.screen.blit(self.food_code["bg"], (180, 90))
             if self.first is True:
                 self.metrics["nutrients_slider"].increase_level(self.screen,
@@ -307,10 +272,10 @@ class Game:
             self.screen.blit(self.food_code["3"][0], (610, 490))
             self.screen.blit(self.food_code["4"][0], (850, 490))
             self.screen.blit(self.sparkle_1, self.pos)
-        elif number == 7:
-            if self.played[4] == 0:
-                self.vx_channel.play(self.voices["5"])
-                self.played[4] = 1
+        elif number == 4:
+            if self.played[1] == 0:
+                self.vx_channel.play(self.voices["2"])
+                self.played[1] = 1
             if self.selected_food["base"] == "tortilla":
                 self.screen.blit(self.modals["1"], (0, 0))
             elif self.selected_food["base"] == "beans":
