@@ -260,11 +260,11 @@ class Game:
                 self.metrics["fats_slider"].increase_level(self.screen,
                                                            self.food_code["1"][2][2])
                 self.first = False
-            self.screen.blit(self.metrics["nutrients"], (590, 230))
+            self.screen.blit(self.metrics["nutrients"], (582, 230))
             self.screen.blit(self.metrics["nutrients_slider"].get_current_level_image(), (670, 240))
-            self.screen.blit(self.metrics["energy"], (590, 310))
+            self.screen.blit(self.metrics["energy"], (572, 310))
             self.screen.blit(self.metrics["energy_slider"].get_current_level_image(), (670, 320))
-            self.screen.blit(self.metrics["fats"], (590, 390))
+            self.screen.blit(self.metrics["fats"], (587, 390))
             self.screen.blit(self.metrics["fats_slider"].get_current_level_image(), (670, 400))
             self.screen.blit(self.sparkle_2, self.pos)
             self.screen.blit(self.food_code["1"][0], (130, 490))
