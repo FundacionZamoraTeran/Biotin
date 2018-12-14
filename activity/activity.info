@@ -1,7 +1,7 @@
 [Activity]
 name = Nutritin
-bundle_id = org.fundacionzt.nutritin
+bundle_id = org.fundacionzt.desayulandia
 exec = sugar-activity GameActivity.GameActivity
 icon = bio
-activity_version = 1.0.10
+activity_version = 1.1.0
 

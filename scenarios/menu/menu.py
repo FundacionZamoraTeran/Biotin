@@ -16,7 +16,7 @@ class Menu:
         self.screen = screen
         self.clock = clock
         self.background = utils.load_image("background.png", "menu")
-        self.logo = utils.load_image("title.png", "menu")  # 616x204
+        self.logo = utils.load_image("title.png", "menu")  # 840x132
         self.start = Button(395,
                             280,
                             "start_door/s1.png",
@@ -82,7 +82,7 @@ class Menu:
         running = True
         while running:
             self.screen.blit(self.background, (0, 0))
-            self.screen.blit(self.logo, (260, 60))
+            self.screen.blit(self.logo, (180, 90))
             self.screen.blit(self.credits_but.base, (23, 413)) # 5x430
             self.screen.blit(self.exit.base, (960, 413)) #985x543
             self.screen.blit(self.options.base, (740, 408)) #760x418
